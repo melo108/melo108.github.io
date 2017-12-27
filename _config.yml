@@ -1,1 +1,50 @@
-theme: jekyll-theme-time-machine
+title: 继续向前 go rockets!
+description:  # this means to ignore newlines until "baseurl:"
+  2年python开发经验,熟练使用django,flask web框架;熟悉掌握MySQL，mongodb，redis等数据库;熟悉网络爬虫基本原理,BeautifulSoup,xpath，css等数据提取方法。
+  掌握HTML、CSS、JQuery等技术， 熟悉Python网络编程，以及多线程，多进程，协程等并行程序模型，对分布式结构有一定了解能够高效地沟通,并与团队或跨团队同事有效地协作办公,
+baseurl: "/melo108.github.io" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+permalink: ':title/'
+blog_theme: dark # Or use dark
+
+# Profile information
+name: 贾敏
+tagline: 全栈开发 python 爬虫爱好者
+about-description:  2年python开发经验, 熟练使用django, flask web框架; 熟悉掌握MySQL，mongodb，redis等数据库; 熟悉网络爬虫基本原理,BeautifulSoup,xpath，css等数据提取方法。
+                    掌握Python网络编程，以及多线程，多进程，协程等并行程序模型，与团队或跨团队同事有效地协作办公.
+pic: 79.jpg  # Place a 200x200 picture inside /assets/img/ folder and provide the name of the file below
+
+# Contact links
+email: 542450010@qq.com # Add your Email address
+website: jiamin1024.top # Add your website, do not add http://
+github: melo108/melo108.github.io # Add your Github handle
+weibo: jim10827297 # Add your Twitter handle https://weibo.com/jim10827297
+
+# Tracker
+analytics:
+
+# Comments
+discus-identifier: # Add your Disqus identifier
+
+# Important settings
+assets:
+  sources:
+    - assets/fonts
+    - assets/img
+    - assets/js
+    - assets/stylesheets
+
+# Build settings
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+
+gems:
+  - jekyll-feed
+  - jekyll-assets
+exclude:
+  - Gemfile
+  - Gemfile.lock
+
+include: [_pages]

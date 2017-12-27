@@ -1,0 +1,86 @@
+---
+layout: post
+title:  "python语言简介"
+description: python语言简介
+date:   2017-01-27 14:55:52 +0200
+categories: jekyll update
+---
+
+
+**Python来源**
+ 
+Python是著名的“**龟叔**”Guido van Rossum在1989年圣诞节期间，为了打发无聊的圣诞节而编写的一个编程语言。
+
+----------
+
+<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513257970012&di=a1517583b0a0f6b49b9309396bc25331&imgtype=0&src=http%3A%2F%2Fds.devstore.cn%2F20141115%2F1416023053971%2Fpython.jpg">
+
+**计算机编程语言与python**
+ 
+ **C语言是**可以用来编写操作系统的贴近硬件的语言，所以，C语言适合开发那些追求运行速度、充分发挥硬件性能的程序。而Python是用来编写应用程序的高级编程语言。
+
+**高级编程语言**通常都会提供一个比较完善的基础代码库，Python就为我们提供了非常完善的基础代码库，覆盖了网络、文件、GUI、数据库、文本等大量内容，被形象地称作“内置电池（batteries included）”。用Python开发，许多功能不必从零编写，直接使用现成的即可。
+
+----------
+
+**其他计算机语言类型对比**
+
+**C语言：** 代码编译得到 机器码 ，机器码在处理器上直接执行，每一条指令控制CPU工作--速度较快
+ 
+**Java，c#，python，php 其他语言**： 代码编译得到 字节码 ，虚拟机执行字节码并转换成机器码再后在处理器上执行----速度慢
+ 
+
+----------
+
+**python的种类**
+
+>**Cpython**
+> 
+    Python的官方版本，使用C语言实现，使用最为广泛，
+    CPython实现会将源文件（py文件）转换成字节码文件
+    （pyc文件），然后运行在Python虚拟机上。
+>    
+**Jyhton**
+
+>
+    Python的Java实现，Jython会将Python代码动态编译成Java
+    字节>>码，然后在JVM上运行。
+>
+**IronPython**
+>
+    Python的C#实现，IronPython将Python代码编译成C#字节
+    码，然后在CLR上运行。（与Jython类似）
+>
+**PyPy（特殊）**
+>
+    Python实现的Python，将Python的字节码字节码再编译成机器
+    码。
+>
+**RubyPython、Brython ...**
+
+
+
+----------
+
+**python的优缺点**
+>
+
+>
+**优点**
+>
+    代码简洁，开发效率高
+
+>**缺点**
+
+>1 速度慢
+>
+>
+    代码在执行时会一行一行地翻译成CPU能理解的机器码，
+	翻译过程非常耗时，所以很慢。而C程序是运行前直接编译
+	成CPU能执行的机器码，所以非常快。
+	
+>2  编译型代码 不能加密
+>
+    发布你的Python程序，实际上就是发布源代码
+>
+

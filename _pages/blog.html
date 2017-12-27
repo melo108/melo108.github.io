@@ -1,0 +1,51 @@
+---
+title: 我的博客
+layout: default
+permalink: /blog/
+---
+
+<div class="page-heading">
+  <h5 class="page-title"><small>我的博客</small> </h5>
+</div>
+
+<ul type="none">
+        <span><strong>我的心曾七次悲伤--纪伯伦</strong></span>
+        <hr>
+        <li>第一次，当它本可进取时，却故作谦卑；</li>
+        <li>第二次，当它在空虚时，用爱欲来填充；</li>
+        <li>第三次，在困难和容易之间，它选择了容易;</li>
+        <li>第四次，它犯了错，却借由别人也会犯错来宽慰自己；</li>
+        <li>第五次，它自由软弱，却把它认为是生命的坚韧；</li>
+        <li>第六次，当它鄙夷一张丑恶的嘴脸时，却不知那正是自己面具中的一副；</li>
+        <li>第七次，它侧身于生活的污泥中，虽不甘心，却又畏首畏尾;</li>
+</ul>
+
+<div class="post-box" style="margin-top:10px">
+
+  <ul class="post-list">
+    {% for post in site.posts %}
+      <li class="post-item">
+
+        <h2 class="post-header">
+          <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }} <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+        </h2>
+        <p class="post-description">{{ post.description }}</p>
+        <div class="article-list-footer">
+          <span class="article-list-date divider">
+            {{ post.date | date: "%B %-d, %Y" }}
+          </span>
+          <span class="article-list-minutes">
+            {% capture words %}
+              {{ post.content | number_of_words }}
+            {% endcapture %}
+            {% unless words contains "-" %}
+              {{ words | plus: 250 | divided_by: 250 | append: " minute read" }}
+            {% endunless %}
+          </span>
+        </div>
+
+      </li>
+    {% endfor %}
+  </ul>
+
+</div>
