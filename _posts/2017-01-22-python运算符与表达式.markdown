@@ -1,0 +1,333 @@
+---
+layout: post
+title:  "python语言简介"
+description: python语言简介
+date:   2017-01-27 14:55:52 +0200
+categories: jekyll update
+---
+
+
+
+
+
+# python 运算符与表达式
+
+----------
+
+<br><br>
+
+## 1 运算符与表达式的定义 ##
+
+    例如 2-1=1 中，2和1称为 操作数，- 为运算符，2-1=1 为表达式
+
+<b>
+> 2和1为 操作数
+
+<b>
+> "-" 为 运算符
+
+
+<b>
+> 2-1=1 为表达式
+
+python运算符包括赋值运算符、算术运算符、关系运算符、逻辑运算符、位运算符、成员运算符和身份运算符。
+
+表达式是将不同类型的数据(常亮、变量、函数)用运算符按照一定得规则连接起来的式子。
+
+<br><br><br>
+
+
+
+<hr>
+
+## 2 python 常见的 运算符与表达式 ##
+
+
+
+- **算术运算符**
+
+<table border="1">
+<tbody><tr>
+<th>运算符</th><th>描述</th><th>实例</th>
+</tr>
+<tr>
+<td>+</td><td>加 - 两个对象相加</td><td> a + b 输出结果 30</td>
+</tr>
+<tr>
+<td>-</td><td>减 - 得到负数或是一个数减去另一个数</td><td> a - b 输出结果 -10</td>
+</tr>
+<tr>
+<td>*</td><td>乘 - 两个数相乘或是返回一个被重复若干次的字符串</td><td> a * b 输出结果 200</td>
+</tr>
+<tr>
+<td>/</td><td>除 - x除以y</td><td> b / a 输出结果 2</td>
+</tr>
+<tr>
+<td>%</td><td>取模 - 返回除法的余数</td><td> b % a 输出结果 0</td>
+</tr>
+<tr>
+<td>**</td><td>幂 - 返回x的y次幂</td><td> a**b 为10的20次方， 输出结果 100000000000000000000</td>
+</tr>
+<tr>
+<td>//</td><td>取整除 - 返回商的整数部分</td><td> 9//2 输出结果 4 , 9.0//2.0 输出结果 4.0</td>
+</tr>
+</tbody></table>
+
+> 注意：
+> 
+> Python2.x 里，整数除整数，只能得出整数。如果要得到小数部分，把其中一个数改成浮点数即可。
+> 
+> Python3.x 进行浮点数计算，也就是说 x/y返回的结果是浮点数。
+> 
+> %为取模运算，x%y的结果将是x除以y的余数。
+> 
+> 如果要从整数相除中得到一个整数, 丢弃任何小数部分, 可以使用另一个操作符"//"
+
+
+
+<br>
+
+- **比较（关系）运算符**
+
+
+<table border="1">
+<tbody><tr>
+<th width="10%">运算符</th><th>描述</th><th>实例</th>
+</tr>
+<tr>
+<td>==</td><td> 等于 - 比较对象是否相等</td><td> (a == b) 返回 False。 </td>
+</tr>
+<tr>
+<td>!=</td><td> 不等于 - 比较两个对象是否不相等</td><td> (a != b) 返回 true. </td>
+</tr>
+<tr>
+<td>&lt;&gt;</td><td>不等于 -  比较两个对象是否不相等</td><td> (a &lt;&gt; b) 返回 true。这个运算符类似 != 。</td>
+</tr>
+<tr>
+<td>&gt;</td><td> 大于 - 返回x是否大于y</td><td> (a &gt; b) 返回 False。</td>
+</tr>
+<tr>
+<td>&lt;</td><td> 小于 - 返回x是否小于y。所有比较运算符返回1表示真，返回0表示假。这分别与特殊的变量True和False等价。注意，这些变量名的大写。</td><td> (a &lt; b) 返回 true。 </td>
+</tr>
+<tr>
+<td>&gt;=</td><td> 大于等于	- 返回x是否大于等于y。</td><td> (a &gt;= b) 返回 False。</td>
+
+</tr>
+<tr>
+<td>&lt;=</td><td> 小于等于 -	返回x是否小于等于y。</td><td> (a &lt;= b) 返回 true。 </td>
+</tr>
+</tbody></table>
+
+<br>
+
+- Python赋值运算符
+
+<table border="1">
+<tbody><tr>
+<th>运算符</th><th>描述</th><th>实例</th>
+</tr>
+<tr>
+<td>=</td><td>简单的赋值运算符</td><td> c = a + b 将 a + b 的运算结果赋值为 c</td>
+</tr>
+<tr>
+<td>+=</td><td>加法赋值运算符</td><td> c += a 等效于 c = c + a</td>
+</tr>
+<tr>
+<td>-=</td><td>减法赋值运算符</td><td> c -= a 等效于 c = c - a</td>
+</tr>
+<tr>
+<td>*=</td><td>乘法赋值运算符</td><td> c *= a 等效于 c = c * a</td>
+</tr>
+<tr>
+<td>/=</td><td>除法赋值运算符</td><td> c /= a 等效于 c = c / a</td>
+</tr>
+<tr>
+<td>%=</td><td>取模赋值运算符</td><td> c %= a 等效于 c = c % a</td>
+</tr>
+<tr>
+<td>**=</td><td>幂赋值运算符</td><td> c **= a 等效于 c = c ** a</td>
+</tr>
+<tr>
+<td>//=</td><td> 取整除赋值运算符</td><td> c //= a 等效于 c = c // a</td>
+</tr>
+</tbody></table>
+
+<br>
+
+- Python位运算符
+
+
+按位运算符是把数字看作二进制来进行计算的
+
+<table border="1">
+<tbody><tr>
+<th>运算符</th><th>描述</th><th>实例</th>
+</tr>
+<tr>
+<td>&amp;</td><td>按位与运算符：参与运算的两个值,如果两个相应位都为1,则该位的结果为1,否则为0</td><td> (a &amp; b) 输出结果 12 ，二进制解释： 0000 1100</td>
+</tr>
+<tr>
+<td>|</td><td> 按位或运算符：只要对应的二个二进位有一个为1时，结果位就为1。</td><td> (a | b) 输出结果 61 ，二进制解释： 0011 1101</td>
+</tr>
+<tr>
+<td>^</td><td>按位异或运算符：当两对应的二进位相异时，结果为1 </td><td> (a ^ b) 输出结果 49 ，二进制解释： 0011 0001</td>
+</tr>
+<tr>
+<td>~</td><td> 按位取反运算符：对数据的每个二进制位取反,即把1变为0,把0变为1 。<span class="marked">~x</span> 类似于 <span class="marked">-x-1</span></td><td> (~a ) 输出结果 -61 ，二进制解释： 1100 0011，在一个有符号二进制数的补码形式。</td>
+</tr>
+<tr>
+<td>&lt;&lt;</td><td>左移动运算符：运算数的各二进位全部左移若干位，由 <span class="marked">&lt;&lt;</span> 右边的数字指定了移动的位数，高位丢弃，低位补0。</td><td> a &lt;&lt; 2 输出结果 240 ，二进制解释： 1111 0000</td>
+</tr>
+<tr>
+<td>&gt;&gt;</td><td>右移动运算符：把"&gt;&gt;"左边的运算数的各二进位全部右移若干位，<span class="marked">&gt;&gt;</span> 右边的数字指定了移动的位数 </td><td> a &gt;&gt; 2 输出结果 15 ，二进制解释： 0000 1111</td>
+</tr>
+</tbody></table>
+
+
+
+
+<br>
+
+
+
+- Python逻辑运算符
+
+
+<table border="1">
+<tbody><tr>
+<th>运算符</th><th>逻辑表达式</th><th>描述</th><th>实例</th>
+</tr>
+<tr>
+<td>and</td><td>x and y</td><td> 布尔"与" - 如果 x 为 False，x and y 返回 False，否则它返回 y 的计算值。	</td><td> (a and b) 返回 20。</td>
+</tr>
+<tr>
+<td>or</td><td>x or y</td><td>布尔"或"	- 如果 x 是非 0，它返回 x 的值，否则它返回 y 的计算值。</td><td> (a or b) 返回 10。</td>
+</tr>
+<tr><td>not</td><td>not x</td><td>布尔"非" - 如果 x 为 True，返回 False 。如果 x 为 False，它返回 True。</td><td> not(a and b) 返回 False </td>
+</tr>
+</tbody></table>
+
+<br>
+
+
+- Python成员运算符
+
+<table border="1">
+<tbody><tr>
+<th>运算符</th><th>描述</th><th>实例</th>
+</tr>
+<tr>
+<td>in</td><td>
+如果在指定的序列中找到值返回 True，否则返回 False。</td>
+<td> x 在 y 序列中 , 如果 x 在 y 序列中返回 True。</td>
+</tr>
+<tr>
+<td>not in</td><td>如果在指定的序列中没有找到值返回 True，否则返回 False。</td>
+<td>x 不在 y 序列中 , 如果 x 不在 y 序列中返回 True。</td>
+</tr>
+</tbody></table>
+
+
+<br>
+
+
+- Python身份运算符
+
+
+身份运算符用于比较两个对象的存储单元
+
+<table border="1">
+<tbody><tr>
+<th width="10%">运算符</th><th>描述</th><th>实例</th>
+</tr>
+<tr>
+<td>is</td><td>
+is 是判断两个标识符是不是引用自一个对象</td><td> <strong>x is y</strong>, 类似 <strong>id(x) == id(y)</strong> , 如果引用的是同一个对象则返回 True，否则返回 False</td>
+</tr>
+<tr>
+<td>is not</td><td>is not 是判断两个标识符是不是引用自不同对象</td><td><strong> x is not y</strong> ， 类似 <strong>id(a) != id(b)</strong>。如果引用的不是同一个对象则返回结果 True，否则返回 False。 </td>
+</tr>
+</tbody></table>
+
+<br>
+<br>
+
+## 3 运算符的优先级 ##
+<br>
+从最高到最低优先级的所有运算符
+
+<table border="1">
+<tbody><tr><th>运算符</th><th>描述</th></tr>
+<tr>
+<td>**</td>
+<td>指数 (最高优先级)</td>
+</tr><tr>
+<td>~ + -</td>
+<td>按位翻转, 一元加号和减号 (最后两个的方法名为 +@ 和 -@)</td>
+</tr><tr>
+<td>* / % //</td>
+<td>乘，除，取模和取整除</td>
+</tr><tr>
+<td>+ -</td>
+<td>加法减法</td>
+</tr><tr>
+<td>&gt;&gt; &lt;&lt;</td>
+<td>右移，左移运算符</td>
+</tr><tr>
+<td>&amp;</td>
+<td>位 'AND'</td>
+</tr><tr>
+<td>^ |</td>
+<td>位运算符</td>
+</tr><tr>
+<td>&lt;= &lt; &gt; &gt;=</td>
+<td>比较运算符</td>
+</tr><tr>
+<td>&lt;&gt; == !=</td>
+<td>等于运算符</td>
+</tr>
+<tr>
+<td>= %= /= //= -= += *= **=</td>
+<td>赋值运算符</td>
+</tr>
+<tr>
+<td>is is not</td>
+<td>身份运算符</td>
+</tr>
+<tr>
+<td>in not in</td>
+<td>成员运算符</td>
+</tr><tr>
+<td>not or and</td>
+<td>逻辑运算符</td>
+</tr>
+</tbody></table>
+
+
+> 注意 is 指向 不同数据类型 情况不同(小的int数据)
+
+python中会为每个出现的对象分配内存，哪怕他们的值完全相等（注意是相等不是相同）。如执行a=2.0，b=2.0这两个语句时会先后为2.0这个Float类型对象分配内存，然后将a与b分别指向这两个对象。所以a与b指向的不是同一对象：
+
+    >>> a=2.0
+    >>> b=2.0
+    >>> a is b
+    False
+    >>> a==b
+    True
+
+但是为了提高内存利用效率对于一些简单的对象，如一些数值较小的int对象，python采取重用对象内存的办法，如指向a=2，b=2时，由于2作为简单的int类型且数值小，python不会两次为其分配内存，而是只分配一次，然后将a与b同时指向已分配的对象：
+>>> a=2
+>>> b=2
+>>> a is b
+True
+>>> a==b
+True
+如但果赋值的不是2而是大的数值，情况就跟前面的一样了：
+
+    >>> a=4444
+    >>> b=4444
+    >>> a is b
+    False
+    >>> a==b
+    True
+
