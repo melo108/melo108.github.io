@@ -8,6 +8,7 @@ categories: jekyll update
 
 
 
+
 # python 流程控制与条件分支 #
 
 ----------
@@ -43,6 +44,7 @@ Python 编程中 if 语句用于控制程序的执行，基本形式为：**
 ----------
 
 <br>
+
 ## 2 循环语句 ##
 
 <img src="http://www.runoob.com/wp-content/uploads/2013/11/loop_architecture.jpg" alt="loop_architecture" width="304" height="348">
@@ -65,7 +67,8 @@ Python 编程中 if 语句用于控制程序的执行，基本形式为：**
 
 - **循环控制语句**
 
-<table class="reference">
+
+<table border="1">
 <tbody><tr><th style="width:30%">控制语句</th><th>描述</th></tr>
 <tr><td><a href="/python/python-break-statement.html" title="Python break 语句">break 语句</a></td><td>在语句块执行过程中终止循环，并且跳出整个循环</td></tr>
 <tr><td><a href="/python/python-continue-statement.html" title="Python  语句">continue 语句</a></td><td>在语句块执行过程中终止当前循环，跳出该次循环，执行下一次循环。</td></tr>
