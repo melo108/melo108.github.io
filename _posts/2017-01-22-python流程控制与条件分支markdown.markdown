@@ -98,8 +98,7 @@ Python 编程中 if 语句用于控制程序的执行，基本形式为：**
 
     continue 语句用来告诉Python跳过当前循环的剩余语句
 	continue 语句跳出本次循环，而break跳出整个循环
-
-<p>
+<br>
 
 > break 则是用于退出循环
 
