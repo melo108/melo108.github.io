@@ -1,0 +1,86 @@
+
+
+---
+layout: post
+title:  "操作系统核心简介"
+description: 操作系统核心简介
+date:   2016-12-15 14:55:52 +0200
+categories: jekyll update
+---
+
+
+
+
+
+
+
+<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="#">操作系统核心简介</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><div style="padding: 20px; font-family: 'Roboto Condensed', Tauri, 'Hiragino Sans GB', 'Microsoft YaHei', STHeiti, SimSun, 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', 'Segoe UI', AppleSDGothicNeo-Medium, 'Malgun Gothic', Verdana, Tahoma, sans-serif; font-size: 15px; overflow-x: hidden; overflow-y: auto; background-color: #ffffff; color: #222222; line-height: 1.6; -webkit-font-smoothing: antialiased; background: #ffffff;">
+<h2 style="margin: 1em 0px; word-wrap: break-word;">操作系统的概念与功能</h2>
+<p style="margin: 1em 0px; word-wrap: break-word;">&nbsp; &nbsp; &nbsp; 现代计算机系统由一个或多个处理器、主存、磁盘、打印机、键盘、鼠标、显示器、网络接口以及各种其他输入/输出设备组成。<br style="clear: both;">&nbsp; &nbsp; &nbsp; 一般而言，现代计算机系统是一个复杂的系统。如果每位应用程序员都不得不掌握系统所有的细节，那就不可能再编写代码了。而且，管理所有这些部件并加以优化使用，是一件挑战性极强的工作。所以，计算机安装了一层软件，称为操作系统，它的任务是为用户程序提供一个更好、更简单、更清晰的计算机模型，并管理刚才提到的所有这些设备。</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">&nbsp; &nbsp; &nbsp; 多数读者都会对诸如Windows,  Linux,或Mac OS等某个操作系统有些体验，但表面现象会骗人的。用户与之交互的程序，基于文本的通常称为shell ,而基于图标的则称为图形用户界面(Graphical User Interface，GUI)，它们实际上并不是操作系统的一部分，尽管这些程序使用操作系统来完成工作。</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">&nbsp; &nbsp; &nbsp; 图1-1给出了在这里所讨论主要部件的一个简化视图。图的底部是硬件。硬件包括芯片、电路板、磁盘、键盘、显示器以及类似的设备。在硬件的顶部是软件。多数计算机有两种运行模式:内核态和用户态。软件中最基础的部分是操作系统，它运行在内核态(也称为管态、态下核心态)。在这个模式中，操作系统具有对所有硬件的完全访问权，可以执行机器能够运行的任何指令。软件的其余部分运行在用户。在用户态下，只使用了机器指令中的一个子集。特别地，特别地，那些会影响机器的控制或可进行IO(输入/输出)操作的指令，在用户态的程序是禁止的。</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img src="https://images2015.cnblogs.com/blog/877318/201701/877318-20170123115547222-240421164.png" alt="" width="287" height="211"></p>
+<p style="margin: 1em 0px; word-wrap: break-word;">&nbsp; &nbsp; &nbsp; &nbsp;用户接口程序，shell或者GUI，处于用户态程序中的最低层次，允许用户运行其他程序，诸如Web浏览器、电子邮件阅读器或音乐播放器等。这些程序也大量使用操作系统。<br style="clear: both;">&nbsp; &nbsp; &nbsp; &nbsp;操作系统和普通软件(用户态)之间的主要区别是，如果用户不喜欢某个特定的电子邮件阅读器，他可以自由选择另一个，或者选择自己写一个，但是他不能自行写一个属于操作系统一部分的时钟中断处理程序。这个程序由硬件保护，防止用户试图对其进行修改。<br style="clear: both;">&nbsp; &nbsp; &nbsp; 操作系统是一种运行在内核态的软件。操作系统执行两个墓本上独立的任务，对上为应用程序提供一个资源集的清晰抽象，对下管理硬件资源。</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">&nbsp; &nbsp; &nbsp; 抽象是管理复杂性的一个关键口好的抽象可以把一个几乎不可能管理的任务划分为两个可管理的部分。其第一部分是有关抽象的定义和实现，第二部分是随时用这些抽象解决问题。几乎每个计算机用户都理解的一个抽象是文件。文件是一种有效的信息片段，诸如数码照片、保存的电子邮件信息或Web页面等。处理数码照片、电子邮件以及Web页面等。要比处理磁盘的细节容易，这些磁盘的具体细节实现十分复杂。操作系统的任务是创建好的抽象，并实现和管理它所创建的抽象对象。抽象是理解操作系统的关键。<br style="clear: both;">&nbsp; &nbsp; &nbsp; 硬件是丑陋的。真实的处理器、内存条、磁盘和其他装置都是非常复杂的，对于那些为使用某个硬件而不得不编写软件的人们而言，他们使用的是困难、可怕、特殊和不一致的接口。有时这是由于需要兼容旧的硬件，有时是为了节省成本，但是，有时硬件设计师们并没有意识到(或在意)他们给软件设计带来了多大的麻烦。操作系统的一个主要任务是隐藏硬件，呈现给程序(以及程序员)良好、清晰、优雅、一致的抽象。如图I-2所示，操作系统将丑陋转变为美丽。<br style="clear: both;">&nbsp; &nbsp; &nbsp; 需要指出，操作系统的实际客户是应用程序(当然是通过应用程序员)。它们直接与操作系统及其抽象打交道。或者是命令行shell或者是图形接口。</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">&nbsp; &nbsp; &nbsp; 现代操作系统允许同时运行多道程序。假设在一台计算机上运行的三个程序试图同时在同一台打印机上输出计算结果，那么开始的几行可能是程序1的输出，接着几行是程序2的输出，然后又是程序3的输出等，最终结果将是一团糟。采用将打印结果送到磁盘上缓冲区的方法，操作系统可以把潜在的混乱有序化。在一个程序结束后，操作系统可以将暂存在磁盘上的文件送到打印机输出，同时其他程序可以继续产生更多的输出结果，很明显，这些程序的输出还没有真正送至打印机。<br style="clear: both;">&nbsp; &nbsp; &nbsp; 当一个计算机(或网络)有多个用户时，管理和保护存储器、I/O设备以及其他资源的需求变得强烈起来，因为用户间可能会互相干扰。另外，用户通常不仅共享硬件，还要共享信息(文件、数据库等)简而言之，操作系统的这一种观点认为，操作系统的主要任务是记录哪个程序在使用什么资源，对资源请求进行分配，评估使用代价，并且为不同的程序和用户调解互相冲突的资源请求。<br style="clear: both;">&nbsp; &nbsp; &nbsp; 资源管理包括用以下两种不同方式实现多路复用(共享)资源:在时间上复用和在空间上复用。当一种资源在时间上复用时，不同的程序或用户轮流使用它.先是第一个获得资源的使用，然后下一个，以此类推。例如，若在系统中只有一个CPU，而多个程序需要在该CPU上运行，<br style="clear: both;">&nbsp; &nbsp; &nbsp; CPU分配给某一个程序，在它运行了足够长的时间之后，另一个程序得到CPU,然后是下一个，如此进行下去，最终，轮到第一个程序再次运行。至于资源是如何实现时间复用的—<br style="clear: both;">－－谁应该是下一个以及运行多长时间等—则是操作系统的任务。还有一个有关时间复用的例子是打印机的共享。当多个打印作业在一台打印机上排队等待打印时，必须决定将轮到打印的是哪个作业。</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">&nbsp; &nbsp; &nbsp; 另一类复用是空间复用。每个客户都得到资源的一部分，从而取代了客户排队。例如，通常在若干运行程序之间分割内存，这样每一个运行程序都可同时入住内存(例如，为了轮流使用CPU ) 假设有足够的内存可以存放多个程序，那么在内存中同时存放若干个程序的效率，比把所有内存都分给一个程序的效率要高得多，特别是，如果一个程序只需要整个内存的一小部分时，结果更是这样。当然。如此的做法会引起公平、保护等问题甲这有赖于操作系统解决它们。有关空间复用的其他资源还有磁盘。在许多系统，一个磁盘同时为许多用户保存文件。分配磁盘空间并记录谁正在使用哪个磁盘块，是操作系统资源管理的典型任务。</p>
+<h2 style="margin: 1em 0px; word-wrap: break-word;">操作系统的历史</h2>
+<div style="padding: 20px; font-family: 'Roboto Condensed', Tauri, 'Hiragino Sans GB', 'Microsoft YaHei', STHeiti, SimSun, 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', 'Segoe UI', AppleSDGothicNeo-Medium, 'Malgun Gothic', Verdana, Tahoma, sans-serif; font-size: 15px; overflow-x: hidden; overflow-y: auto; background-color: #ffffff; color: #222222; line-height: 1.6; -webkit-font-smoothing: antialiased; background: #ffffff;">
+<h3 style="margin: 1em 0px; word-wrap: break-word;">2.1 真空管与穿孔卡片（无操作系统）</h3>
+<p style="margin: 1em 0px; word-wrap: break-word;">第一代计算机的产生背景：<br style="clear: both;">第一代之前人类是想用机械取代人力，第一代计算机的产生是计算机由机械时代进入电子时代的标志</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">过程：<br style="clear: both;">   万能程序员们将对应于程序和数据的已穿孔的纸带（或卡片）装入输入机，然后启动输入机把程序和数据输入计算机<br style="clear: both;">   内存，接着通过控制台开关启动程序针对数据运行；计算完毕，打印机输出计算结果；用户取走结果并卸下纸带（或卡片）后，才让下一个用户上机。</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">注意点：<br style="clear: both;">    1 程序员需要在墙上的计时表上预约时间<br style="clear: both;">    2 同一时刻只有一个程序在内存中被CPU调用运行（串行的）</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">优点：程序员在申请的时间段内独享整个资源，即时的调试自己的程序，如果有bug可以当场处理.<br style="clear: both;">缺点：这对于计算机提供商来说是一种浪费（你买一台电脑4000块，那 一年中你用365比只用1天，肯定是省成本的，物尽其用）</p>
+<h3 style="margin: 1em 0px; word-wrap: break-word;">2.2 晶体管和批处理系统</h3>
+<p style="margin: 1em 0px; word-wrap: break-word;">第二代计算机的产生背景：</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">由于当时的计算机非常昂贵，自认很自然的想办法较少机时的浪费。通常采用的方法就是批处理系统。</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">特点：<br style="clear: both;">有了操作系统的概念FORTRAN，这些机器现在被称为大型机</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">工作过程：</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">第一代计算机的问题是：<br style="clear: both;">人机交互太多了（人机交互过程：输入-》计算-》输出）</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">一个人的交互：输入-》计算-》输出<br style="clear: both;">10个人的交互：<br style="clear: both;">&nbsp; &nbsp; &nbsp; &nbsp; 输入-》计算-》输出<br style="clear: both;">&nbsp; &nbsp; &nbsp; &nbsp; 输入-》计算-》输出<br style="clear: both;">&nbsp; &nbsp; &nbsp; &nbsp; 输入-》计算-》输出</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">第二代如何解决第一代的问题：<br style="clear: both;">1.把一堆人的输入攒成一大波输入，<br style="clear: both;">2.然后顺序计算（这是有问题的，但是第二代计算没有解决）<br style="clear: both;">3.把一堆人的输出攒成一大波输出</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">现代操作系统的前身：</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">在收集了大约一个小时的批量作业之后，这些卡片被读入磁带，然后磁带被送到机房里并装到磁带上。然后磁带被送到机房里并装到磁带机上。随后，操作员装入一个特殊的程序（此乃现代操作系统的前身），它负责从磁带上读入第一个作业（job，一个或一组程序）并运行，其输出写到第二个磁带上，而且不打印。每个作业结束后，操作系统自动的从磁带上读入下一个作业并且运行。当一整批的作业全部结束后，操作员去下输入和输出磁带，讲输入磁带换成下一批作业，并且把输出磁带拿到一台1041机器上进行脱机（不与主计算机联机）打印</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">优点：批处理，节省了机时</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">缺点：<br style="clear: both;">1.整个流程需要人参与控制，将磁带搬来搬去（中间俩小人）</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">2.计算的过程仍然是顺序计算-》串行</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">3.程序员原来独享一段时间的计算机，现在必须被统一规划到一批作业中，等待结果和重新调试的过程都需要等同批次的其他程序都运作完才可以</p>
+<h3 style="margin: 1em 0px; word-wrap: break-word;">2.3 &nbsp;集成电路芯片和多道程序设计</h3>
+<p style="margin: 1em 0px; word-wrap: break-word;">第三代计算机的产生背景：</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">20世纪60年代初期，大多数计算机厂商都有两条完全不兼容的生产线。一条是面向字的：大型的科学计算机，如IBM 7094，见上图，主要用于科学计算和工程计算另外一条是面向字符的：商用计算机，如IBM 1401，见上图，主要用于银行和保险公司从事磁带归档和打印服务</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">开发和维护完全不同的产品是昂贵的，同时不同的用户对计算机的用途不同。IBM公司试图通过引入system/360系列来同时满足科学计算和商业计算，360系列低档机与1401相当，高档机比7094功能强很多，不同的性能卖不同的价格360是第一个采用了（小规模）芯片（集成电路）的主流机型，与采用晶体管的第二代计算机相比，性价比有了很大的提高。这些计算机的后代仍在大型的计算机中心里使用，此乃现在服务器的前身，这些服务器每秒处理不小于千次的请求。</p>
+<p style="margin: 1em 0px; word-wrap: break-word;"><span style="color: #ff0000;">如何解决第二代计算机的问题1：</span></p>
+<p style="margin: 1em 0px; word-wrap: break-word;">卡片被拿到机房后能够很快的将作业从卡片读入磁盘，于是任何时刻当一个作业结束时，操作系统就能将一个作业从磁带读出，装进空出啦的内存区域运行，这种技术叫做同时的外部设备联机操作：SPOOLING，该技术同时用于输出。当采用了这种技术后，就不在需要IBM1401机了，也不必将磁带搬来搬去了（中间俩小人就失业了）</p>
+<p style="margin: 1em 0px; word-wrap: break-word;"><span style="color: #ff0000;">如何解决第二代计算机的问题2：</span></p>
+<p style="margin: 1em 0px; word-wrap: break-word;">第三代计算机的操作系统广泛应用了第二代计算机的操作系统没有的关键技术：多道技术<br style="clear: both;">多道技术：</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">多道技术中的多道指的是多个程序，多道技术的实现是为了解决多个程序竞争或者说共享同一个资源（比如cpu）的有序调度问题，解决方式即多路复用，多路复用分为时间上的复用和空间上的复用。</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">&nbsp; &nbsp; &nbsp;空间上的复用：将内存分为几部分，每个部分放入一个程序，这样，同一时间内存中就有了多道程序。</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">&nbsp; &nbsp; &nbsp;时间上的复用：当一个程序在等待I/O时，另一个程序可以使用cpu，如果内存中可以同时存放足够多的作业，则cpu的利用率可以接近100%。</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">空间上的复用最大的问题是：程序直接的内存必须分割，这种分割在硬件层面实现，由操作系统控制实现。如果内存彼此不分割，则一个程序可以访问另外一个程序的内存，首先丧失的是安全性，比如你的qq程序可以访问操作系统的内存，这意味着你的qq可以拿到操作系统的所有权限。</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">其次丧失的是稳定性，某个程序崩溃时有可能把别人的内存也给回收了，比方说把操作系统的内存给回收了，则操作系统崩溃。</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">第三代计算机的操作系统仍然是批处理，许多程序员怀念第一代独享的计算机，可以即时调试自己的程序。为了满足程序员们很快可以得到响应，出现了分时操作系统</p>
+<p style="margin: 1em 0px; word-wrap: break-word;"><span style="color: #ff0000;">如何解决第二代计算机的问题3：</span></p>
+<p style="margin: 1em 0px; word-wrap: break-word;">分时操作系统：<br style="clear: both;">多个联机终端+多道技术</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">20个客户端同时加载到内存，有17在思考，3个在运行，cpu就采用多道的方式处理内存中的这3个程序，由于客户提交的一般都是简短的指令而且很少有耗时长的，索引计算机能够为许多用户提供快速的交互式服务，所有的用户都以为自己独享了计算机资源</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">CTTS：麻省理工兼容分时系统，知道第三代计算机广泛采用了必须的保护硬件（程序之间的内存彼此隔离）之后，分时系统才开始流行</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">MIT，贝尔实验室和通用电气在CTTS成功研制后决定开发能够同时支持上百终端的MULTICS（其设计者着眼于建造满足波士顿地区所有用户计算需求的一台机器），很明显真是要上天啊，最后摔死了。</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">后来一位参加过MULTICS研制的贝尔实验室计算机科学家Ken Thompson开发了一个简易的，单用户版本的MULTICS，这就是后来的UNIX系统。基于它衍生了很多其他的Unix版本，为了使程序能在任何版本的unix上运行，IEEE提出了一个unix标准，即posix（可移植的操作系统调用接口标准）</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">后来出现了minix，芬兰学生Linus Torvalds基于它编写了Linux</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">第四代计算机（1980~至今）：个人计算机</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">随着大规模集成电路的发展，每平方厘米的硅片芯片上可以集成数千个晶体管，个人计算机的时代就此到来。</p>
+<p style="margin: 1em 0px; word-wrap: break-word;">&nbsp;</p>
+
+</div>
+
