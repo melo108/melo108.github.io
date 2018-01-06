@@ -164,6 +164,7 @@ else 中的语句会在循环正常执行完（即 for 不是通过 break 跳出
 
        else:  # 循环的 else 部分
       	 print num, '是一个质数'
+	 
 <br><br>
 
 **3 循环嵌套**
@@ -191,6 +192,7 @@ else 中的语句会在循环正常执行完（即 for 不是通过 break 跳出
        while expression:
       statement(s)
        statement(s)
+       
 <br><br>
 
 **4 占位语句 pass**
