@@ -77,7 +77,7 @@ Python 编程中 if 语句用于控制程序的执行，基本形式为：**
 
 ----------
 
-<br>
+<br><br>
 
 **1. While 循环**
 
@@ -132,7 +132,7 @@ Python 编程中 if 语句用于控制程序的执行，基本形式为：**
 
 
 
-<br>
+<br><br>
 
 **2. for 循环**
 
@@ -164,7 +164,7 @@ else 中的语句会在循环正常执行完（即 for 不是通过 break 跳出
 
        else:  # 循环的 else 部分
       	 print num, '是一个质数'
-<br>
+<br><br>
 
 **3 循环嵌套**
 
@@ -172,7 +172,7 @@ else 中的语句会在循环正常执行完（即 for 不是通过 break 跳出
 
  - for 循环嵌套 -
 
-<p>
+<br>
 
     冒泡排序# 定义列表 list
     arays = [1,8,2,6,3,9,4]
@@ -185,13 +185,13 @@ else 中的语句会在循环正常执行完（即 for 不是通过 break 跳出
 
 - while 循环嵌套
 
-<p>
+<br>
     
     while expression:
        while expression:
       statement(s)
        statement(s)
-<br>
+<br><br>
 
 **4 占位语句 pass**
 
