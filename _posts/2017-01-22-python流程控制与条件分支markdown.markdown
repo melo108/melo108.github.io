@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "python语言简介"
-description: python语言简介
-date:   2017-01-27 14:55:52 +0200
+title:  "python 流程控制与条件分支"
+description: python 流程控制与条件分支
+date:   2017-02-28 14:55:52 +0200
 categories: jekyll update
 ---
 
