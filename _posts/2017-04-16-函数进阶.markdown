@@ -7,7 +7,7 @@ categories: jekyll update
 ---
 
 
-
+<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515316270521&di=1d0991b2899d47649d9b2409a0d0e7ce&imgtype=0&src=http%3A%2F%2Fds.devstore.cn%2F20141115%2F1416023053971%2Fpython.jpg">
 
 # python 函数进阶
 
