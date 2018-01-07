@@ -1,0 +1,910 @@
+---
+layout: post
+title:  "python 函数进阶"
+description: python 函数进阶--装饰器，闭包 递归 生成器 内置函数 匿名函数
+date:   2017-04-15 14:55:52 +0200
+categories: jekyll update
+---
+
+
+
+
+# python 函数进阶
+
+----------
+
+<br>
+
+## 1 闭包函数与装饰器
+
+
+<br>
+
+
+- **闭包函数：**
+
+内部函数包含对外部作用域而非全局作用域名字的引用，该内部函数称为**闭包函数**
+
+
+    def func():
+   		name='jimmy'
+    	def inner():
+    		print(name)
+    	return inner
+
+    inner=func()
+    
+    inner()   # 执行的时候只创建一次name 节省空间
+    
+    func()()  # 每次执行都创建一次 name
+   
+
+<br>
+判断闭包函数的方法__closure__
+
+
+
+> 输出的__closure__有cell元素 ：是闭包函数
+
+    # print(inner.__closure__)   
+	# 使用外部参数的个数 (<cell at 0x0000000000120C78: 
+	str object at 0x0000000001DCC110>,)  判断闭包
+
+<br>
+
+    from urllib.request import urlopen
+    
+    def get_url():
+    url=r'https://i.cnblogs.com/PostDone.aspx?postid=7452088&actiontip=%E4%BF%9D%E5%AD%98%E4%BF%AE%E6%94%B9%E6%88%90%E5%8A%9F'
+    
+    # 可能有好多网页
+    
+    def inner():
+    re=urlopen(url).read().decode('utf-8')
+    print(re)
+    return inner
+    
+    # 用闭包可以避免多次打开数据；
+
+	get_web_content=get_url()
+	get_web_content()
+
+
+<br>
+
+
+- **装饰器：**
+
+装饰器的本质：一个闭包函数
+
+装饰器的功能：在不修改原函数及其调用方式的情况下对原函数功能进行扩展
+
+
+**遵循开放封闭原则**
+
+> 开放 对于扩展是开放的
+
+>  封闭 对于修改是封闭的
+
+
+**装饰器的基本结构**
+
+    
+    def wrapper(func):
+    	def inner(*args,**kwargs):
+    		# 被装饰的函数执行之前的操作
+    		ret=func(*args,**kwargs)
+    		# 被装饰的函数执行之后的操作
+    		return ret
+    	return inner
+    
+    @wrapper
+    def F(*argument):
+    pass
+
+例子
+
+	import time
+	def timmer(F): #装饰器
+		def inner():
+			start_time=time.time()
+			F()
+			end_time=time.time()
+			print(end_time-start_time)
+		return inner
+	
+	@timmer #   F=timmer(F) #   语法糖
+	def F():
+		sum=0
+		for i in range(1,100000):
+			sum+=i # 被装饰的函数
+
+	F()# 直接调用函数，还可以加上装饰器的功能
+
+
+<br>
+
+**带参数的装饰器（批量使用装饰器--开关）**
+
+
+	def outter(flag):
+	    def wrapper(func):
+	        def inner(*args,**kwargs):
+	            if flag:
+	                pass
+	                # 装饰功能
+	            re=func(*args,**kwargs)
+	            if flag:
+	                pass
+	                # 装饰功能
+	
+	            return re
+	        return inner
+	    return wrapper
+	
+	@outter(False)
+	def fun1():
+	    print('Apple')
+	
+	fun1()
+
+
+
+<br>
+
+## 2 生成器函数与可迭代对象，迭代器
+
+
+<br>
+
+
+**- 迭代器与可迭代对象**
+
+<br>
+
+**1 常见的可迭代对象：**
+
+> 字符串
+> 
+> 列表
+> 
+> 字典
+> 
+> 集合
+> 
+> 元组
+> 
+> **文件句柄         --      迭代器**
+> 
+> range()         --     只是一个可迭代对象
+> 
+> **迭代器本身也可迭代**
+
+
+
+**2 判断是否是 可迭代对象 的方法:**
+
+> 1  from collections import Iterable 
+>    isinstance('abcd',Iterable)
+> 
+> 2  dir()查看， 有**__iter__()**方法 的数据类型， (即 **可迭代协议** ------- 数据类型与python解释器)
+
+
+
+**3 判断是否是 迭代器 的方法：**
+
+> 1  from collections import Iterator
+>    itor=[1,2,3].__iter__()
+>    print(isinstance(itor,Iterator))
+>    
+> 2  具有 __next__() 且 __iter__() 方法 ，**迭代器协议**
+
+
+**4 迭代器特点**
+
+> 1 迭代器特点--从头取到尾
+> 
+> 2 某种数据类型 的 迭代器  比 该数据类型 多几个特殊的迭代器使用方法   (且有 该数类型的所有方法 )
+> '__setstate__', '__next__', '__length_hint__' 
+> 
+> 3 惰性运算
+
+> 4 可以节省内存---------多次运算
+> 
+> 5 可迭代对象 使用__iter__() 方法 ----->>> 转换为 迭代器iterator
+
+> 6 生成器是自己定义的一个迭代器
+
+
+<br>
+
+**- 生成器函数**
+
+<br>
+
+**1 基本定义**
+
+> 1  **带有 yield 关键字 的函数**
+> 
+> 2  **在执行的时候返回一个生成器 并不会执行 需要用 next方法来启用**
+> 
+> 3  注意点
+> 
+> 	----  __next__() 有几个 yield 就可以取几次
+> 	
+> 	 ---   for 循环可以正常取 for i in range
+> 	
+> 	---    其他数据类型进行强转  list() 转换成一个列表 里面有生成器所有的值
+
+> 	 ---   调用迭代器函数 ， 要先获取生成器 再进行 next取值
+
+**例子**
+
+
+    ---------------- 注意 yield 一般都是与 循环一起使用---------------------
+    
+    def produce():
+	    '''生产衣服'''
+	    for i in range(1,20000):
+    
+    		yield '生产了第%s件衣服' %i
+    
+    Product=produce() #  创建一个 生成器
+    
+    
+    for i in range(20):
+   		 print(Product.__next__())  # 调用 启动生成器
+    
+    for i in Product: for 与 生成器 搭配  调用生成器
+    	 print(i)
+    	 if i=='生产了第50件衣服':
+    		break
+
+<br>
+
+
+
+**> python 3 特有 yield from [1,2,3]， 'abc'-----可迭代对象**
+    
+    def gen1():
+    	for c in 'AB':
+    		yield c
+    	for i in range(3):
+    		yield i
+    print(list(gen1()))
+    
+    def gen2():
+   		 yield from 'AB'   # 也可以跟一个迭代器 (迭代器本身也是可迭代对象)
+    	 yield from range(1,3)
+    print(list(gen2()))
+
+
+<br>
+
+**2 生成器表达式**
+
+**( i for i in range(8) ) 注意 只有在使用 next 调用的时候才启动**
+
+**例子**
+
+	def demo():
+	    for i in range(4):
+	        yield i
+	
+	g=demo()
+	
+	g1=(i for i in g)
+	g2=(i for i in g1)
+	
+	print(list(g1))  [0,1,2,3]
+	print(list(g2))  []
+
+	
+<br>
+
+	def add(n,i):
+	    return n+i
+	
+	def test():
+	    for i in range(4):
+	        yield i
+	
+	g=test()
+	
+	for n in [1,10]:                      ------- for循环两次 并不会启动 生成器g， 只是产生两个生成器
+	     g=(add(n,i) for i in g)
+	
+	    # g=(n+i for i in g)    
+	    # g=(n+i for i in g)             --------只是产生两个生成器
+	
+	
+	 print(list(g))                    ------------list 启动生成器 一层一层往回找 g 
+
+
+
+**生成器表达式 和 列表推导式**
+
+
+> **列表推导式**
+
+	[i** 2 for i in [1,2,3]]
+	print(li)
+	
+	li2=[int(i/2) for i in range(0,7,2)]
+	print(li2)
+
+> **集合 字典 推导式**
+
+	mydict={'a':10,'b':34,'A':15,'C':3,'c':9}
+	
+	nedic={k:mydict[k]**2 for k in mydict}
+	print(nedic)
+
+<br>
+
+**3 生成器的send方法**
+
+> g.send ('A')
+> 
+> 
+> 1 send() 和 __next__() 的工作的起止位置是完全相同的
+> 
+> 2 send 可以把一个值作为 信号量 传递到函数中去
+> 
+> 3 并且 在生成器开始  只能先使用 __next__()
+> 
+> 4 send('a')改变上一次yield的内容  可以用yield 返回同一个改变的值来返回
+
+
+	def fun():
+		value=yield 2  #888
+		yield 4    #value---None
+		yield value
+	
+	g=fun()
+	print(g.__next__())     2
+	print(g.send(888))      4
+	print(g.__next__())     888
+
+
+
+<br>
+
+## 3 递归函数与 类递归思想（列表---栈 进出思想）
+
+
+<br>
+
+
+**1 递归函数**
+
+> 1 一个函数在内部使用了自己，调用自己
+> 
+> 2 有一个结束条件
+
+
+每次调用一次自己，就会新建一块内存空间，最多997
+
+	import sys
+	
+	sys.setrecursionlimit(1000000)  # 修改最大范围 ---但是 python 自己会根据计算机性能停止
+
+**2 斐波那契 数列 【1，1,2,3,5,8,13,21,34，...】**
+
+
+**- 列表方法实现**
+
+	while len(l)<=20:
+	    l.append(l[-1]+l[-2])
+	print(l)
+
+**3 栈 进出， 类递归思想**
+
+
+	fields='fld2|fld3|fld7'
+	fields_list=fields.split('|')
+	
+	my_dict={}
+	data_list=[1]
+	
+	while data!=1:
+	    for key in data:
+	        if key in fields_list:
+	            my_dict[key]=data[key]
+	        if type(data[key])==dict:
+	            data_list.append(data[key])    # 如果有的话一直 添加
+	    data=data_list.pop()        # 取出最后一个
+	print(my_dict)
+
+
+
+
+<br>
+
+## 4 内置函数与匿名函数lambda
+
+
+<br>
+
+
+
+截止到python版本3.6.2，现在python一共为我们提供了68个内置函数。
+
+
+<table border="1">
+<thead valign="bottom">
+<tr>
+<th></th>
+<th></th>
+<th>内置函数</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even">
+<td><a href="/python/func-number-abs.html" target="_blank">abs()</a></td>
+<td><a href="/python/python-func-divmod.html" target="_blank">divmod()</a></td>
+<td><a href="/python/python-func-input.html" target="_blank">input()</a></td>
+<td><a href="/python/python-func-open.html" target="_blank">open()</a></td>
+<td><a href="/python/python-func-staticmethod.html" target="_blank">staticmethod()</a></td>
+</tr>
+<tr>
+<td><a href="/python/python-func-all.html" target="_blank">all()</a></td>
+<td><a href="/python/python-func-enumerate.html" target="_blank">enumerate()</a></td>
+<td><a href="/python/python-func-int.html" target="_blank">int()</a></td>
+<td><a href="/python/python-func-ord.html" target="_blank">ord()</a></td>
+<td><a href="/python/python-func-str.html" target="_blank">str()</a></td>
+</tr>
+<tr class="row-even">
+<td><a href="/python/python-func-any.html" target="_blank">any()</a></td>
+<td><a href="/python/python-func-eval.html" target="_blank">eval()</a></td>
+<td><a href="/python/python-func-isinstance.html" target="_blank">isinstance()</a></td>
+<td><a href="/python/func-number-pow.html" target="_blank">pow()</a></td>
+<td><a href="/python/python-func-sum.html" target="_blank">sum()</a></td>
+</tr>
+<tr>
+<td><a href="/python/python-func-basestring.html" target="_blank">basestring()</a></td>
+<td><a href="/python/python-func-execfile.html" target="_blank">execfile()</a></td>
+<td><a href="/python/python-func-issubclass.html" target="_blank">issubclass()</a></td>
+<td><a href="/python/python-func-print.html" target="_blank">print()</a></td>
+<td><a href="/python/python-func-super.html" target="_blank">super()</a></td>
+</tr>
+<tr>
+<td><a href="/python/python-func-bin.html" target="_blank">bin()</a></td>
+<td><a href="/python/python-func-file.html" target="_blank">file()</a></td>
+<td><a href="/python/python-func-iter.html" target="_blank">iter()</a></td>
+<td><a href="/python/python-func-property.html" target="_blank">property()</a></td>
+<td><a href="/python/att-tuple-tuple.html" target="_blank">tuple()</a></td>
+</tr>
+<tr>
+<td><a href="/python/python-func-bool.html" target="_blank">bool()</a></td>
+<td><a href="/python/python-func-filter.html" target="_blank">filter()</a></td>
+<td><a href="/python/att-string-len.html" target="_blank">len()</a></td>
+<td><a href="/python/python-func-range.html" target="_blank">range()</a></td>
+<td><a href="/python/python-func-type.html" target="_blank">type()</a></td>
+</tr>
+<tr>
+<td><a href="/python/python-func-bytearray.html" target="_blank">bytearray()</a></td>
+<td><a href="/python/python-func-float.html" target="_blank">float()</a></td>
+<td><a href="/python/att-list-list.html" target="_blank">list()</a></td>
+<td><a href="/python/python-func-raw_input.html" target="_blank">raw_input()</a></td>
+<td><a href="/python/python-func-unichr.html" target="_blank">unichr()</a></td>
+</tr>
+<tr>
+<td><a href="/python/python-func-callable.html" target="_blank">callable()</a></td>
+<td><a href="/python/att-string-format.html" target="_blank">format()</a></td>
+<td><a href="/python/python-func-locals.html" target="_blank">locals()</a></td>
+<td><a href="/python/python-func-reduce.html" target="_blank">reduce()</a></td>
+<td>unicode()</td>
+</tr>
+<tr class="row-even">
+<td><a href="/python/python-func-chr.html" target="_blank">chr()</a></td>
+<td><a href="/python/python-func-frozenset.html" target="_blank">frozenset()</a></td>
+<td><a href="/python/python-func-long.html" target="_blank">long()</a></td>
+<td><a href="/python/python-func-reload.html" target="_blank">reload()</a></td>
+<td><a href="/python/python-func-vars.html" target="_blank">vars()</a></td>
+</tr>
+<tr>
+<td><a href="/python/python-func-classmethod.html" target="_blank">classmethod()</a></td>
+<td><a href="/python/python-func-getattr.html" target="_blank">getattr()</a></td>
+<td><a href="/python/python-func-map.html" target="_blank">map()</a></td>
+<td><a href="/python/python-func-repr.html" target="_blank">repr()</a></td>
+<td><a href="/python/python-func-xrange.html" target="_blank">xrange()</a></td>
+</tr>
+<tr class="row-even">
+<td><a href="/python/func-number-cmp.html" target="_blank">cmp()</a></td>
+<td><a href="/python/python-func-globals.html" target="_blank">globals()</a></td>
+<td><a href="/python/func-number-max.html" target="_blank">max()</a></td>
+<td><a href="/python/att-list-reverse.html" target="_blank">reversed()</a></td>
+<td><a href="/python/python-func-zip.html" target="_blank">zip()</a></td>
+</tr>
+<tr>
+<td><a href="/python/python-func-compile.html" target="_blank">compile()</a></td>
+<td><a href="/python/python-func-hasattr.html" target="_blank">hasattr()</a></td>
+<td><a href="/python/python-func-memoryview.html" target="_blank">memoryview()</a></td>
+<td><a href="/python/func-number-round.html" target="_blank">round()</a></td>
+<td><a href="/python/python-func-__import__.html">__import__()</a></td>
+</tr>
+<tr>
+<td><a href="/python/python-func-complex.html" target="_blank">complex()</a></td>
+<td><a href="/python/python-func-hash.html" target="_blank">hash()</a></td>
+<td><a href="/python/func-number-min.html" target="_blank">min()</a></td>
+<td><a href="/python/python-func-set.html" target="_blank">set()</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="/python/python-func-delattr.html" target="_blank">delattr()</a></td>
+<td><a href="/python/python-func-help.html" target="_blank">help()</a></td>
+<td><a href="/python/python-func-next.html" target="_blank">next()</a></td>
+<td><a href="/python/python-func-setattr.html" target="_blank">setattr()</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="/python/python-func-dict.html" target="_blank">dict()</a></td>
+<td><a href="/python/python-func-hex.html" target="_blank">hex()</a></td>
+<td>object()</td>
+<td><a href="/python/python-func-slice.html" target="_blank">slice()</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="/python/python-func-dir.html" target="_blank">dir()</a></td>
+<td><a href="/python/python-func-id.html" target="_blank">id()</a></td>
+<td><a href="/python/python-func-oct.html" target="_blank">oct()</a></td>
+<td><a href="/python/python-func-sorted.html" target="_blank">sorted()</a></td>
+<td><a href="/python/python-func-exec.html" target="_blank">exec 内置表达式</a></td>
+</tr>
+</tbody>
+</table>
+
+
+<br>
+
+**1 作用域相关  (2个)： locals()  globals()**
+
+
+> 基于字典的形式返回局部变量和全局变量
+
+> globals() 全局作用于中的变量    全局
+> 
+> locals() 局部作用域变量        本地
+> 
+
+	在外部执行 --------locals() globals() 是一样的
+
+	在局部 函数内执行 ------locals() 是局部的变量 函数内的名字 ，globals() 始终不变
+
+
+<br>
+
+**2 迭代器，生成器  （3个)：**
+
+> range()--------一个可迭代对象
+> 
+> next() ----------
+> 
+> iter() ------------
+
+注意 在python里要少使用 __xxx__() 的方法 内置的特殊成员
+
+
+
+<br>
+
+**3  数值相关的内置函数 (14个）：**
+
+
+**- 数学运算相关 7个**
+
+		 
+		abs() 求绝对值
+		
+		divmod() 分页应用 求整 并且 求余   (商，余)
+		
+		round(2.3455,3) 精确到小数后的第几位
+		
+		pow(x,y,z) x**y%z
+		
+		sum(iterator,start) 求和  ---尽量用迭代器 一个一个的计算  | start 本钱本息 初始值
+		
+		min()   print(min([1,-5,3],key=abs))  # key是一个函数 用函数来限定 key的规则
+		
+		max()   print(max([1,-5,3],key=abs))  # key是一个函数  用函数来限定 key的规则
+
+ 
+
+**- 数据类型 4个**
+
+	bool()  -----布尔值
+	int()
+	float()
+	complex() ----复数
+ 
+
+
+**- 进制转换 3个**
+
+	bin()
+	oct()
+	hex()
+
+<br>
+
+**4 数据类型相关 (24个）：**
+
+
+
+**list()**
+
+**tuple()**
+
+
+**reversed(iterator)**---- 返回一个生成器
+
+	li=[1,2,3,4]
+	li=list(reversed(li))
+	print(li)
+
+**slice(1,5,2)** ----- 切片模型
+
+
+**str()**
+
+**format()**  将数值进行格式化显示
+
+	# print(format('Hello','<10'))  # 左对齐
+	# print(format('Hello','>10'))  # 右对齐
+	# print(format('Hello','^10')) #  居中
+
+**bytes()**
+
+	# by=bytes(s,encoding='gbk') # 网络传输 只能传送字节 ---需要转换 为 bytes
+	# my_str=by.decode('gbk')  转换回去
+
+**bytearray**
+
+	# s='alex'
+	# ret=bytearray(s,encoding='utf-8')
+	# print(s,id(s))
+	# ret[0]=65
+	# s1=ret.decode('utf-8')
+	# print(s1,id(s1))
+
+**memoryview()**
+
+	# ret = memoryview(bytes('你好',encoding='utf-8'))
+	# print(len(ret))
+	# print(bytes(ret[:3]).decode('utf-8')) #  切片不会新建一个列表
+	# print(bytes(ret[3:]).decode('utf-8'))
+
+**ord('A')** -->> 转换为ascii码
+
+**chr(97)** -->> 转换为字符
+
+**ascii()**---->>
+
+	# print(ascii('你好')) #'\u4f60\u597d'
+
+**repr()**----%r 格式化输出
+
+
+**dict()**
+
+**set()**
+
+**frozenset()**  ---- 可以哈希
+
+
+**all()**   所有为真的时候才是真的
+
+
+**any()**  有任何一个为真 就为真
+
+**zip(iter1,iter2,iter3,..)**
+
+	dic={'a':2,'b':3}
+	li=[1,2,3]
+	
+	print(list(zip(dic,li)))
+
+**sorted(iterator,key=len,reverse=False)**  --- 函数有返回值，生成一个新的列表
+
+	li.sort() --->> 原列表会改变
+
+**len()**
+
+**map()**
+
+**enumerate()**
+
+**filter()**
+
+**reduce**
+
+
+ 
+
+> **注意  ：与lambda函数经常一起使用的： map filter reduce zip enumerate**
+
+ 
+
+**filter  条件过滤**
+
+**filter( lambda n:n%2==0 ,iterator)**
+
+
+	li=[' ','a',(1,2),{1,2},'D',[],{},None]
+	
+	def f(data):
+	    if type(data)==str:
+	        if data.strip():  # not data.isspace   ===== 空格.strip()-->> 变成空''
+	            return data
+	    elif data:
+	        return data
+	
+	filter_0=filter(f,li)
+	print(list(filter_0))
+
+
+**map  新计算规则  映射关系 + 数列**
+
+
+	li=[1,2,3,4,5,6,7]
+	
+	re=map(lambda n:n**2 , li)
+	print(list(re))
+ 
+
+**enumerate()  增加序号**
+
+	se={'a':1,'b':3,'c':7}
+	
+	for num,goods in enumerate(se,start=10):
+	    print(num+1,goods,se[goods])
+ 
+
+**reduce()   累加**
+
+	from functools import reduce
+	
+	li=[1,2,3,4,5,6,7,8,9,10]
+	print(reduce(lambda x,y:x+y,li,10))
+ 
+
+**zip()  拉链**
+
+---  key ,value ===>> 元组 用来比较 键值对    
+
+
+> **zip() 函数的返回值是 一个生成器  注意for循环 遍历后就没有值了**
+
+	dic={
+	    'alex':8000,
+	    'wusir':3000,
+	    'yuan':3000,
+	}
+	
+	g=zip(dic.values(),dic.keys())      # values放到前边
+	
+	print(max(g)[-1])
+	
+
+<br>
+
+**5 其他函数 (12个)**
+
+
+> **- 字符串类型 代码的执行**
+
+**exec()** 没有返回值   -----执行语句
+
+**eval()** 有返回值     ------求值语句     # import os 检测有没有  判断 
+            
+**compile('hello')** --------交互式语句 
+	
+	# 编译 compile(code,'','exec')
+	# 需要对某个字符串类型的python代码多次执行的时候，需要用compile先编译一下 ----字节码
+
+
+
+> **- 输入 输出** 
+
+**input()**
+
+	----   py2中 raw_input 和 py3 的 input 一样
+
+**print(value, file, sep=‘’,end=‘\n’, flush=False)**
+
+	file=sys.stdout
+	本来print() 会最后一起写入
+	sys.stdout.flush====>> 立刻写 实时写
+
+**例子**
+	
+	import time
+	import sys
+	
+	f=open(r'1.txt','w',encoding='utf-8')
+	for i in range(0,101,2):
+	     time.sleep(0.1)
+	     char_num = i//2      #打印多少个#
+	     per_str = '\r%s%% : %s'%(i,'|'*char_num)
+	     print(per_str,end='', file=sys.stdout, flush=False)
+	
+	print('*_*','A','^_^','@ @',sep='|',file=f,end=' ',flush=True)
+
+
+
+> **- 内存相关**
+
+**hash()** 
+
+得到一个哈希值  ------ 用来查询  直接有对应的hash内存---读取数据
+
+
+**id()**  
+
+身份运算----- is 不仅比较数据值是否相等 还会比较 内存指向
+
+
+
+> **- 文件操作**
+
+**open(file,mode='w',encoding='utf-8')**
+
+
+> **- 模块导入**
+
+ **__import__( 'time' )**
+
+
+> **- 帮助模块**
+
+**help()**
+
+
+
+> **- 调用相关**  
+
+**callable()-**-
+
+---看看能不能被调用--函数
+
+
+
+> **- 查看内置属性**  
+
+**dir()**
+
+
+
+<br>
+----------
+
+**- python的匿名函数 lambda**
+
+
+
+> **- 一句话 python 表达式**
+
+		 1 三元运算
+		
+		 2 各种推导式 生成器表达式
+
+
+
+> **- 一句话函数  lambda**
+
+	结构  f = lambda n(变量): n**n(返回值，可以是三元运算)
+	     print(l(10))
+
+**例子**
+
+	
+	dic={'k1':10,'k2':20,"k3":40}
+	
+	print(max(dic,key=lambda k:dic[k]))  # 指定max(dic,key=value)用value判断
+	  
+	z=zip(dic.values(),dic.keys())  # z是一个生成器
+	print(max(z)[-1])  # 这里的z 在用了max之后 相当于已经把z遍历完了，已经没有内容
+	print(list(z))   # 所以这里再去打印已经是 [] 空列表
