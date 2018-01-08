@@ -10,14 +10,14 @@ categories: jekyll update
 
 
 
-#python 文件I\O与file操作
+# python 文件I\O与file操作
 
 
 ----------
 
 <br>
 
-##1 标准输入输出I\O
+## 1 标准输入输出I\O
 
 
 <br>
@@ -61,9 +61,6 @@ input(*args, **kwargs):
 > **input可以接收一个Python表达式作为输入，并将运算结果返回**
 
 > 
-> 	#!/usr/bin/python
-> 	# -*- coding: UTF-8 -*- 
-> 	 
 > 	str = input("请输入表达式：");
 > 	[i for i in range(4)]
 > 	print "你输入的内容是: ", str
@@ -73,7 +70,7 @@ input(*args, **kwargs):
 
 <br>
 
-##2 数据文件的读写，打开和关闭文件
+## 2 数据文件的读写，打开和关闭文件
 
 
 <br>
@@ -398,7 +395,7 @@ input(*args, **kwargs):
 
 <br>
 
-##3 目录操作方法 os模块
+## 3 目录操作方法 os模块
 
 
 <br>
@@ -449,7 +446,7 @@ input(*args, **kwargs):
 
 <br>
 
-##4 常见的文件目录操作方法 附录：
+## 4 常见的文件目录操作方法 附录：
 
 
 <br>
