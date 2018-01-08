@@ -1,0 +1,565 @@
+---
+layout: post
+title:  "python文件I\O与file操作"
+description: python 文件操作
+date:   2017-03-16 14:55:52 +0200
+categories: jekyll update
+---
+
+
+
+
+
+#python 文件I\O与file操作
+
+
+----------
+
+<br>
+
+##1 标准输入输出I\O
+
+
+<br>
+<br>
+
+**- (1) 打印到屏幕 print()**
+
+print(self, *args, sep=' ', end='\n', file=None):
+
+**把传递的表达式 转换成一个 字符串表达式**
+
+	known special case of print
+    """
+    print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)
+    
+    Prints the values to a stream, or to sys.stdout by default.
+    Optional keyword arguments:
+    file:  a file-like object (stream); defaults to the current sys.stdout.
+    sep:   string inserted between values, default a space.
+    end:   string appended after the last value, default a newline.
+    flush: whether to forcibly flush the stream.
+
+
+<br>
+<br>
+
+**- (2) 读取键盘的输入 print()**
+
+input(*args, **kwargs): 
+
+**从标准输入读取一个行，并返回一个字符串**
+
+    Read a string from standard input
+
+
+
+> **注意  python2 中** 
+> 
+> **raw_input 与python3的input一样**
+> 
+> **input可以接收一个Python表达式作为输入，并将运算结果返回**
+
+> 
+> 	#!/usr/bin/python
+> 	# -*- coding: UTF-8 -*- 
+> 	 
+> 	str = input("请输入表达式：");
+> 	[i for i in range(4)]
+> 	print "你输入的内容是: ", str
+> 	[0,1,2,3]
+
+
+
+<br>
+
+##2 数据文件的读写，打开和关闭文件
+
+
+<br>
+<br>
+
+**- (1) 创建file文件对象---open（）方法**
+	
+**用Python内置的open()函数打开一个文件，创建一个file对象，然后使用相关的方法才可以调用它进行读写**
+
+
+	 f=open(file, mode='r', buffering=None, encoding=None, errors=None, newline=None, closefd=True)
+	
+	 f--文件句柄对象
+
+> - **file**：访问的文件名称。
+> - **mode**：决定了打开文件的模式：只读，写入，追加等。默认文件访问模式为只读(r)。
+> - **encoding**：指定编码格式，gbk,utf8..。
+> - **buffering**:如果buffering的值被设为0，就不会有寄存。如果buffering的值取1，访问文件时会寄存行。如果将buffering的值设为大于1的整数，表明了这就是的寄存区的缓冲大小。如果取负值，寄存区的缓冲大小则为系统默认。
+
+
+
+**打开文件的不同方式：**
+
+
+<table border="1">
+<tbody><tr><th style="width:10%">模式</th><th>描述</th></tr>
+<tr><td>r</td><td>以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。</td></tr>
+<tr><td>rb</td><td>以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式。</td></tr>
+<tr><td>r+</td><td>打开一个文件用于读写。文件指针将会放在文件的开头。</td></tr>
+<tr><td>rb+</td><td>以二进制格式打开一个文件用于读写。文件指针将会放在文件的开头。</td></tr>
+<tr><td>w</td><td>打开一个文件只用于写入。如果该文件已存在则将其覆盖。如果该文件不存在，创建新文件。</td></tr>
+<tr><td>wb</td><td>以二进制格式打开一个文件只用于写入。如果该文件已存在则将其覆盖。如果该文件不存在，创建新文件。</td></tr>
+<tr><td>w+</td><td>打开一个文件用于读写。如果该文件已存在则将其覆盖。如果该文件不存在，创建新文件。</td></tr> 
+<tr><td>wb+</td><td>以二进制格式打开一个文件用于读写。如果该文件已存在则将其覆盖。如果该文件不存在，创建新文件。</td></tr>
+<tr><td>a</td><td>打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</td></tr> 
+<tr><td>ab</td><td>以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</td></tr> 
+<tr><td>a+</td><td>打开一个文件用于读写。如果该文件已存在，文件指针将会放在文件的结尾。文件打开时会是追加模式。如果该文件不存在，创建新文件用于读写。</td></tr> 
+<tr><td>ab+</td><td>以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。如果该文件不存在，创建新文件用于读写。</td></tr>
+</tbody></table>
+
+<br>
+
+**文件操作图解：**
+
+<img src="http://www.runoob.com/wp-content/uploads/2013/11/2112205-861c05b2bdbc9c28.png">
+
+
+<table border="1">
+<thead>
+<tr>
+<th style="text-align:center">模式</th>
+<th style="text-align:center">r</th>
+<th style="text-align:center">r+</th>
+<th style="text-align:center">w</th>
+<th style="text-align:center">w+</th>
+<th style="text-align:center">a</th>
+<th style="text-align:center">a+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">读</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">+</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">+</td>
+</tr>
+<tr>
+<td style="text-align:center">写</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+</tr>
+<tr>
+<td style="text-align:center">创建</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+</tr>
+<tr>
+<td style="text-align:center">覆盖</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">指针在开始</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">指针在结尾</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+</tr>
+</tbody>
+</table>
+
+
+<br>
+<br>
+
+**- (2) file文件对象的属性和方法**
+
+**一个被打开的file文件，可以通过操作得到有关该文件的各种信息**
+
+<table border="1">
+<tbody><tr><th>属性</th><th>描述</th></tr>
+<tr><td>file.closed</td><td>返回true如果文件已被关闭，否则返回false。</td></tr>
+<tr><td>file.mode</td><td>返回被打开文件的访问模式。</td></tr>
+<tr><td>file.name</td><td>返回文件的名称。</td></tr>
+</tbody></table>
+
+<br>
+
+	f=open(r"filename","rb")
+
+	print(f.name)     filename
+	print(f.closed)   False
+	print(f.mode)     rb
+
+	f.close()
+
+	print(f.name)   filename
+	print(f.closed)  True
+	print(f.mode)    rb
+
+
+<br>
+
+
+- **close()方法**
+
+**File 对象的 close（）方法刷新缓冲区里任何还没写入的信息，并关闭该文件，这之后便不能再进行写入**
+
+
+<br>
+
+- **read()方法**
+
+**按打开方式是 字节还是字符**
+
+		read(self, size=-1)
+
+		按格式读长度
+		file.read(2)
+		r--->2 字符
+		rb--->2 字节
+
+<br>
+
+- **seek()方法**
+
+**后面是字节，指定指针位置**
+
+	seek(self, *args, **kwargs)
+
+	file.seek(2)----字节数----gbk--2个字节一个汉字
+	file.seek(3)----字节数----utf-8--3个字节一个汉字
+
+<br>
+
+- **file.tell()**
+
+**查看当前指针位置**
+
+	seek(self, *args, **kwargs)
+
+	position = fo.tell();
+	print（"当前文件位置 : ", position）
+
+<br>
+
+- **file.writable()**
+
+**True if file was opened in a write mode.**
+
+
+<br>
+
+- **file.readable()**
+
+**True if file was opened in a read mode.**
+
+
+
+<br>
+
+- **file.flush()**
+
+**从内存强刷到硬盘**
+
+**一般文件操作没有完成到硬盘上的时候,数据不会存在**
+
+
+<br>
+
+- **file.readline()**
+
+**读一行**
+
+	readline() --------- 每行
+	
+	for line in file:
+	   print(line.read()) ========>>>>>  # python 2 xreadlines()
+
+
+<br>
+
+- **file.readlines()**
+
+**返回一个列表**
+
+
+<br>
+
+- **file.truncate()**
+
+**截取 指针位置前面的数据**
+
+
+
+<br>
+<br>
+
+**- (3) 上下文管理 with open(..) as f:**
+
+	with open(r'filename',mode='rb') as file:
+	   file.read()
+
+
+<br>
+
+**例子**
+
+
+> **读写操作 字节，字符打开**
+> 
+
+	1
+	path=r'filename'
+	file=open(path,encoding='utf-8',mode='r')
+	a=file.read()
+	print(a)
+	file.close()
+
+	2
+	path=r'filename'
+	file=open(path,'rb')
+	a=file.read().decode('gbk')
+	print(a)
+	file.close()
+
+	3
+	path=r'filename'
+	file=open(path,mode='w',encoding='utf-8')
+	file.write('adasdad')
+	file.close()
+
+	4
+	path=r'filename'
+	file=open(path,'wb')
+	file.write('哈哈哈'.encode('utf-8'))
+	file.close()
+
+
+
+<br>
+<br>
+
+**- (4) 文件的修改与重命名**
+
+
+
+**文件修改,重命名需要借助 os模块的 remove()和rename()**
+
+**原文件，读取内容 --- 修改 --- 重新新建一个文件，接收 --- 删除原文件**
+
+	os模块提供执行文件处理操作的方法，比如重命名和删除文件
+
+	rename(current_file_name, new_file_name)
+	remove(file_name)
+
+<br>
+
+**例子**
+
+	file2=open(r'f2','w',encoding='utf-8')
+	with open(r'f1','r',encoding='utf-8') as file1:
+	     for line in file1:
+	         mylist=line.split('|')
+	         mylist[0]=mylist[0][0:2]
+	         mystr='|'.join(mylist)
+	         file2.write(mystr)
+	file2.close()
+	
+	import os
+	 
+	os.remove(r'f1')
+	os.rename(r'f1',r'f2')
+
+
+
+<br>
+
+##3 目录操作方法 os模块
+
+
+<br>
+<br>
+
+- **mkdir()方法**
+
+**当前目录下创建一个新目录**
+
+	import os
+	 
+	# 创建目录test
+	os.mkdir("test")
+
+
+<br>
+
+- **chdir()方法**
+
+**切换目录**
+
+	import os
+	 
+	os.mkdir("d:\test")
+
+
+<br>
+
+- **getcwd()方法**
+
+**显示当前的工作目录**
+
+	import os
+	 
+	print(os.getcwd())
+
+
+<br>
+
+- **rmdir()方法**
+
+**删除目录,删除之前，它的所有内容应该先被清除**
+
+	import os
+	 
+	os.rmdir("d:\text")
+
+
+<br>
+
+##4 常见的文件目录操作方法 附录：
+
+
+<br>
+<br>
+
+
+
+**OS 对象方法：** 
+
+> **提供了处理文件及目录的一系列方法**
+
+
+<table border="1">
+<tbody><tr>
+<th style="width:5%">序号</th><th>方法及描述</th></tr>
+<tr><td>1</td><td><p><a href="/python/os-access.html">os.access(path, mode)</a></p><br>检验权限模式  </td></tr>
+<tr><td>2</td><td><p><a href="/python/os-chdir.html">os.chdir(path)</a></p><br>改变当前工作目录</td></tr>
+<tr><td>3</td><td><p><a href="/python/os-chflags.html">os.chflags(path, flags)</a></p><br>设置路径的标记为数字标记。</td></tr>
+<tr><td>4</td><td><p><a href="/python/os-chmod.html">os.chmod(path, mode)</a></p><br>更改权限 </td></tr>
+<tr><td>5</td><td><p><a href="/python/os-chown.html">os.chown(path, uid, gid)</a></p><br>更改文件所有者</td></tr>
+<tr><td>6</td><td><p><a href="/python/os-chroot.html">os.chroot(path)</a></p><br>改变当前进程的根目录  </td></tr>
+<tr><td>7</td><td><p><a href="/python/os-close.html">os.close(fd)</a></p><br>关闭文件描述符 fd</td></tr>
+<tr><td>8</td><td><p><a href="/python/os-closerange.html">os.closerange(fd_low, fd_high)</a></p><br>关闭所有文件描述符，从 fd_low (包含) 到 fd_high (不包含), 错误会忽略</td></tr>
+<tr><td>9</td><td><p><a href="/python/os-dup.html">os.dup(fd)</a></p><br>复制文件描述符 fd</td></tr>
+<tr><td>10</td><td><p><a href="/python/os-dup2.html">os.dup2(fd, fd2)</a></p><br>将一个文件描述符 fd 复制到另一个 fd2</td></tr>
+<tr><td>11</td><td><p><a href="/python/os-fchdir.html">os.fchdir(fd)</a></p><br>通过文件描述符改变当前工作目录</td></tr>
+<tr><td>12</td><td><p><a href="/python/os-fchmod.html">os.fchmod(fd, mode)</a></p><br>改变一个文件的访问权限，该文件由参数fd指定，参数mode是Unix下的文件访问权限。</td></tr>
+<tr><td>13</td><td><p><a href="/python/os-fchown.html">os.fchown(fd, uid, gid)</a></p><br>修改一个文件的所有权，这个函数修改一个文件的用户ID和用户组ID，该文件由文件描述符fd指定。 </td></tr>
+<tr><td>14</td><td><p><a href="/python/os-fdatasync.html">os.fdatasync(fd)</a></p><br>强制将文件写入磁盘，该文件由文件描述符fd指定，但是不强制更新文件的状态信息。</td></tr>
+<tr><td>15</td><td><p><a href="/python/os-fdopen.html">os.fdopen(fd[, mode[, bufsize]])</a></p><br>通过文件描述符 fd 创建一个文件对象，并返回这个文件对象 </td></tr>
+<tr><td>16</td><td><p><a href="/python/os-fpathconf.html">os.fpathconf(fd, name)</a></p><br>返回一个打开的文件的系统配置信息。name为检索的系统配置的值，它也许是一个定义系统值的字符串，这些名字在很多标准中指定（POSIX.1, Unix 95, Unix 98, 和其它）。</td></tr>
+<tr><td>17</td><td><p><a href="/python/os-fstat.html">os.fstat(fd)</a></p><br>返回文件描述符fd的状态，像stat()。 </td></tr>
+<tr><td>18</td><td><p><a href="/python/os-fstatvfs.html">os.fstatvfs(fd)</a></p><br>返回包含文件描述符fd的文件的文件系统的信息，像 statvfs()</td></tr>
+<tr><td>19</td><td><p><a href="/python/os-fsync.html">os.fsync(fd)</a></p><br>强制将文件描述符为fd的文件写入硬盘。</td></tr>
+<tr><td>20</td><td><p><a href="/python/os-ftruncate.html">os.ftruncate(fd, length)</a></p><br>裁剪文件描述符fd对应的文件, 所以它最大不能超过文件大小。</td></tr>
+<tr><td>21</td><td><p><a href="/python/os-getcwd.html">os.getcwd()</a></p><br>返回当前工作目录 </td></tr>
+<tr><td>22</td><td><p><a href="/python/os-getcwdu.html">os.getcwdu()</a></p><br>返回一个当前工作目录的Unicode对象</td></tr>
+<tr><td>23</td><td><p><a href="/python/os-isatty.html">os.isatty(fd)</a></p><br>如果文件描述符fd是打开的，同时与tty(-like)设备相连，则返回true, 否则False。</td></tr>
+<tr><td>24</td><td><p><a href="/python/os-lchflags.html">os.lchflags(path, flags)</a></p><br>设置路径的标记为数字标记，类似 chflags()，但是没有软链接</td></tr>
+<tr><td>25</td><td><p><a href="/python/os-lchmod.html">os.lchmod(path, mode)</a></p><br>修改连接文件权限</td></tr>
+<tr><td>26</td><td><p><a href="/python/os-lchown.html">os.lchown(path, uid, gid)</a></p><br>更改文件所有者，类似 chown，但是不追踪链接。 </td></tr>
+<tr><td>27</td><td><p><a href="/python/os-link.html">os.link(src, dst)</a></p><br>创建硬链接，名为参数 dst，指向参数 src</td></tr>
+<tr><td>28</td><td><p><a href="/python/os-listdir.html">os.listdir(path)</a></p><br>返回path指定的文件夹包含的文件或文件夹的名字的列表。 </td></tr>
+<tr><td>29</td><td><p><a href="/python/os-lseek.html">os.lseek(fd, pos, how)</a></p><br>设置文件描述符 fd当前位置为pos, how方式修改: SEEK_SET 或者 0 设置从文件开始的计算的pos; SEEK_CUR或者 1 则从当前位置计算; os.SEEK_END或者2则从文件尾部开始. 在unix，Windows中有效</td></tr>
+<tr><td>30</td><td><p><a href="/python/os-lstat.html">os.lstat(path)</a></p><br>像stat(),但是没有软链接 </td></tr>
+<tr><td>31</td><td><p><a href="/python/os-major.html">os.major(device)</a></p><br>从原始的设备号中提取设备major号码 (使用stat中的st_dev或者st_rdev field)。</td></tr>
+<tr><td>32</td><td><p><a href="/python/os-makedev.html">os.makedev(major, minor)</a></p><br>以major和minor设备号组成一个原始设备号</td></tr>
+<tr><td>33</td><td><p><a href="/python/os-makedirs.html">os.makedirs(path[, mode])</a></p><br>递归文件夹创建函数。像mkdir(), 但创建的所有intermediate-level文件夹需要包含子文件夹。</td></tr>
+<tr><td>34</td><td><p><a href="/python/os-minor.html">os.minor(device)</a></p><br>从原始的设备号中提取设备minor号码 (使用stat中的st_dev或者st_rdev field )。</td></tr>
+<tr><td>35</td><td><p><a href="/python/os-mkdir.html">os.mkdir(path[, mode])</a></p><br>以数字mode的mode创建一个名为path的文件夹.默认的 mode 是 0777 (八进制)。 </td></tr>
+<tr><td>36</td><td><p><a href="/python/os-mkfifo.html">os.mkfifo(path[, mode])</a></p><br>创建命名管道，mode 为数字，默认为 0666 (八进制) </td></tr>
+<tr><td>37</td><td><p><a href="/python/os-mknod.html">os.mknod(filename[, mode=0600, device])</a><br>创建一个名为filename文件系统节点（文件，设备特别文件或者命名pipe）。</p></td></tr>
+<tr><td>38</td><td><p><a href="/python/os-open.html">os.open(file, flags[, mode])</a></p><br>打开一个文件，并且设置需要的打开选项，mode参数是可选的</td></tr>
+<tr><td>39</td><td><p><a href="/python/os-openpty.html">os.openpty()</a></p><br>打开一个新的伪终端对。返回 pty 和 tty的文件描述符。</td></tr>
+<tr><td>40</td><td><p><a href="/python/os-pathconf.html">os.pathconf(path, name)</a></p><br>
+返回相关文件的系统配置信息。 </td></tr>
+<tr><td>41</td><td><p><a href="/python/os-pipe.html">os.pipe()</a></p><br>创建一个管道. 返回一对文件描述符(r, w) 分别为读和写</td></tr>
+<tr><td>42</td><td><p><a href="/python/os-popen.html">os.popen(command[, mode[, bufsize]])</a></p><br>从一个 command 打开一个管道</td></tr>
+<tr><td>43</td><td><p><a href="/python/os-read.html">os.read(fd, n)</a></p><br>从文件描述符 fd 中读取最多 n 个字节，返回包含读取字节的字符串，文件描述符 fd对应文件已达到结尾, 返回一个空字符串。</td></tr>
+<tr><td>44</td><td><p><a href="/python/os-readlink.html">os.readlink(path)</a></p><br>返回软链接所指向的文件 </td></tr>
+<tr><td>45</td><td><p><a href="/python/os-remove.html">os.remove(path)</a></p><br>删除路径为path的文件。如果path 是一个文件夹，将抛出OSError; 查看下面的rmdir()删除一个 directory。 </td></tr>
+<tr><td>46</td><td><p><a href="/python/os-removedirs.html">os.removedirs(path)</a></p><br>递归删除目录。</td></tr>
+<tr><td>47</td><td><p><a href="/python/os-rename.html">os.rename(src, dst)</a></p><br>重命名文件或目录，从 src 到 dst</td></tr>
+<tr><td>48</td><td><p><a href="/python/os-renames.html">os.renames(old, new)</a></p><br>递归地对目录进行更名，也可以对文件进行更名。</td></tr>
+<tr><td>49</td><td><p><a href="/python/os-rmdir.html">os.rmdir(path)</a></p><br>删除path指定的空目录，如果目录非空，则抛出一个OSError异常。</td></tr>
+<tr><td>50</td><td><p><a href="/python/os-stat.html">os.stat(path)</a></p><br>获取path指定的路径的信息，功能等同于C API中的stat()系统调用。</td></tr>
+<tr><td>51</td><td><p><a href="/python/os-stat_float_times.html">os.stat_float_times([newvalue])</a><br>决定stat_result是否以float对象显示时间戳</p></td></tr>
+<tr><td>52</td><td><p><a href="/python/os-statvfs.html">os.statvfs(path)</a></p><br>获取指定路径的文件系统统计信息</td></tr>
+<tr><td>53</td><td><p><a href="/python/os-symlink.html">os.symlink(src, dst)</a></p><br>创建一个软链接</td></tr>
+<tr><td>54</td><td><p><a href="/python/os-tcgetpgrp.html">os.tcgetpgrp(fd)</a></p><br>返回与终端fd（一个由os.open()返回的打开的文件描述符）关联的进程组 </td></tr>
+<tr><td>55</td><td><p><a href="/python/os-tcsetpgrp.html">os.tcsetpgrp(fd, pg)</a></p><br>设置与终端fd（一个由os.open()返回的打开的文件描述符）关联的进程组为pg。</td></tr>
+<tr><td>56</td><td><p><a href="/python/os-tempnam.html">os.tempnam([dir[, prefix]])</a></p><br>返回唯一的路径名用于创建临时文件。 </td></tr>
+<tr><td>57</td><td><p><a href="/python/os-tmpfile.html">os.tmpfile()</a></p><br>返回一个打开的模式为(w+b)的文件对象 .这文件对象没有文件夹入口，没有文件描述符，将会自动删除。 </td></tr>
+<tr><td>58</td><td><p><a href="/python/os-tmpnam.html">os.tmpnam()</a></p><br>为创建一个临时文件返回一个唯一的路径</td></tr>
+<tr><td>59</td><td><p><a href="/python/os-ttyname.html">os.ttyname(fd)</a></p><br>返回一个字符串，它表示与文件描述符fd 关联的终端设备。如果fd 没有与终端设备关联，则引发一个异常。</td></tr>
+<tr><td>60</td><td><p><a href="/python/os-unlink.html">os.unlink(path)</a></p><br>删除文件路径 </td></tr>
+<tr><td>61</td><td><p><a href="/python/os-utime.html">os.utime(path, times)</a></p><br>返回指定的path文件的访问和修改的时间。 </td></tr>
+<tr><td>62</td><td><p><a href="/python/os-walk.html">os.walk(top[, topdown=True[, onerror=None[, followlinks=False]]])</a></p><br>输出在文件夹中的文件名通过在树中游走，向上或者向下。</td></tr>
+<tr><td>63</td><td><p><a href="/python/os-write.html">os.write(fd, str)</a></p><br>写入字符串到文件描述符 fd中. 返回实际写入的字符串长度</td></tr>
+</tbody></table>
+
+
+
+<br>
+
+
+
+**file句柄 对象方法：** 
+
+
+<table border="1">
+<tbody><tr>
+<th style="width:5%">序号</th><th>方法及描述</th></tr>
+<tr><td>1</td><td><p><a href="/python/file-close.html">file.close()</a></p><p>关闭文件。关闭后文件不能再进行读写操作。</p></td></tr>
+<tr><td>2</td><td><p><a href="/python/file-flush.html">file.flush()</a></p><p>刷新文件内部缓冲，直接把内部缓冲区的数据立刻写入文件, 而不是被动的等待输出缓冲区写入。</p></td></tr>
+<tr><td>3</td><td><p><a href="/python/file-fileno.html">file.fileno()</a></p><p>
+返回一个整型的文件描述符(file descriptor FD 整型), 可以用在如os模块的read方法等一些底层操作上。</p></td></tr>
+<tr><td>4</td><td><p><a href="/python/file-isatty.html">file.isatty()</a></p><p>如果文件连接到一个终端设备返回 True，否则返回 False。</p></td></tr>
+<tr><td>5</td><td><p><a href="/python/file-next.html">file.next()</a></p><p>返回文件下一行。</p></td></tr>
+<tr><td>6</td><td><p><a href="/python/python-file-read.html">file.read([size])</a></p><p>从文件读取指定的字节数，如果未给定或为负则读取所有。</p></td></tr>
+<tr><td>7</td><td><p><a href="/python/file-readline.html">file.readline([size])</a></p><p>读取整行，包括 "\n" 字符。</p></td></tr>
+<tr><td>8</td><td><p><a href="/python/file-readlines.html">file.readlines([sizehint])</a></p><p>读取所有行并返回列表，若给定sizeint&gt;0，则是设置一次读多少字节，这是为了减轻读取压力。</p></td></tr>
+<tr><td>9</td><td><p><a href="/python/file-seek.html">file.seek(offset[, whence])</a></p><p>设置文件当前位置</p></td></tr>
+<tr><td>10</td><td><p><a href="/python/file-tell.html">file.tell()</a></p><p>返回文件当前位置。</p></td></tr>
+<tr><td>11</td><td><p><a href="/python/file-truncate.html">file.truncate([size])</a></p><p>截取文件，截取的字节通过size指定，默认为当前文件位置。 </p></td></tr>
+<tr><td>12</td><td><p><a href="/python/python-file-write.html">file.write(str)</a></p><p>将字符串写入文件，没有返回值。</p></td></tr>
+<tr><td>13</td><td><p><a href="/python/file-writelines.html">file.writelines(sequence)</a></p><p>向文件写入一个序列字符串列表，如果需要换行则要自己加入每行的换行符。</p></td></tr>
+</tbody></table>
+
+
+
+> **<a href="http://www.runoob.com/python/python-files-io.html" rel="next" title="Python 文件I/O">参考地址：http://www.runoob.com 菜鸟教程</a>**
+
