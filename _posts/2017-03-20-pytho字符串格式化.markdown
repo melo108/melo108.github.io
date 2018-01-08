@@ -1,0 +1,350 @@
+---
+layout: post
+title:  "python字符串格式化"
+description: python 字符串格式化
+date:   2017-03-16 14:55:52 +0200
+categories: jekyll update
+---
+
+
+
+# Python的字符串格式化
+
+----------
+
+
+
+**Python的字符串格式化有两种方式:** 
+> 
+> **1 格式化操作符（%）**
+> 
+> **2 字符串内置函数 format()**
+
+**百分号的方式相对来说比较老，而format方式则是比较先进的方式，企图替换古老的方式，目前两者并存。**
+
+
+<p><span style="color: #888888;"><em>This PEP proposes a new system for built-in string formatting operations, intended as a replacement for the existing '%' string formatting operator.</em></span></p>
+
+<br>
+
+
+## 1 格式化操作符（%）
+
+
+> **目的:** 字符串格式化, 将数字和字符串结合
+
+
+> **占位符:** %...d
+
+
+	占位符只有格式化的时候才有意义
+
+
+
+
+<br>
+
+% (字典的键) (辅助符号* - + 0) （宽度）(小数精度) **格式化符号**
+
+% [(name)] [flags] [width] .[precision] **typecode**
+
+
+
+<br>
+
+
+ 
+- **name dictc参数 可选**
+
+**用于选择指定的key**
+
+
+	 s='姓名：%(name)s, 年龄：%(age)d'%{'name':'Amy','age':19}
+	
+	 print(s)
+
+<br>
+
+- **flags 可选**
+
+**对齐方式和填充等样式**
+
+<table style="border-collapse: collapse; height: 313px; width: 753px;" border="0"><colgroup><col style="width: 95px;"><col style="width: 543px;"></colgroup>
+<tbody valign="top">
+<tr style="background: #4f81bd;">
+<td style="padding-left: 7px; padding-right: 7px; border-top: solid #4f81bd 1.0pt; border-left: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt;">
+<p><span style="color: #d4d0c8;"><strong>辅助符号</strong></span></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt; border-right: solid #4f81bd 1.0pt;">
+<p><span style="color: #d4d0c8;"><strong>说明</strong></span></p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt;">
+<p><strong>*</strong></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-bottom: solid #4f81bd 1.0pt; border-right: solid #4f81bd 1.0pt;">
+<p>定义宽度或者小数点精度</p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-left: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt;">
+<p><strong>-</strong></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-bottom: solid #4f81bd 1.0pt; border-right: solid #4f81bd 1.0pt;">
+<p>左对齐----正数前无符号，负数前加负号</p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt;">
+<p><strong>+</strong></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-bottom: solid #4f81bd 1.0pt; border-right: solid #4f81bd 1.0pt;">
+<p>右对齐----正数前加正好，负数前加负号</p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt;">
+<p><strong>空格</strong></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-bottom: solid #4f81bd 1.0pt; border-right: solid #4f81bd 1.0pt;">
+<p>右对齐---正数前加空格，负数前加负号</p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-left: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt;">
+<p><strong>#</strong></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-bottom: solid #4f81bd 1.0pt; border-right: solid #4f81bd 1.0pt;">
+<p>在八进制数前面显示零(0)，在十六进制前面显示"0x"或者"0X"（取决于用的是"x"还是"X"）</p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt;">
+<p><strong>0</strong></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-bottom: solid #4f81bd 1.0pt; border-right: solid #4f81bd 1.0pt;">
+<p>显示的数字前面填充"0"而不是默认的空格</p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-left: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt;">
+<p><strong>(var)</strong></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-bottom: solid #4f81bd 1.0pt; border-right: solid #4f81bd 1.0pt;">
+<p>映射变量（通常用来处理字段类型的参数）</p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt;">
+<p><strong>m.n</strong></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-bottom: solid #4f81bd 1.0pt; border-right: solid #4f81bd 1.0pt;">
+<p>m 是显示的最小总宽度，n 是小数点后的位数（如果可用的话）</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+<br>
+
+- **width 可选**
+
+**占有宽度**
+
+	name="alpha"
+	age=27
+	
+	print ("name: %10s, age: %10d" %(name,age))
+
+
+<br>
+
+- **.precision 可选**
+
+**小数点后保留的位数**
+
+
+
+	f = 3.1415926
+	print （"value of f is: %.4f" %f）
+
+<br>
+
+- **typecode 必选**
+
+**常用的一般形式**
+
+	msg = '我叫%s,年龄%d,爱好%s' % ('Adam',18,'Apple')
+	
+
+<table style="border-collapse: collapse;" border="0"><colgroup><col style="width: 95px;"><col style="width: 543px;"></colgroup>
+<tbody valign="top">
+<tr style="background: #4f81bd;">
+<td style="padding-left: 7px; padding-right: 7px; border-top: solid #4f81bd 1.0pt; border-left: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt;">
+<p>格式化符号</p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt; border-right: solid #4f81bd 1.0pt;">
+<p>说明</p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt;">
+<p>%c</p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-bottom: solid #4f81bd 1.0pt; border-right: solid #4f81bd 1.0pt;">
+<p>转换成字符（ASCII 码值，或者长度为一的字符串）</p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-left: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt;">
+<p>%r</p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-bottom: solid #4f81bd 1.0pt; border-right: solid #4f81bd 1.0pt;">
+<p>优先用repr()函数进行字符串转换</p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt;">
+<p>%s</p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-bottom: solid #4f81bd 1.0pt; border-right: solid #4f81bd 1.0pt;">
+<p>优先用str()函数进行字符串转换</p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-left: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt;">
+<p>%d / %i</p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-bottom: solid #4f81bd 1.0pt; border-right: solid #4f81bd 1.0pt;">
+<p>转成有符号十进制数</p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt;">
+<p>%u</p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-bottom: solid #4f81bd 1.0pt; border-right: solid #4f81bd 1.0pt;">
+<p>转成无符号十进制数</p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-left: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt;">
+<p>%o</p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-bottom: solid #4f81bd 1.0pt; border-right: solid #4f81bd 1.0pt;">
+<p>转成无符号八进制数</p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt;">
+<p>%x&nbsp;/ %X</p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-bottom: solid #4f81bd 1.0pt; border-right: solid #4f81bd 1.0pt;">
+<p>转成无符号十六进制数（x / X 代表转换后的十六进制字符的大小写）</p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-left: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt;">
+<p>%e / %E</p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-bottom: solid #4f81bd 1.0pt; border-right: solid #4f81bd 1.0pt;">
+<p>转成科学计数法（e / E控制输出e / E）</p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt;">
+<p>%f / %F</p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-bottom: solid #4f81bd 1.0pt; border-right: solid #4f81bd 1.0pt;">
+<p>转成浮点数（小数部分自然截断）</p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-left: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt;">
+<p>%g / %G</p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-bottom: solid #4f81bd 1.0pt; border-right: solid #4f81bd 1.0pt;">
+<p>%e和%f / %E和%F 的简写</p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: solid #4f81bd 1.0pt; border-bottom: solid #4f81bd 1.0pt;">
+<p>%%</p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-bottom: solid #4f81bd 1.0pt; border-right: solid #4f81bd 1.0pt;">
+<p>输出% （格式化字符串里面包括百分号，那么必须使用%%）</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+<br>
+
+
+## 2 字符串内建函数format()
+
+
+**从Python2.6开始，新增了一种格式化字符串的函数str.format()，通过这个函数同样可以对字符串进行格式化处理**
+
+**使用“{}”符号来当作格式化操作符**
+
+
+<br>
+
+
+- **安位置格式化**
+
+
+		name='我叫{0},年龄{1}'                    
+		
+		al=name.format('apple',45)
+		print(al)
+
+
+- **列表传参**
+
+
+		name='我叫{0},年龄{1},{0}{0}'
+		
+		al=name.format(*['海角',34])                 
+		print(al) 
+
+
+- **下标参数**
+
+		li = ["Wilber", 28]
+		print "{0[0]} is {0[1]} years old".format(li)
+
+
+- **关键字对应 传参** 
+
+
+		name='我叫{name},年龄{age},{name}{name}'
+		al=name.format(name='apple',age=18)              
+		print(al)
+
+
+- **dic 字典传参**
+
+		name='我叫{name},年龄{age},{name}{name}'
+		dic={'name':'apple','age':18}
+		al=name.format(**dic)                 
+		print(al)
+
+
+- **format_map(dic)**
+
+		name='我叫{name},年龄{age},{name}{name}'
+		dic={'name':'apple','age':18}
+		al=name.format_map(dic)
+		print(al)
+
+
+<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515422353636&di=c849ec9526932c8de06789ee0fdb2194&imgtype=jpg&src=http%3A%2F%2Fimg3.imgtn.bdimg.com%2Fit%2Fu%3D4046576403%2C3112805890%26fm%3D214%26gp%3D0.jpg">                     
