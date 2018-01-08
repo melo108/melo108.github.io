@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "python文件I\O与file操作"
+title:  "python文件I\\O与file操作"
 description: python 文件操作
 date:   2017-03-16 14:55:52 +0200
 categories: jekyll update
