@@ -48,7 +48,7 @@ categories: jekyll update
                  告知所有爬虫网站的爬取 策略，<strong>要求爬虫规则</strong></span></pre>
 </div>
 <p><span style="color: #0000ff; font-size: 18px;"><strong>4 Robots 协议：</strong></span></p>
-<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="//common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"></span></div>
 <pre><span style="color: #000000;"><strong>Robots Exclusion Standard  网络爬虫排除标准<br><br></strong>User-agent:*<br>Disallow:/     ----- 基本形式
 
 <span style="font-size: 13px;"><strong>目的</strong></span>：告知<strong>网络爬虫规则</strong>，<strong>那些可以</strong>爬取，<strong>哪些不行</strong>
