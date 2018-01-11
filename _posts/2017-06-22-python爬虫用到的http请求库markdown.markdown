@@ -13,6 +13,7 @@ categories: jekyll update
 ----------
 **urllib + requests + selenium**
 
+<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515674559688&di=19b48fdd25c86cc4b728c68185e01d60&imgtype=0&src=http%3A%2F%2Fwww.th7.cn%2Fd%2Ffile%2Fp%2F2015%2F03%2F22%2Fd49bf98874c6221fa020f8f940c892f3.jpg">
 
 <br>
 <br>
@@ -793,7 +794,7 @@ input框输入
 
 
 <br>
-**cookies:  重要--- 验证**
+**cookies**
 
       browser.get_cookies()
       browser.add_cookie({})
