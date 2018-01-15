@@ -1,0 +1,1087 @@
+---
+layout: post
+title:  "python 面向对象基础"
+description: 编程思想，类和对象，面向对象三大特性
+date:   2017-05-11 14:55:52 +0200
+categories: jekyll update
+---
+
+
+# python基础 面向对象基础知识
+------
+
+<br>
+
+
+## 1 面向过程与面向对象编程思想
+
+<br>
+
+ **面向过程编程**
+> **面向结果去编程---一个流水线----可扩展性差---容易引起代码错误**
+
+
+**例子**
+
+	面向过程编程--函数--实现人狗大战
+
+	def person(*args):
+	    def attack(dog):
+	        print('%s 打了 %s'%(dic['name'],dog['name']))
+	    dic={'name':args[0],
+	         'sex':args[1],
+	         'aggr':args[2],
+	         'blood':args[3],
+	         'attack':attack}  # attack方法  ---- 放在字典里面
+	    return dic
+
+	def dog(*args):
+	    def bite(person):
+	        print('%s 咬了一口 %s'%(dic['name'],person['name']))
+	    dic={'name':args[0],
+	         'sex':args[1],
+	         'aggr':args[2],
+	         'blood':args[3],
+	         'bite':bite       # bite方法 放在字典里面
+	         }
+	    return dic
+	egg=person('egon','female',200,250)   # 人 字典
+	alex=dog('alex','female',200,250)    # 狗  字典
+	
+	egg['attack'](alex)
+	alex['bite'](egg)
+
+
+<br>
+
+
+**面向对象编程 与 面向过程编程：**
+
+
+<br>
+
+> **面向过程**
+
+**程序设计的核心是过程（流水线式思维），过程即解决问题的步骤，面向过程的设计就好比精心设计好一条流水线，考虑周全什么时候处理什么东西**。
+
+**优点** ：极大的降低了写程序的复杂度，只需要顺着要执行的步骤，堆叠代码即可。
+
+**缺点** ：一套流水线或者流程就是用来解决一个问题，代码牵一发而动全身。
+
+**应用场景**：一旦完成基本很少改变的场景，著名的例子有Linux內核，git，以及Apache HTTP Server等。
+
+ 
+
+<br>
+
+> **面向对象**
+
+**程序设计的核心是对象（上帝式思维），要理解对象为何物，必须把自己当成上帝，上帝眼里世间存在的万物皆为对象，不存在的也可以创造出来。**
+
+**优点**：解决了程序的扩展性。对某一个对象单独修改，会立刻反映到整个体系中，如对游戏中一个人物参数的特征和技能修改都很容易。
+
+**缺点**：可控性差，无法向面向过程的程序设计流水线式的可以很精准的预测问题的处理流程与结果，面向对象的程序一旦开始就由对象之间的交互解决问题，即便是上帝也无法预测最终结果。于是我们经常看到一个游戏人某一参数的修改极有可能导致阴霸的技能出现，一刀砍死3个人，这个游戏就失去平衡。
+
+**应用场景**：需求经常变化的软件，一般需求的变化都集中在用户层，互联网应用，企业内部软件，游戏等都是面向对象的程序设计大显身手的好地方。
+
+<br>
+
+**需要反复传递相同的参数, 给一些函数的时候 需要使用面向对象**
+
+**各个函数之间是独立且无共用的数据,需要函数式的应用场景**
+
+<br>
+
+
+## 2 面向对象基础
+
+
+<br>
+> 面向对象编程（Object Oriented Programming，OOP，面向对象程序设计）
+
+
+<br>
+
+
+
+- **(1) 类和对象**
+
+
+> **对象**
+
+就是一个实实在在的，可以准确的描述出来的实体，比如说egg，desk
+
+对象则是根据模板创建的实例，通过实例对象可以执行类中的函数(就是基于类而创建的一个具体的事物(具体存在的))
+
+>  **类** 
+
+就是具有相同属性和方法的一类事物
+
+类就是一个模板，模板里可以包含多个函数，函数里实现一些功能(把一类事物的相同特征和动作整合到一起就是类)
+
+
+> **实例化的过程** 
+
+就是 对象产生的过程
+
+
+<br>
+
+- **(2) 定义类和实例化对象**
+
+
+> **定义一个类： class 类名(首字母大写)**
+	
+	class Person:
+	
+	    role='Person'  # 类的属性 (静态属性)  共性的属性 | 所有对象共有的 类属性调用
+	
+	
+	    def __init__(self,name,sex='male'): 实例化的时候 会自动用__init__方法 __init__函数的运行，可以用它来为每个实例定制自己的特征
+	
+	
+	       对象属性 ----- 只属于对象----只有实例化的对象--调用
+	        self.role='person'
+	        self.sex=sex
+	        self.name=name  # self 相当于一个字典   self.name 相当于字典的key  后面相当于字典的对应的value
+	   
+	    def attack(self):       # 类里面的所有方法都是 函数 ---有一个必须要传的参数 ---self
+	        print('%s 是一个人'%self.role)
+	
+	
+	alex=Person() 实例化 当你用一个对象去调用他的方法的时候 自动传一个参数，这个参数就是对象本身
+
+	alex = Person(name='alex',sex='male')   实例化
+	print(alex.name,alex.role,alex.sex,alex.role)   调用属性  
+	alex.attack() 方法
+
+<br>
+
+**类属性，对象属性**
+
+> 类属性-------静态属性
+> 
+> 对象的方法----动态方法
+> 
+> 对象的属性----普通属性
+
+ 
+<br>
+
+**例子1  类的互相调用**
+
+	class Person:
+	    role='person'
+	    def __init__(self,name,sex,age,aggr=200,blood=20000):
+	        self.name=name
+	        self.sex=sex
+	        self.age=age
+	        self.aggr=aggr
+	        self.blood=blood
+	    def attack(self,person):
+	        person.blood-=self.aggr
+	class Dog:
+	    role='Dog'
+	    def __init__(self,race,sex,age,aggr=2000,blood=4000):
+	        self.race=race
+	        self.sex=sex
+	        self.age=age
+	        self.blood=blood
+	        self.aggr=aggr
+	    def bite(self,person):
+	        self.blood-=person.aggr
+
+
+**例子2 圆形类 -计算周长面积**
+
+	import math
+	class Circle:
+	    def __init__(self,r):
+	        self.r=r
+	        self.pi = math.pi
+	    def area(self):
+	        return self.r**2*self.pi
+	    def Length(self):
+	        return 2*self.r*self.pi
+	circle=Circle(10)
+	area=circle.area()
+	le=circle.Length()
+	print('面积是：%s'%area)
+	print('周长是：%s'%le)
+
+
+<br>
+
+
+
+- **(3) 类与对象的命名空间**
+
+
+对象可以找类，类不能找对象，向外层找
+
+
+<br>
+
+
+
+
+
+> **类的 静态属性：**
+
+**如果 对象的属性与类属性 同名**
+
+类.属性---->>>调用的就是类中的属性
+
+对象.属性---->>先从自己的内存空间里找名字，找到就先用自己的，没有找到,用类的
+
+
+
+<br>
+
+
+> **类的 动态属性(方法):**
+
+这个方法本身就 存在类中，并不存在对象内存中
+
+对象在调用类中的方法时，要依赖 自己内存中的一个绑定作用的 地址簿 去找类中的方法
+
+
+ 
+
+<br>
+
+
+> **对象的属性：**
+
+对象的属性只存在对象的空间内
+
+只能被对象调用,不能被类调用
+
+     先在自己的命名空间找 ，找到名字就停止
+
+	class A:
+	    def show_name(self):
+	        print(self.name)
+	
+	a=A()  # 新的对象 新的命名空间       
+	 
+	
+	A.name='person'
+	print(a.name)   "person"
+	b=A()
+		# print(b.name)  # AttributeError: 'A' object has no attribute 'name'
+		# b.show_name()  # AttributeError: 'A' object has no attribute 'name'
+
+ 
+
+<br>
+
+- **(4) 类，对象的互相组合 调用**
+
+
+
+
+
+> **类的组合 --- 什么有什么的关系----圆环有圆**
+
+
+
+	人 与 生日的互相组合
+	
+	class Person:
+	    def __init__(self,name,birth):
+	        self.name=name
+	        self.birth=birth
+	class Birthday:
+	    def __init__(self,year,month,day):
+	        self.year=year
+	        self.month=month
+	        self.day=day
+	birth=Birthday(1991,2,28)
+	alex=Person('alex',birth)
+	print(alex.birth.year)
+
+	
+	课程类 与 老师类的互相组合
+	
+	class Lesson:
+	    def __init__(self,subject,period,teacher):
+	        self.subject=subject
+	        self.period=period
+	        self.teacher=teacher
+	class Subject:
+	    def __init__(self,name,price,teacher):
+	        self.name=name
+	        self.price=price
+	        self.teacher=teacher
+	
+	class Teacher:
+	    def __init__(self,name,age,sex):
+	        self.name=name
+	        self.age=age
+	        self.sex=sex
+	
+	eva=Teacher('eva',18,'female')
+	python=Subject('python',20000,eva)
+	
+	lesson=Lesson(python,27,eva)
+	
+	print(lesson.subject.price)
+
+
+
+<br>
+
+## 3 面向对象的三大特性
+
+> **封装**
+> 
+> **多态**
+> 
+> **继承**
+ 
+
+<br>
+
+- **(1) 类的继承**
+
+
+<br>
+
+
+> **定义:**
+
+继承是一种创建新类的方式, 在python中，新建的类可以继承一个或者多个类，父类又称为基类 或者超类，新建的类称为派生类。
+
+<br>
+
+> **类继承使用的意义：**
+
+用已经有的类建立一个新的类，这样就重用了已经有的软件中的一部分设置大部分，
+大大生了编程工作量，这就是常说的软件重用，不仅可以重用自己的类，也可以继承别人的，
+比如标准库，来定制新的数据类型，这样就是大大缩短了软件开发周期，对大型软件开发来说，意义重大.
+ 
+<br>
+
+> **类的组合与类的继承：**
+
+类: 什么有什么  ---学生有班级  班级有学生
+
+继承:什么是什么  ----学生是人 桌子是家具  ------- 类的一种新语法
+
+
+	class Animal:      #  父类,超类,基类 被继承的
+	    pass
+	
+	class Dog(Animal): # 子类  派生类 继承
+	    pass
+	
+	#  查看父类  print(Dog.__bases__)  # (<class '__main__.Animal'>,)
+	
+	class Bnimal:
+	    pass
+	
+	class Cat(Animal,Bnimal): # 子类  派生类-=========多继承  继承多各类  ---  先找第一个父类  (多继承)
+	 pass # print(Cat.__bases__) # (<class '__main__.Animal'>, <class '__main__.Bnimal'>)
+	
+
+<br>
+
+> **继承与抽象：**
+
+先抽象，从下往上  --  从具体的对象 到类 到父类
+
+再具体，从上往下  --  先继承 --- 在实例化
+
+
+	
+	class Animal:
+	    def __init__(self,name):
+	        self.name=name
+	    def eat(self):
+	        print('%s 吃了 %s'%(self.name,self.food))
+	
+	class Cat(Animal):
+	    def __init__(self,name):
+	        self.name = name
+	
+	        # Animal.__init__(self,name)  # 经典类
+	
+	        super().__init__(name)        # 新式类调用 父类的方法
+	
+	        # super(Cat,self).__init__(name)  # 只能在类里面使用
+	
+	        self.food = '狗粮'
+	
+	    def say(self):
+	        print('Miao~')
+
+
+
+<br>
+
+**注意：在继承中**
+
+> 1 子类可以调用父类的所有属性和方法
+> 
+> 2 当父类与子类同时有同名的方法的时候 一定先用自己的
+> 
+> 3 想使用父类中的方法时候，需要使用 super(B,B_obj).__init__()  B是子类名 B_obj是B类的实例化对象
+ 
+> 4 相同的属性 应该提到 父类里面 提取这些共同的功能做成基类，用继承比较好
+
+
+	
+	class Animal:
+	    def __init__(self,name,food):
+	        self.name=name
+	        self.food=food
+	        self.family='CBD'   #  父类的地址
+	    def eat(self):
+	        print('%s 吃 %s'%(self.name,self.food))
+	    def drink(self):
+	        print('%s 喝水'%self.name)
+	    def sleep(self):
+	        print('%s 睡觉'%self.name)
+	    def yell(self):
+	        print('%s 叫唤'%self.name)
+	class Dog(Animal):
+	
+	    def __init__(self,name,food):
+	        self.food='狗粮'                 # 传入子类特定的food
+	        super().__init__(name,food)     # name 用来中转
+	
+	    def swim(self):
+	        print('%s 游泳 '%self.name)
+	class Bird(Animal):
+	
+	    def __init__(self,name):
+	        super().__init__(name,'鸟饲料')
+	        self.family='ABD'  # 鸟类地址
+	
+	    def fly(self):
+	        print('%s 会飞'%self.name)
+	
+	bird=Bird('鹦鹉')
+	dog=Dog('哈士奇','狗饲料')
+	
+	bird.eat()
+	dog.swim()
+	dog.eat()
+	
+	print(bird.family)
+	print(dog.family)
+
+<br>
+
+**例子 类中方法调用顺序**
+
+	class A:
+	    def get(self):
+	        self.say()
+	    def say(self):
+	        print('AAA')
+	class B(A):
+	    def say(self):
+	        print('BBB')
+	b=B()
+	b.get()
+	b.say() #BBB
+	        
+
+ 
+<br>
+
+> **父类中的属性与子类中的属性  (派生)**
+
+ 
+
+**派生的概念：** 子类添加的自己新的属性
+
+当然子类也可以添加自己新的属性或者在自己这里重新定义这些属性（不会影响到父类），
+需要注意的是，一旦重新定义了自己的属性且与父类重名，那么调用新增的属性时，
+就以自己为准了。
+ 
+	
+	class Charactor:
+	    def __init__(self,name,blood,aggr):
+	        self.name=name
+	        self.blood=blood
+	        self.aggr=aggr  # 子类都有的 属性
+	
+	class Person(Charactor):
+	    def __init__(self,name,blood,aggr,money):
+	        super().__init__(name,blood,aggr)  # super 写在上边 父类属性
+	        self.money=money                       # 派生属性 子属性类特有的
+	    def attack(self, dog):
+	        dog.blood -= self.aggr
+	
+	class Dog(Charactor):
+	    def __init__(self,name,blood,aggr,race):
+	        super().__init__(name,blood,aggr)
+	        self.race=race                        # 派生属性
+	    def bite(self, person):
+	        person.blood -= self.aggr
+	
+	alex=Person('alex',20000,500,6000)
+	taddy=Dog('taddy',20000,200,'taddy')
+	print(alex.money)
+	print(taddy.race)
+
+
+<br>
+
+> **两种继承**
+
+1、继承基类的方法，并且做出自己的改变或者扩展（代码重用）
+
+2、声明某个子类兼容于某基类，定义一个接口类，子类继承接口类，并且实现接口中定义的方法(又称接口继承)
+
+
+
+<br>
+
+> **接口类和抽象类(接口继承)**
+
+都 为子类提供规范 (子类要按照规范去写)
+
+
+1 接口类 不实现具体的方法--支持多继承---继承好几个接口
+
+2 抽象类 可以实现一些基础的功能--不支持多继承
+
+
+> 编程思想----为子类做规范
+> 
+> 归一化设计---几个类都实现了相同的功能
+> 
+> 接口类：可以多继承---且最好不要实现具体的功能
+> 抽象类：最好单继承，且可以实现简单的功能
+> 
+> 实现接口类和抽象类的语法：
+> 
+> from abc import abstractmethod,ABCMeta
+> class 父类(metaclass=ABCMeta)
+>     @abstractmethod
+>     def 要求子类中会用的 方法:
+>  
+
+	接口类 不执行方法 
+	
+	from abc import abstractmethod,ABCMeta
+	
+	class Payment(metaclass=ABCMeta):                #  父类---   接口类 --- 子类都继承 --- 约束子类
+	    @abstractmethod                        # 装饰器 装饰父类的 payment --- 如果子类没有父类的方法 就报错
+	    def payment(self,money):               # 用来约束子类中是否存在这个方法
+	        pass                               #  约束 子类使用 --- 提示 子类中没有 父类这个方法
+	
+	
+	class Applepay(Payment):
+	    def payment(self,money):
+	        print('apple 支付了 %s '% money)
+	class Alipay(Payment):
+	    def payment(self,money):
+	        print('支付宝 支付了 %d '%money)
+	class Wechatpay(Payment):
+	    def pay(self,money):
+	        print('微信 支付了 %d '%money)
+	
+	def payment(pay_obj,money):
+	    pay_obj.payment(money)
+	
+	apple=Applepay()
+	ali=Alipay()
+	# Wec=Wechatpay('Wec')
+	payment(apple,100)                 # 归一化设计
+	payment(ali,200)                    # 归一化设计
+	# payment(Wec,100)                  # 归一化设计
+
+<br>
+
+	抽象类 执行方法 
+	
+	class Operate:            # operate---抽象类 可以
+	    def read(self):
+	        with open()
+	    def write(self):
+	        with open()        # 规范子类的模式
+	class File(Operate):
+	    def read(self):
+	        super().read()
+	    def write(self):
+	        super().write()
+	class Disk(Operate):
+	    def read(self):
+	        super().read()
+	    def write(self):
+	        super().write()
+
+<br>
+
+**接口隔离原则：**  
+
+ 
+使用多个专门的接口 而不是用单一的总接口 ---多继承
+    
+	class Fly_Animal:
+	    def fly(self):
+	        pass
+	class Swim_Animal:
+	    def swim(self):
+	        pass
+	class Walk_Animal:  #  定了三个规范 三个接口类 --- 强制要求子类规范实现 -----
+	    def walk(self):
+	        pass
+	
+	class Tiger(Swim_Animal,Walk_Animal):
+	    def walk(self):
+	        pass
+	    def swim(self):
+	        pass
+	
+	class  Frog:
+	    def walk(self):
+	        pass
+	    def swim(self):
+	        pass
+
+ 
+
+**依赖倒置原则：**
+
+ 
+高层模块不应该依赖低层模块，二者都应该依赖其抽象；抽象不应该应该依赖细节；
+细节应该依赖抽象。换言之，要针对接口编程，而不是针对实现编程
+   
+
+
+
+
+
+<br>
+
+
+> **继承的顺序：**
+
+在py2(2.7)中      class A: pass -----经典类
+
+                 class A(object):pass-----新式类
+
+				 object 是所有类的基类
+
+在py3中           class A: pass ------只有新式类
+                 
+
+
+ 
+
+**砖石继承：**
+
+ 
+经典类---深度优先 ----- 走到头 再返回
+
+新式类---广度优先  ----- 可以使用 子类.mro() 方法来查看 子类的继承顺序
+
+
+
+    print(A.mro())  # [<class '__main__.A'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.D'>, <class 'object'>]
+ 
+
+
+
+<br>
+
+- **（2）多态**
+
+
+ python 天生支持多态
+
+ 多态指的是 事物的多种形态,由**不同的类实例化得到的对象，调用同一个方法，执行的逻辑不同。**
+
+
+	s1='abc'           # 示例
+	l=[1,2]
+	print(s1.__len__())
+	print(l.__len__())
+	
+	3
+	2
+
+
+类的继承有两层意义：1.改变 2.扩展
+
+1、多态就是类的这两层意义的一个具体的实现机制
+2、调用不同的类实例化得到对象下的相同的方法，实现的过程不一样。
+3、python中的标准类型就是多态概念的一个很好的示范 。
+
+
+
+
+
+<br>
+
+- **(3) 类的封装**
+
+
+<br>
+
+
+> **定义：** 
+
+将内容封装到某个地方，以后再去调用被封装在某处的内容,
+ 
+隐藏对象的属性 和 实现细节，仅对外部提供公共访问方式.
+
+<br>
+
+
+> **封装原则：** 
+
+将不需要对外提供的内容 都隐藏起来
+把属性都隐藏，提供公共方法对其访问
+
+<br>
+
+> **好处**
+
+将变化隔离
+
+便于使用
+
+提供重用性
+
+提高安全性
+
+<br>
+
+
+> **约定:**
+
+任何以单下划线开头的名字和双下划线开头的名字都应该是内部的,私有的。
+
+<br>
+
+> **私有属性，私有静态属性，私有方法**
+
+	class Teacher:
+	    __identifier='Teacher'   #  私有静态属性
+	    def __init__(self,name,pwd):
+	        self.name=name
+	        self.__pwd=pwd        # 私有属性   ---      _Teacher__pwd 外部的状态
+	        self.__show_pwd()     # 私有方法内部调用
+	        self.__show_ID()
+	    def __show_pwd(self):     # 私有方法
+	        print(self.__pwd)     #  私有属性可以在内部使用
+	    def __show_ID(self):
+	        print('alex is %s'%self.__identifier)
+	
+	    def __P(self):     # 内部的密码 处理  不被外部使用
+	        return hash(self.__pwd)
+	    def login(self,password):
+	        return hash(password)==self.__P
+	
+	alex=Teacher('alex','3714')
+	print(alex.login('3872'))
+	# print(alex.__pwd)    #----- 这里找不到 即外部查看不到对象的私有属性---- __pwd属性
+	# alex.show_pwd()      # 私有方法   外部 不能使用
+	print(alex.__dict__)   # 查看对象的属性  {'name': 'alex', '_Teacher__pwd': '3714'}
+	# print(alex.pwd) 
+	alex._Teacher__pwd='2881' # 外部修改
+	# alex.show_pwd()      # 私有方法   外部 不能使用
+	alex.__a='a'           # 外部增加的只是普通属性
+	print(alex.__dict__)   # 查看对象的属性  {'name': 'alex', '_Teacher__pwd': '2881', '__a': 'a'}
+
+
+
+查看对象的全部属性
+
+	alex.__dict__    {'name': 'alex', '_Teacher__pwd': '3714'}
+
+	_类名__私有属性  '_Teacher__pwd': '3714'
+
+	alex._Teacher__pwd='2881' # 外部修改
+
+
+<br>
+
+> **父类的私有方法子类不能继承：**
+
+
+1 有一些方法的返回值还是用来作为中间结果
+
+2 父类的方法不希望 子类继承
+
+	class Foo:
+	    def __jing(self):  # 父类的私有方法子类不能继承
+	        print('Foo')
+	class Son(Foo):
+	    # def __jing(self):
+	    #     print('Son')
+	    def f(self):
+	        self.__jing()
+	son=Son()
+	son.f()
+
+<br>
+
+
+> **property**
+
+在方法(函数属性)上面加 @property，将函数属性伪装成数据属性(封装逻辑)
+
+把类中的方法   伪装成属性 
+	
+	class Person:
+	    def __init__(self,name,height,weight):
+	        self.name=name
+	        self.__height=height
+	        self.__weight=weight  # 只需要在内部计算 不修改
+	
+	    @property   # 把类中的方法   伪装成属性   ----属性不需要方法
+	    def get_BMI(self):
+	        return self.__weight/self.__height/self.__height
+	
+	    def change_weight(self,weight):
+	        if weight>20:
+	            self.__weight=weight
+	        else:
+	            print('体重过轻')
+	
+	j=Person('j',1.81,93)
+	print(j.get_BMI)
+	j.change_weight(13)
+	print(j.get_BMI())
+
+
+
+> **setter:**
+
+修改伪装属性
+
+
+	 class Shop:
+	    discount=0.75
+	    def __init__(self,name,price):
+	        self.name=name
+	        self.__price=price
+	    @property                      # 伪装属性
+	    def price(self):
+	        return self.__price*Shop.discount  # 只有计算结果--伪装成属性
+	
+	    @price.setter
+	    def price(self,new_price):     #  是一个相同的属性
+	        self.__price=new_price    # 修改伪装属性
+	
+	
+	apple=Shop('apple',5)
+	print(apple.price)
+	apple.price=6  -----apple.price--->> self.__price=6
+	print(apple.price)------self.__price*Shop.discount
+
+
+> **deleter:**
+
+删除属性
+
+	class Shop:
+	    discount=0.75
+	    def __init__(self,name,price):
+	        self.name=name
+	        self.__price=price
+	    @property                      # 伪装属性
+	    def price(self):
+	        return self.__price*Shop.discount  # 只有计算结果--伪装成属性
+	
+	    @price.setter
+	    def price(self,new_price):     #  是一个相同的属性
+	        self.__price=new_price    # 修改伪装属性
+	
+	    @price.deleter    #  删除属性
+	     def price(self):
+	        del self.__price
+	        
+	
+	apple=Shop('apple',5)
+	print(apple.price)
+	apple.price=6
+	print(apple.price)
+	del apple.price------ 直接删除 找不到 ---伪装成属性
+
+
+
+<br>
+
+> **静态方法 @staticmethod与绑定方法**
+
+- 静态方法--非绑定方法
+
+普通函数,不自动传值
+
+跟类和实例无关系，名义上归属类管理，但不能使用类变量和实例变量,在方法(函数属性)上面加 @staticmethod 
+
+
+
+    @staticmethod        # 不能将函数放在类外面 完全适用面向对象编程的时候
+                         # 并可以使用且这个函数完全不需要对象的类和属性
+                         # 就可以用staticmethod装饰这个函数
+
+    def func1():        # 静态方法  不用传 self 对象 参数
+                        # 对象的属性 和 类的属性都不需要
+        print('func')
+
+- 绑定方法--对象方法
+
+需要传参数 self ---指向对象
+
+    def func2(self):    # 绑定方法--对象方法-需要传参数 self ---指向对象
+                        # 对象的属性和 类的属性
+        print('abc')
+
+
+<br>
+
+
+> **类方法 @classmethod**
+
+
+需要self参数，自动加cls参数，python底层自动传入类对象。
+
+跟实例没有关系，类自己调用；只能访问类的属性，不能访问实例属性
+
+用法 在方法(函数属性)上面加 @classmethod　
+
+
+	借用类方法 实例化
+
+	class MySQL:
+	    def __init__(self,ip,port):
+	        self.ip=ip
+	        self.port=port
+	    @classmethod
+	    def from_conf(cls):
+	        obj=cls(10,808)
+	        return obj
+
+	obj1=MySQL.from_conf() # 借用类方法 实例化
+	obj2=MySQL(19,200)     # 正常的实例化
+
+<br>
+
+	绑定到对象的方法，绑定到类的方法
+
+	class People:
+	    def __init__(self,name):
+	        self.name=name
+	    def bar(self):
+	        print('==>>',self.name)
+	    @classmethod
+	    def func(cls):
+	        print(cls)
+	f=People('egon')
+	People.func() # 绑定到类的方法
+	f.bar()  # 绑定到对象的方法
+
+<br>
+
+## 4 面向对象概念小结
+
+<br>
+
+
+
+> **抽象/实现**
+
+**抽象**
+
+指对现实世界问题和实体的本质表现,行为和特征建模,建立一个相关的子集,可以用于 绘程序结构,从而实现这种模型。抽象不仅包括这种模型的数据属性,还定义了这些数据的接口。
+
+**对某种抽象的实现**
+
+就是对此数据及与之相关接口的现实化(realization)。现实化这个过程对于客户 程序应当是透明而且无关的。 
+
+<br>
+
+
+> **封装/接口**
+
+**封装**
+
+描述了对数据/信息进行隐藏的观念,它对数据属性提供接口和访问函数。通过任何客户端直接对数据的访问,无视接口,与封装性都是背道而驰的,除非程序员允许这些操作。作为实现的 一部分,客户端根本就不需要知道在封装之后,数据属性是如何组织的。
+
+在Python中,所有的类属性都是公开的,但名字可能被“混淆”了,以阻止未经授权的访问,但仅此而已,再没有其他预防措施了。这就 **需要在设计时,对数据提供相应的接口**, 以免客户程序通过不规范的操作来存取封装的数据属性。
+
+注意：封装绝不是等于“把不想让别人看到、以后可能修改的东西用private隐藏起来”
+
+真正的封装是，经过深入的思考，做出良好的抽象，给出“完整且最小”的接口，并使得内部细节可以对外透明
+
+（注意：对外透明的意思是，外部调用者可以顺利的得到自己想要的任何功能，完全意识不到内部细节的存在）
+
+<br>
+
+
+> **合成**
+
+合成扩充了对类的 述,使得多个不同的类合成为一个大的类,来解决现实问题。**合成** 描述了 一个异常复杂的系统,比如一个类由其它类组成,更小的组件也可能是其它的类,数据属性及行为, 所有这些合在一起,彼此是“有一个”的关系。
+
+
+<br>
+
+> **派生/继承/继承结构**
+
+**派生**
+
+描述了子类衍生出新的特性,新类保留已存类类型中所有需要的数据和行为,但允许修改或者其它的自定义操作,都不会修改原类的定义。
+
+**继承**
+
+描述了子类属性从祖先类继承这样一种方式
+
+**继承结构**
+
+表示多“代”派生,可以述成一个“族谱”,连续的子类,与祖先类都有关系。
+
+<br>
+
+> **泛化/特化**
+
+基于继承
+
+**泛化** 表示所有子类与其父类及祖先类有一样的特点。
+
+**特化** 描述所有子类的自定义,也就是,什么属性让它与其祖先类不同。
+
+
+
+<br>
+
+> **多态**
+
+
+**多态的概念**
+
+指出了对象如何通过他们共同的属性和动作来操作及访问,而不需考虑他们具体的类。
+
+多态表明了动态(又名,运行时)绑定的存在,允计重载及运行时类型确定和验证。 
+
+举例：
+	
+	水是一个类
+	
+	不同温度，水被实例化成了不同的状态：冰，水蒸气，雾（然而很多人就理解到这一步就任务此乃多态，错，fuck！，多态是运行时绑定的存在）
+	
+	(多态体现在由同一个类实例化出的多个对象，这些对象执行相同的方法时，执行的过程和结果是不一样的)
+	
+	冰，水蒸气，雾，有一个共同的方法就是变成云，但是冰.变云(),与水蒸气.变云()是截然不同的两个过程，虽然调用的方法都一样
+
+<br>
+
+
+> **自省/反射**
+
+**自省**也称作**反射**
+
+这个性质展示了某对象是如何在运行期取得自身信息的。**如果传一个对象给你,你可以查出它有什么能力,这是一项强大的特性**。
+
+    如果Python不支持某种形式的自省功能,dir和type内建函数,将很难正常工作。
+
+    还有那些特殊属性,像__dict__,__name__及__doc__
