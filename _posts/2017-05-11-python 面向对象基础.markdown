@@ -663,13 +663,18 @@ categories: jekyll update
 
 > **继承的顺序：**
 
-在py2(2.7)中      class A: pass -----经典类
+在py2(2.7)中      
+
+		 class A: pass -----经典类
 
                  class A(object):pass-----新式类
 
 				 object 是所有类的基类
+				 
 
-在py3中           class A: pass ------只有新式类
+在py3中           
+
+		class A: pass ------只有新式类
                  
 
 
