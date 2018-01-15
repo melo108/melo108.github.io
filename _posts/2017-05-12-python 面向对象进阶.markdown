@@ -1,0 +1,353 @@
+---
+layout: post
+title:  "python 面向对象进阶"
+description: 反射，内置函数,元类
+date:   2017-05-12 14:55:52 +0200
+categories: jekyll update
+---
+
+
+# python基础 面向对象基础知识
+------
+
+<br>
+
+
+## 1 反射
+
+<br>
+
+**自省**也称作**反射**
+
+这个性质展示了某对象是如何在运行期取得自身信息的。**如果传一个对象给你,你可以查出它有什么能力,这是一项强大的特性**。
+
+    如果Python不支持某种形式的自省功能,dir和type内建函数,将很难正常工作。
+
+    还有那些特殊属性,像__dict__,__name__及__doc__
+
+
+**反射的好处**
+
+可以事先定义好接口，接口只有在被完成后才会真正执行，实现即插即用，这其实是一种‘后期绑定’，即你可以事先把主要的逻辑写好（只定义接口），然后后期再去实现接口的功能。****
+
+python面向对象中的反射：通过字符串的形式操作对象相关的属性。python中的一切事物都是对象（都可以使用反射）
+
+
+<br>
+
+
+
+- **（1）四个可以实现自省的函数 hasattr, getattr, setattr, delattr**
+
+
+	
+	
+		class Foo:
+		    f = '类的静态变量'
+		    def __init__(self,name,age):
+		        self.name=name
+		        self.age=age
+		
+		    def say_hi(self):
+		        print('hi,%s'%self.name)
+		
+		obj=Foo('egon',73)
+		
+		#检测是否含有某属性
+		print(hasattr(obj,'name'))
+		print(hasattr(obj,'say_hi'))
+		
+		#获取属性
+		n=getattr(obj,'name')
+		print(n)
+		func=getattr(obj,'say_hi')
+		func()
+		
+		print(getattr(obj,'aaaaaaaa','不存在啊')) #报错
+		
+		#设置属性
+		setattr(obj,'sb',True)
+		setattr(obj,'show_name',lambda self:self.name+'sb')
+		print(obj.__dict__)
+		print(obj.show_name(obj))
+		
+		#删除属性
+		delattr(obj,'age')
+		delattr(obj,'show_name')
+		delattr(obj,'show_name111')#不存在,则报错
+		
+		print(obj.__dict__)
+
+<br>
+
+	类的反射
+
+		class Foo(object):
+		 
+		    staticField = "old boy"
+		 
+		    def __init__(self):
+		        self.name = 'wupeiqi'
+		 
+		    def func(self):
+		        return 'func'
+		 
+		    @staticmethod
+		    def bar():
+		        return 'bar'
+		 
+		print getattr(Foo, 'staticField')
+		print getattr(Foo, 'func')
+		print getattr(Foo, 'bar')
+
+
+
+<br>
+
+- **(2) 三个给对象添加属性的参数**
+
+这是python解释器底层的内置方法。当然我们也可以对它们进行一些操作
+
+	　　　　__setattr__   添加/修改属性会触发它的执行
+	
+	　　　　__delattr__  删除属性的时候会触发
+	
+	　　　　__getattr__   只有在使用点调用属性且属性不存在的时候才会触发
+
+　作用：系统内置函数属性(你定义了就用你定义的函数属性，不定义就用系统默认的函数属性)
+
+
+	class Foo:
+	    x=1
+	    def __init__(self,y):
+	        self.y=y
+	
+	    def __getattr__(self, item):
+	        print('----> from getattr:你找的属性不存在')
+	
+	
+	    def __setattr__(self, key, value):
+	        print('----> from setattr')
+	        # self.key=value #这就无限递归了,你好好想想
+	        # self.__dict__[key]=value #应该使用它
+	
+	    def __delattr__(self, item):
+	        print('----> from delattr')
+	        # del self.item #无限递归了
+	        self.__dict__.pop(item)
+	
+	#__setattr__添加/修改属性会触发它的执行
+	f1=Foo(10)
+	print(f1.__dict__) # 因为你重写了__setattr__,凡是赋值操作都会触发它的运行,你啥都没写,就是根本没赋值,除非你直接操作属性字典,否则永远无法赋值
+	f1.z=3
+	print(f1.__dict__)
+	
+	#__delattr__删除属性的时候会触发
+	f1.__dict__['a']=3#我们可以直接修改属性字典,来完成添加/修改属性的操作
+	del f1.a
+	print(f1.__dict__)
+	
+	#__getattr__只有在使用点调用属性且属性不存在的时候才会触发
+	f1.xxxxxx
+
+
+
+
+
+<br>
+
+
+## 2 类的其他方法成员
+
+
+<br>
+
+
+
+
+> **Python内置类属性**
+	
+	__dict__ : 类的属性（包含一个字典，由类的数据属性组成）
+	__doc__ :类的文档字符串
+	__name__: 类名
+	__module__: 类定义所在的模块（类的全名是'__main__.className'，如果类位于一个导入模块mymod中，那么className.__module__ 等于 mymod）
+	__bases__ : 类的所有父类构成元素（包含了一个由所有父类组成的元组）
+	__del__: 在对象销毁的时候被调用，当对象不再被使用时析构方法，当对象在内存中被释放时，自动触发执行。析构函数的调用是由解释器在进行垃圾回收时自动触发执行的
+
+	注：此方法一般无须定义，因为此工作都是交给Python解释器来执行
+
+<br>
+
+
+
+> **基础重载方法**
+
+<table class="reference">
+<tbody><tr>
+<th style="width:10%">序号</th><th>方法, 描述 &amp; 简单的调用</th>
+</tr>
+<tr><td>1</td><td><b>__init__ ( self [,args...] )</b><br>构造函数<br>简单的调用方法: <i>obj = className(args)</i></td></tr>
+<tr><td>2</td><td><b>__del__( self )</b><br>析构方法, 删除一个对象<br>简单的调用方法 : <i>del obj</i></td></tr>
+<tr><td>3</td><td><b>__repr__( self )</b><br>转化为供解释器读取的形式<br>简单的调用方法 : <i>repr(obj)</i></td></tr>
+<tr><td>4</td><td><b>__str__( self )</b><br> 用于将值转化为适于人阅读的形式<br>简单的调用方法 : <i>str(obj)</i></td></tr>
+<tr><td>5</td><td><b>__cmp__ ( self, x )</b><br>对象比较<br>简单的调用方法 : <i>cmp(obj, x)</i></td></tr>
+<tr><td>6</td><td><b>__format__ ( self, format_spec )</b>自定制格式化字符串:format(str,format_spec)</i></td></tr>
+<tr><td>7</td><td><b>__getitem__,__setitem__,__delitem__( self,item)</b>自定制字典健值对形式:obj['name']='xxx'</i></td></tr>
+<tr><td>8</td><td><b>__len__(self)</b>元素个数:len(self.__dict__)</i></td></tr>
+<tr><td>9</td><td><b>__hash__(self)</b>哈希值--用于比较大小</td></tr>
+<tr><td>10</td><td><b>__eq__(self,other)</b>判断大小</td></tr>
+<tr><td>11</td><td><b>__call__(self)</b>对象后面加括号，触发执行。</td></tr>
+<tr><td>12</td><td><b>__new__(cls, *args, **kwargs)</b>对象实例化先执行 return object.__new__(A, *args, **kwargs)。</td></tr>
+</tbody></table>
+
+
+
+
+
+<br>
+__ eq __ **相等例子**
+
+	class Person:
+	    def __init__(self,name,age,sex):
+	        self.name = name
+	        self.age = age
+	        self.sex = sex
+	
+	    def __hash__(self):
+	        return hash(self.name+self.sex)
+	
+	    def __eq__(self, other):
+	        if self.name == other.name and self.sex == other.sex:return True
+	
+	
+	p_lst = []
+	for i in range(84):
+	    p_lst.append(Person('egon',i,'male'))
+	
+	print(p_lst)
+	print(set(p_lst))
+
+
+<br>
+	
+**单例模式**
+	
+	class Singleton:
+	    def __new__(cls, *args, **kw):
+	        if not hasattr(cls, '_instance'):
+	            cls._instance = object.__new__(cls, *args, **kw)
+	        return cls._instance
+	
+	one = Singleton()
+	two = Singleton()
+	
+	two.a = 3
+	print(one.a)
+	# 3
+	# one和two完全相同,可以用id(), ==, is检测
+	print(id(one))
+	# 29097904
+	print(id(two))
+	# 29097904
+	print(one == two)
+	# True
+	print(one is two)
+	
+
+
+<br>
+
+
+## 3 元类 metaclass
+
+<br>
+
+python中一切皆是对象，类本身也是一个对象，当使用关键字class的时候，python解释器在加载class的时候就会创建一个对象(这里的对象指的是类而非类的实例)
+	
+
+	type函数可以查看类型，也可以用来查看对象的类，二者是一样的
+	print(type(f1)) # 输出：<class '__main__.Foo'>     表示，obj 对象由Foo类创建
+	print(type(Foo)) # 输出：<type 'type'>  
+
+
+<br>
+
+
+- **(1) 元类的相关定义：**
+
+
+> **元类是类的类，是类的模板**
+
+>**元类是用来控制如何创建类的，正如类是创建对象的模板一样**
+
+>**元类的实例为类，正如类的实例为对象(f1对象是Foo类的一个实例，Foo类是 type 类的一个实例)**
+
+>**type是python的一个内建元类，用来直接控制生成类，python中任何class定义的类其实都是type类实例化的对象**
+
+
+<br>
+
+
+- **(2) 类的创建方式：**
+
+
+> **用class定义：**
+
+	class Foo:
+	    def func(self):
+	        print('from func')
+
+
+> **用 type 生成**
+
+type要接收三个参数 type("创建的类名","继承的类名",{创建的类的参数字典})
+
+
+	def func(self):
+	         print('from func')
+	x=1
+	Foo=type('Foo',(object,),{'func':func,'x':1})
+
+
+
+> **用户也可以通过继承type来自定义元类**
+
+个类没有声明自己的元类，默认它的元类就是type，除了使用元类type，用户也可以通过继承type来自定义元类（顺便我们也可以瞅一瞅元类如何控制类的创建，工作流程是什么）
+
+
+
+> **metaclass=Myclass**
+
+	class Myclass(type):
+	    def __init__(self):
+	        print(self)
+	    def __call__(self, *args, **kwargs):
+	        obj = object.__new__(self)
+	        self.__init__(obj,*args,**kwargs) 
+	        return obj 
+
+	class Newclass(metaclass=Myclass): 
+	    def __init__(self,name):
+	        self.name = name
+
+	s1 = Newclass("New")      
+
+	print(s1.__dict__) 
+	
+
+
+
+	
+	1  实例 新建的类 metaclass=Myclass 
+	定义 metaclass=Myclass，把 Newclass 传入 元类里 
+	
+		print(<class '__main__.Newclass'>)
+	
+	2 Newclass()  -- 调用 元类的 __ call __方法 ，实例化一个 类对象
+	
+	3 实例化 一个 对象
+
+
+	控制台输出
+	<class '__main__.Newclass'>
+	{'name': 'New'}
