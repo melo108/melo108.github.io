@@ -1,0 +1,242 @@
+---
+layout: post
+title:  "python 模块与包"
+description: 模块与包的定义与导入
+date:   2017-04-20 14:55:52 +0200
+categories: jekyll update
+---
+
+
+# python基础 模块与包
+------
+
+<br>
+
+
+## 1 模块
+
+<br>
+
+
+<br>
+
+> **定义：**
+
+一个模块就是一个**包含了python定义和声明的文件**，**文件名就是模块名字加上.py的后缀**。
+
+
+<br>
+
+> **常见加载的模块分为四个通用类别:**
+
+1 使用python编写的代码（.py文件）
+
+2 已被编译为共享库或DLL的C或C++扩展
+
+3 包好一组模块的包
+
+4 使用C编写并链接到python解释器的内置模块
+
+
+<br>
+
+
+> **模块化的好处**
+
+
+
+1 **退出python**解释器然后重新进入，**之前定义的函数或者变量都将丢失**。
+
+2 将程序写到文件中以便**永久保存下来，即脚本script**，需要时通过python test.py方式去执行。
+
+3 功能越来越多，为了方便管理，分成一个个的文件，当做模块来导入到其他的模块中，**实现了功能的重复利用**
+
+
+<br>
+
+
+> **python 模块的导入**
+
+
+<br>
+
+- **python优化 import语句：** 
+
+第一次导入后就将模块名加载到内存了，后续的import语句仅是对已经加载大内存中的模块对象增加了一次引用，不会重新执行模块内的语句
+
+	import my_module #只在第一次导入时才执行my_module.py内代码,此处的显式效果是只打印一次'from the my_module.py',当然其他的顶级代码也都被执行了,只不过没有显示效果.
+	import my_module
+	import my_module
+	import my_module
+
+
+- **sys.modules**
+
+当前已经加载的模块，sys.modules是一个字典，内部包含模块名与模块对象的映射，该字典决定了导入模块时是否需要重新导入。
+
+- **模块独立的名称空间**
+
+每个模块都是一个独立的名称空间，定义在这个模块中的函数，把这个模块的名称空间当做全局名称空间，这样我们在编写自己的模块时，就不用担心我们定义在自己模块中全局变量会在被导入时，与使用者的全局变量冲突
+
+	#测试一:money与my_module.money不冲突
+	#demo.py
+	import my_module
+	money=10
+	print(my_module.money)
+	
+	'''
+	执行结果：
+	from the my_module.py
+	1000
+	'''
+
+<br>
+
+- **常用操作**
+
+
+
+**import .. as ..**
+
+为模块名起别名
+
+
+**import sys,os,re**
+
+在一行导入多个模块
+
+**from ... import...**
+
+**from .. import .. as ..**
+
+**from .. import (.., .., ..)**
+
+而from 语句相当于import，也会创建新的名称空间，但是将module中的名字直接导入到当前的名称空间中，在当前名称空间中，直接使用名字就可以了
+
+
+
+- **模块搜索路径**
+
+**模块的查找顺序是**：内存中已经加载的模块->内置模块->sys.path路径中包含的模块
+
+	import sys
+	sys.path.append('/a/b/c/d')
+	sys.path.insert(0,'/x/y/z') #排在前的目录，优先被搜索
+
+
+
+- **编译python文件**
+
+为了提高加载模块的速度，非运行速度。python解释器会在 __ pycache__ 目录中下缓存每个模块编译后的版本，格式为：module.version.pyc。
+
+
+
+- **dir(module)**
+
+内建函数dir是用来查找模块中定义的名字，返回一个有序字符串列表
+
+
+
+<br>
+
+
+## 2 包
+
+<br>
+
+
+
+
+> **定义：**
+
+**包是一种通过使用 '.模块名' 来组织python模块名称空间的方式**
+
+
+**包的本质就是一个包含 __ init __ .py文件的目录**
+
+
+**创建包的目的是被导入使用，包只是模块的一种形式而已，包即模块**
+
+<br>
+
+
+
+
+
+
+> **包的名称空间**
+
+import导入文件时，产生**名称空间**中的名字来源于文件，import 包，产生的名称空间的名字同样来源于文件，即包下的__ init __.py，导入包本质就是在导入该文件
+
+**包A和包B下有同名模块也不会冲突**，如A.a与B.a来自**俩个命名空间**
+
+
+<br>
+
+> **注意：**
+
+1 导入语句中（而不是在使用时）遇到**带点的**，都要第一时间提高警觉：这是关于**包才有的导入语法**
+
+2 包是**目录级**的（文件夹级），文件夹是用来组成py文件（包的本质就是一个包含__init__.py文件的目录）
+
+	在python3中，即使包下没有__init__.py文件，import 包仍然不会报错，而在python2中，包下一定要有该文件，否则import 包报错
+
+
+<br>
+
+> **包的导入**
+
+
+<br>
+
+- **常见操作**
+
+**import**
+
+同级别的文件中测试
+
+	import glance.db.models
+	glance.db.models.register_models('mysql') 
+
+
+**from ... import ...**
+
+	from glance.db import models
+	models.register_models('mysql')
+	
+	from glance.db.models import register_models
+	register_models('mysql')
+
+
+- __**init** __**.py文件**
+
+只要是第一次导入包或者是包的任何其他部分，都会依次执行包下的__init__.py文件,这个文件可以为空，但是也可以存放一些初始化包的代码
+
+- __**all** __**与 import \***
+
+		__init__.py文件中定义的名字，我们可以在这个文件中定义__all___:
+		__all__=['x','func','policy']
+
+		import *就导入__all__中的内容
+
+
+<br>
+
+> **绝对导入和相对导入**
+
+**绝对导入：**以glance作为起始
+
+**相对导入：**用.或者..的方式最为起始（只能在一个包中使用，不能用于不同目录内）
+
+我们在glance/api/version.py中想要导入glance/cmd/manage.py
+
+
+	在glance/api/version.py
+	
+	#绝对导入
+	from glance.cmd import manage
+	manage.main()
+	
+	#相对导入
+	from ..cmd import manage
+	manage.main()
