@@ -472,10 +472,28 @@ find(name,attrs,recursive,text,**kwargs) --- 标签对象
     doc("li:contains("hello")")
 
 
+<br>
 
 
+<br>
 
+## 4 lxml库的 etree 模块
 
+> **html---显示数据**
+
+> **xml ---传输数据**
+
+<br>
+
+lxml 库  , path helper 工具辅助解析
+
+**from lxml import etree**      版本问题 有时候 不能 import lxml 后 不能使用lxml.etree
+
+**xml=etree.HTML(html)**           转换为HTML DOM
+
+**xml.xpath("xpath语句")**
+
+	link_list=xml.xpath("//div[@class="threadlist_lz clearfix"]//a[@class="j_th_tit "]/@href") # 匹配结果列表
 
 
 
