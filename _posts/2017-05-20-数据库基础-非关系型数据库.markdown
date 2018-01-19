@@ -1,0 +1,1190 @@
+---
+layout: post
+title:  "数据库基础 非关系型数据库 MongoDB 和 redis"
+description:  MongoDB,redis
+date:   2017-05-20 14:55:52 +0200
+categories: jekyll update
+---
+
+
+
+
+# 数据库基础 非关系型数据库 MongoDB 和 redis
+
+-------------------------
+
+<br>
+
+
+
+## 1 NoSQL简介
+
+<br>
+
+> **访问量增加，频繁的读写
+> 直接访问（硬盘）物理级别的数据，会很慢 ，关系型数据库的压力会很大
+> 所以，需要内存级的读写操作，作为缓存**
+
+
+
+<br>
+
+> **1 NoSQL的使用**
+
+
+**为了加快读写操作时间 减少服务器压力**
+
+ 先访问(非关系型数据库)缓存中的数据 
+
+ (缓存中没有) 再去(关系型数据库)物理存储中访问数据
+
+
+
+**即 请求  --->> nosql  --->> mysql**
+
+
+<br>
+
+> **2 NoSQL的特点**
+
+
+	优点 ： 高可扩展性
+	       分布式计算
+	       低成本
+	       架构灵活
+	       没有复杂的关系
+	
+	缺点：
+	      没有标准化(产品不一样)       
+	      有限的查询功能功能
+	      最终一致是不直观的程序
+
+
+<br>
+
+> **3 NoSQL的分类**
+
+	非关系数据库的分类：
+
+	     列存储 :
+	     文档存储：
+	     键值对：
+	     图存储：
+	     对象存储：
+	     xml数据库：
+
+ redis,mongodb 中 储存 一些 经常使用(不常改变)的数据
+
+
+
+<br>
+
+
+
+## 2 MongoDB
+
+
+<br>
+
+
+> **基本概念**
+
+MongoDB  是一个 基于分布式文件存储的NoSQL，
+
+也可以做硬盘级别的读写
+
+面向集合，json风格的文件形式
+
+完整的索引支持，对任何属性都可以索引
+
+<br>
+
+
+> **mongodb 的三元素：**
+
+
+**数据库 
+database**   
+
+数据库   是一个集合的物理容器
+
+**集合(表)
+collection**  
+
+集合 ，存储多个文档(结构不固定)---相当于关系型数据库的表
+
+	{'name':'a','gender':'male'}
+	{'book':'a','gender':'male'}
+	{'name':'a','age':18}
+
+**文档(行)**
+                  
+document ，文档，就是对象 由键值对构成 json的扩展形式 bson
+
+	{'name':'a','gender':'male'}
+
+
+<br>
+
+
+> **与关系型数据库的对比:**
+
+
+	mongodb       关系型
+	
+	database       database
+	collection     table
+	document       row
+	field          column
+	index          index
+	primary key    主键自己维护
+
+
+
+<br>
+
+
+> **mongodb的安装和部署 (windows):**
+
+**注意:**
+
+**偶数版本是稳定版本,奇数版本是开发版本** 
+
+**32bit的mongodb最大只能存放 2G 数据,64bit 没有限制**
+
+
+<br>
+**服务端 mongod   默认端口27017**   
+
+	     1 官网下载64bit
+	       自定义安装后
+	
+	     2   在mongodb\下创建 data文件夹; 在data\下创建db文件夹  即 mongodb\data\db;
+	
+	     3    然后命令行 cd D:/mongodb/bin  切换路径 输入mongod.exe --dbpath D:/mongodb/data/db
+	
+	     4     出现如下，启动成功
+	     
+	     #  2017-11-07T09:40:38.843+0800 I COMMAND  [initandlisten] setting featureCompatibilityVersion #  to 3.4
+	     #  2017-11-07T09:40:38.845+0800 I NETWORK  [thread1] waiting for connections on port 27017
+	
+	     5   web访问  本地端口 127.0.0.1:27017
+ 	         It looks like you are trying to access MongoDB over HTTP on the native driver port.
+	         说明服务已开启
+	
+	     6 配置 Mongodb服务
+	
+	      # 创建 mongodb.cfg 文件 写入如下配置
+	
+	    systemLog:
+	        destination: file
+	        path: D:\mongodb\data\log\mongod.log
+	    storage:
+	        dbPath: D:\mongodb\data\db
+	
+	
+	    #  创建  data\log 文件夹
+	
+	   7  命令行下 执行 mongod.exe --config "D:\mongodb\mongod.cfg" --install
+	
+	       net start mongodb
+	       net stop  mongodb
+	
+	       mongod.exe --remove   移除mongodb服务
+
+**客户端**
+
+ 	mongo.exe
+
+<br>
+
+
+> **界面版mongodb**
+
+
+安装配置完成，可以使用图形界面版mongodb,这里推介 **robomongo robo 3t**
+
+
+
+<br>
+
+
+> **mongodb操作**
+
+
+<br>
+
+
+- **1 数据库操作**
+
+		
+		没有数据的 集合 和 数据库不会显示
+	
+		db     查看当前的数据库名称； 所有物理上存在的数据库
+		
+		db.stats() 查看当前的数据库信息；
+		
+		show dbs   查看所有的数据库
+		
+		use day1   直接创建 并切换数据库
+
+		db.dropDatabase() 删除库，需要先切换到当前库
+	
+		exit 退出
+		ctrl + c
+
+
+<br>
+
+
+
+- **2 集合操作**
+
+
+
+		db.createCollection("stu")
+		
+		show collections
+
+		show tables
+
+		db.t1.insert({"name":"aaa"})  # 创建 t1 同时 插入数据
+		
+		db.stu.drop()
+
+
+<br>
+
+
+- **3 数据类型 和 数据操作**
+
+
+**mongodb的数据类型**
+	
+	object ID --- 文档ID ---唯一标识
+	string 必须是有效的utf-8
+	boolean
+	integer 整数可以是 32 64的 取决于服务器
+	double 储存浮点数
+	arrays 数组 列表
+	object 文档可以嵌套
+	null
+	timestamp
+	date    new Date()
+
+ 
+
+**Object ID**  
+
+	不重复 文档的唯一性(可以自己定义 没有定义的mongodb会默认)
+
+	默认 12字节的 16进制数
+	
+	前四个字节是当前的时间戳 时间相关
+	3个字节 机器ID
+	2个字节的MONGODB进程ID
+	3个字节 简单的增量值
+
+<br>
+	
+**数据操作：**
+	
+	插入:(没有 集合会自己创建)
+	
+	　　db.stu.insert(document)
+	　　db.stu.insert({name:"gl",gender:0})
+		
+	   db.stu.insertMany([{},{},{}]) 插入多条记录
+	
+	　　自动生成的id : _id" : ObjectId("5a043500ffedb64e1403b240")
+	
+	查询：
+	
+	　　db.stu.find()
+	
+	修改：
+
+		
+		覆盖式的 修改：
+			
+			db.stu.update({"name":"a"},{"username":"al"})
+
+	
+	　　用 $set:{} （$unset:{}删除某个属性）只修改某个属性 --
+
+	　　不用的话 会修改整个文档的结构
+	
+	
+		　　db.stu.update({匹配条件},{$set:{name:"abc"}}) 只改第一个匹配的
+		
+		　　db.stu.update({},{$set:{name:"abc",gender:0}}) {} 匹配全部 只修改第一个
+		
+		　　db.stu.update({匹配条件},{$set:{name:"abc"}},{multi:true}) 全部修改
+		
+			db.stu.update({找不到带的匹配条件},{$set:{name:"abc"}},{upsert:true}) 找不到 插入记录
+	
+			db.stu.update({匹配条件},{$unset:{"要删除的字段":"任意字符"}})  清除某一字段
+
+		$inc 增加
+			
+			db.stu.update({}，{$inc:{"age":1}}，{multi：true})  age自增1
+		
+		$push 添加
+
+			db.stu.update({匹配条件},{$push:{"hobby":"read"}})
+			db.stu.update({匹配条件},{$push:{"hobby":{$each:[1,2]}}})
+
+		
+
+		$pop 删除两端
+
+			db.stu.update({匹配条件},{$pop:{"hbooy":-1})
+			db.stu.update({匹配条件},{$pop:{"hbooy":1})
+
+		$pull:按照条件删除元素,："$pull" 把符合条件的统统删掉，而$pop只能从两端删
+
+			db.stu.update({匹配条件},{$pull:{"hbooy":["read"]})
+
+	
+		$addToSet： 避免添加重复：去重 url
+
+			db.urls.insert({"_id":1,"urls":[]})
+			
+			db.urls.update({"_id":1},{"$addToSet":{"urls":'http://www.baidu.com'}})
+			
+			db.urls.update({"_id":1},{"$addToSet":{"urls":{"$each":[
+			            'http://www.baidu.com',
+			            'http://www.baidu.com',
+			            'http://www.xxxx.com']}}})
+			
+		
+
+
+	保存：按照 _id 字段
+	
+	　　如果一个文档存在的话是 覆盖式的修改,
+
+	　　不存在是添加 insert
+	
+	　　db.stu.save({name:"emily",gender:2}) 新增
+
+	　　db.stu.save({_id:"23010132",name:"emily",gender:2}) 有的话覆盖
+	
+	
+	删除:
+
+		1、删除多个中的第一个
+
+			db.user.deleteOne({ 'age': 8 })
+		
+		2、删除国家为China的全部
+
+			db.user.deleteMany( {'addr.country': 'China'} ) 
+		
+		3、删除全部
+
+			db.user.deleteMany({}) 
+		
+		　　db.stu.remove({gender:0},{justOne:true}) # 是否只删除一条
+		
+		　　db.stu.remove({}) 删除全部
+	
+	　
+	　　size:
+	
+	　　db.createCollection("sub",{capped:true,size:10}) # 超过 size大小 会覆盖 capped
+
+<br>
+
+**数据查询:**
+
+db.sub.find() 查询所有
+db.sub.find().pretty() 查询所有 格式化输出
+db.sub.findOne() 查询第一个
+
+	比较运算符:
+	
+	　　< $lt
+	　　<= $lte
+	　　> $gt
+	　　>= $gte
+	　　!= $ne
+		= {"条件":"条件"}
+	
+	　　		db.sub.find({age:{$gte:18}})
+	　　
+	
+	逻辑及运算符:
+	
+	　　且 , 
+	
+	　　或 $or[数组]
+
+	　　		db.sub.find({$or:[{age:{$gte:18}},{gender:0}],name:"alex"})
+
+		非 not
+
+	　　		db.sub.find({age:{$not:{$gte:18}}})
+
+		取余：
+
+			db.sub.stu.find({age:{$mod:[2,1]}}) 除2余1 的age
+	
+	
+	范围运算符：
+	
+	　　$in
+	
+	　　$nin
+
+	　　		db.sub.find({age:{$in:[18,20]}})
+	
+
+	支持正则表达式：
+	
+	　　使用 正则 表达式
+	　　		db.stu.find({name:{$regex:"^黄.*?[a,e]$"}})
+
+	取 指定的 字段
+		
+		db.stu.find({"name":{$regex:"^al"}},{"name":1,"age":1,"_id":0})  只选择查看name age 不要 id
+
+	查找数组  {hobby:["tea","music"]}
+
+			db.stu.find({"hobby":"tea"}) 包含tea的全部查找
+			
+			db.stu.find({"hobby.3":"tea"}) 查看第三个 hobby 是 tea的
+
+			db.stu.find({"hobby":{$all:["tea","music"]}})  查看 hobby 既有 tea 又有 music的
+
+			db.stu.find({},{"_id":0,"hobby":{"$slice":[0,3]}})  查找 所有记录的 第一到第三个hobby
+
+		
+	
+	支持函数
+	
+	　　db.stu.find({$where:function(){return this.age>20}})
+	
+	　　this 指的是文档对象
+	
+	　　mongodb 用的是 js的编辑器
+	
+	 
+	
+	limit(n) 选择 n 条  显示的个数
+
+	skip(m) 跳过m条 
+	
+	　　db.sub.find().skip(1).limit(2)
+	
+	
+	投影：只选择某个字段
+	
+	　　db.sub.find({},{name:1,gender:0}) # 表示只查看name字段
+	
+	排序：
+
+	　　db.sub.find().sort({age:-1}) # 1 -1 正序逆序
+	　　db.sub.find().sort({age:-1,"_id":1}) # 先按 age 降序 再按 id正序 
+	
+	count:计数
+	
+	　　db.sub.count({name:{$gte:18}})
+	　　
+	distinct:消除重复
+	
+	　　db.sub.distinct("gender",{age:{$lte:20}})
+	
+	 
+
+<br>
+
+**mongoDB的高级操作**
+
+ 
+
+	aggregate 聚合:
+	
+	 
+	
+	　　主要用于计算数据 类似 sum avg
+	
+	　　db.stu.aggregate([{管道:{表达式}}])
+	
+	
+	常用的管道
+	
+	　　$ group -----group by
+	　　$ match ----过滤数据
+	　　$ project ---- 修改文档的结构
+	　　$ sort
+	　　$limit
+	　　$skip
+	　　$unwind
+	
+	表达式：
+	　　$ sum
+	　　$ avg
+	　　$ min
+	　　$ max
+	　　$ push
+	　　$ first
+	　　$ last　　
+	
+	
+	 分组 --- group
+	
+	　　db.sub.aggregate([
+	　　{$group:{_id:"$gender",counter:{$sum:1}}}
+	　　])
+	
+	　　# $push ---将 符合条件的数据存入 一个新文档中
+	　　db.sub.aggregate([
+	　　{$group:{_id:"$gender",counter:{$push:"$$ROOT"}}}
+	　　])
+	
+	
+	过滤 --- match
+	
+	db.sub.aggregate( [
+	{$match:{age:{$gt:20}}} ,
+	{$group:{_id:"gender",counter:{$sum:1}}}
+	] )
+	
+	# 先过滤结果 然后 再 分组操作
+	
+	
+	# $project
+	# $sort
+	# $limit
+	# $skip
+	
+	 
+	
+	　　顺序=====
+	
+	　　db.stu.aggregate([
+	　　{$match:{age:{$gt:20}}},
+	　　{$group:{_id:"gender",counter:{$sum:1}}},
+	　　{$project:{_id:1,counter:1}}, # 投影
+	　　{$sort:{_id:-1}},
+	　　{$skip:{1}},
+	　　{$limit:1},
+	
+	　　])
+	
+	
+	unwind 拆分数组
+	
+	 
+	
+	　　db.t1.aggregate([
+	　　{$unwind:"$size"}
+	　　])
+	
+	/* 1 */
+	{
+	"_id" : 1.0,
+	"title" : "t-shirt",
+	"size" : "M"
+	}
+	
+	/* 2 */
+	{
+	"_id" : 1.0,
+	"title" : "t-shirt",
+	"size" : "L"
+	}
+	
+	/* 3 */
+	{
+	"_id" : 1.0,
+	"title" : "t-shirt",
+	"size" : "S"
+	}
+	
+
+
+<br>
+
+**索引**
+
+
+	创建大量的数据
+	
+	
+	　　　　　mongodb的shell 同时也是javascript的编译器 ---- 支持js语法
+	
+	
+	　　for(i=0;i<1000000;i++){
+	　　db.t1.insert({name:"test"+i,age:i})
+	　　}
+	
+	　      查看 查询状态 --- explain("executionStats") 查询工具
+	
+	　　db.t2.find({name:"name10000"}).explain("executionStats")
+	
+	
+	创建索引 
+	
+	　　db.t2.ensureIndex({属性:1}) # 1 表示升序 -1 表示降序
+	
+	
+	唯一索引：唯一约束
+	　　db.t2.ensureIndex({属性:1},{"unique":true})
+	
+	联合索引
+	　　db.t2.ensureindex({name:1,age:1})
+	
+	 
+	
+	查看文档的所有索引：
+	　　db.t1.getIndexes()
+	
+	删除索引
+	　　db.t1.dropIndex(索引名)
+	
+	 
+
+<br>
+
+**数据备份与恢复**
+
+
+	备份
+	
+	　　mongodump -h dbhost -d dbname -o dbdirectary
+	
+	　　mongodump -u xxx -p xx --authenticationDatabase py3 -d xxx -o xxx
+	
+	
+	恢复
+	
+	　　mongorestore -h dbhost -d dbname --dir dbdirectary
+
+ 
+
+<br>
+
+**账户安全**
+
+
+	
+	1 数据库权限
+	
+	# root 只在admin数据库中可以使用 ==== 数据库后台 DBA使用
+	
+	# read 允许访问指定的数据库 普通用户
+	# readWrite 允许读写指定的数据库 普通用户
+	
+	2 创建 admin 管理员账号
+	
+	# use admin 权限 授权的数据库
+	# db.createUser({user:"admin",pwd:"123",roles:[role:"root",db:"admin"]})
+	
+	
+	3 启用安全认证
+	
+	修改配置文件：
+	
+	security:
+	authorization:enabled
+	
+	重启服务：
+	
+	
+	连接：
+	# mongo -u 用户名 -p 密码 --authenticationDatabase py3
+
+ 
+
+<br>
+
+**主从 副本集**
+
+
+	 
+	
+	# 1 主从关系
+	
+		工作服务器
+		请求 ---->>负载均衡
+		备份服务器 备份服务器
+	
+	# 2 数据的冗余备份 并在多个服务器上储存数据副本 , 提高数据的可用性, 和安全性
+	
+		复制还允许 从硬件故障和服务中断中恢复数据
+	
+	# 3
+
+	复制至少需要两个节点 A,B。。
+	A是主节点 负责处理客户端的请求
+	其余的都是从节点,负责复制主节点上的数据
+	搭配方式有：一主多从 一主一从
+	#心跳 主节点会记录在其上所有的操作- - 从节	点定期的轮训主节点上的操作记录, 对自己	的数据副本进行相同的操作 保持主从一致性
+	#无宕机切换 主节点宕机--变成从节点，从节点变成主节点
+	#备份
+	
+	 
+	
+	# 创建副本集 --- 实现数据备份
+	
+	
+	开启两个服务终端
+	
+	mongod --bind_ip xxxxxx --port 20717 --dbpath 数据库文件夹 --replSet rs0
+	
+	mongod --bind_ip xxxxxx --port 20718 --dbpath 数据库文件夹 --replSet rs0
+	
+	再开两个客户端 -- 连接终端
+	
+	mongo --host xxxxx --port xxxx
+	
+	mongo --host xxxxx --port xxxx
+	
+	
+	rs.initiate() 设置初始化 设为主节点
+	rs.status() 查看状态
+	
+	rs.add("ip,port") 添加 从节点
+	
+	
+	在主的数据库中写入数据 从的数据库也会有 # 心跳
+	
+	在从的数据库中查询需要 设置权限
+	
+	rs.slaveOk()
+	
+	
+	删除节点:
+	rs.remove("ip,port")
+	
+	 
+	模拟主从切换 两个服务端 关闭 开启 --- 再连接 主从自动切换
+	
+	 
+
+ 
+
+<br>
+
+**与python的交互：**
+
+	
+	from pymongo import *
+	
+	
+	#  建立连接
+	client=MongoClient("mongodb://localhost:27017")
+	
+	# client = MongoClient("127.0.0.1",27017)
+	
+	#  切换数据库  use
+	db=client.sub
+	
+	db = client["sub"]
+	
+	# 获取集合
+	t1=db.t1
+	
+	# print(db.collection_names()) --- 查看当前所有的表
+	
+	
+	
+	# 增加   insert_one
+	
+	# ob=t1.insert({"name":"张三"})  # 数据的ID 对象
+	# t1.insert_one({"name":"张三"})  # 数据的ID 对象
+	# print(ob)     # 5a06c29a36dc0d1b24ab4132  ObjectId("5a06c26436dc0d1a5c4891ab"),
+
+	# print(t1.insert_many[,,,].inserted_ids)   inserted_ids -- 返回id
+	
+	# 修改   update_one  update_many 全部修改
+	
+	# t1.update({"name":"李四"},{"$set":{"name":"张三"}})
+	# t1.update_many({"name":"张三"},{"$set":{"name":"李四"}})
+	
+	
+	# 删除   delete_one  delete_many
+	
+	# t1.delete_many({"name":"张三"})
+	
+	
+	# 查询   find
+
+	# find() 得到的是一个 迭代器 
+
+	# 
+	
+	# cursors=t1.find({"age":{"$gt":1}}).skip(1).sort("age",-1)
+	# for cur in cursors:
+	#     print(cur["name"])
+
+	
+	from pprint import pprint
+	
+	for item in cursors:
+		print(item) #    格式化显示 数据
+
+
+
+
+<br>
+
+
+
+## 3  redis
+
+
+<br>
+
+
+
+- **简介：**
+
+
+
+> **Redis 是基于内存的数据库（数据和key放在内存里）。内存满了以后就会开始自动删除数据**
+> 
+> **url一般放在redis里面，爬取到的数据放在MongoDB里面**。 
+> 
+> MongoDB，只用来保存数据。爬到的数据存到里面就不管了。
+> 
+> **Redis，  更像一个队列，有源源不断的URL进去，有源源不断的URL出来，**
+> 
+> URL用过一次以后不需要，随着爬取到的数据一起存入MongoDB里面
+> 
+> MongoDB 不是内存型数据库，只不过把所有文件索引存到内存里而已。
+> 同样的机型，用MongoDB会比Redis存更多，但Redis响应更快。关键的是看量有多大
+> 
+> 可以把MongoDB当成MySQL, 把Redis当成内存
+> 
+> 数据交换用Redis. 数据持久化用MongoDB
+
+
+<br>
+
+- **下载安装预配置**
+
+
+
+<br>
+
+> **下载：**
+
+	github  windows版本  https://github.com/MicrosoftArchive/redis
+	
+	下载解压完成
+	
+	 
+	启动 redis :
+	
+	 redis-server     安装路径+ redis.windows.conf
+	 
+	
+	安装 redis windows 服务：
+
+
+
+<br>
+
+> **redis 的安装与部署 6379**
+
+	
+	windows 下
+	
+	===服务端===
+	
+	配置 service
+	redis-server --service-install D:\redis\redis.windows.conf
+	删除 service
+	redis-server --service-uninstall
+	
+	启动redis-server --service-start
+	停止 redis-server --service-stop
+	
+	===客户端===
+	
+	启动 redis-cli
+	退出 exit
+	
+	
+	===============================================
+	
+	配置文件 redis.conf
+	
+	daemonize yes 后台运行
+	
+	pidfile --- 记录pid
+	
+	port
+	
+	bind ip
+	
+	loglevel 日志信息
+	
+	save 900 1 900s 1次写操作 -- 物理写操作一次
+	save 300 10
+	save 60 10000
+	
+	dbfilename 默认物理存储 路径
+	
+	====================================================================================
+	
+	
+	redis-server  --service-install  redis.windows.conf   # 安装为 windows  service服务
+	
+	redis-server  --service-uninstall  #  卸载
+	
+	redis-server  --service-start     #  启动
+	
+	redis-server  --service-stop         # 停止
+
+
+<br>
+
+> **redis 的配置文件：**
+
+	
+	daemonize no -->> daemonize yes   是否在前端或后端运行(守护进程)
+	
+	bind 127.0.0.1  默认是绑定本机  注释后 允许slaver端 连接到 master端
+
+<br>
+
+> **redis master slaver 测试：**
+
+	redis-server 路径+redis.windows.conf   #启动 master server 端 redis 
+	
+	redis-cli    启动 mster client 端 
+	
+	set key 123
+	
+	get key ---123
+	
+	
+	redis-cli -h ip                  #启动 slaver 端 redis
+	get key  --123
+
+
+<br>
+
+- **redis 语法：**
+
+		
+		数据库切换 
+		
+			select 1 (默认36个数据库 默认在0)
+		
+		
+		数据类型
+		
+		  string 是基本数据类型
+		
+		      是 redis的基本数据类型
+		
+		      最大能存储 512 MB的数据
+		
+		      string 类型是二进制安全的  -- 可以为任何数据 数字 图片 序列化 对象
+		
+		
+		基本命令：
+		
+		    设置键值：
+		        set key value
+		
+		    获取 值
+		        get key --value
+		        mget key1,key2 -- value1,value2 # 获取多个值
+		
+		    运算：
+		
+		        incr key  ---    将 key 对应的 value 加 1
+		        incrby key increment   将 key 对应的 value 加 increment
+		
+		        decr key  ----  将 key 对应的 value 减 1
+		        decrby key decrment  将 key 对应的 value 减 decrement
+		
+		    追加--在原有的基础上添加 值：
+		
+		        append key value  在原有的基础上添加 值
+		
+		    字符长度:
+		
+		        strlen key
+		
+		    键命令：
+		
+		        keys *  查看当前所有的key  通配符 *
+		        keys *1*  正则匹配
+		
+		        exits key  是否存在  1 0  真假
+		
+		        type key 查看键 对应值的属性
+		
+		
+		        expire key seconds   设置 有效时间
+		
+		        ttl key 查看剩余 时间
+		
+		        del key  删除 键值对
+		
+		
+		hset -- 命令：( 存对象 属性+值 )(hash)
+		    hash用于    存储 对象 ;  对象的格式是 键值对
+		
+		    命令：
+		        设置：
+		
+		            hset key field value  |  hset py  name "allp"
+		
+		            hmset key field value [field value]
+		
+		        获取
+		            hget py name -- allp
+		
+		            hgetall py 获取所有的属性和值 --- 奇数的是属性  偶数的是值
+		            hkeys py 获取所有的属性
+		            hvals py 获取所有的值
+		
+		            hlen py  属性的个数
+		            hstrlen py name   ---某个属性对应的值得长度
+		
+		            hexists py name ----是否存在属性
+		        删除：
+		            hdel py name   ---删除某一个属性
+		
+		list命令：(  数组-- 两侧都可以进入数据)   一个键 维护多个值
+		添加的 顺序
+		        设置：
+		
+		            lpush py1 alex
+		            rpush py1 egon
+		
+		            linsert py1 before alex name
+		            linsert py1 after egon  male
+		
+		            lrange py1 0 -1 查看所有元素
+		
+		            ltrim py1 0  3  只保留 索引 0到3的数据  其他的都删除
+		
+		set 命令 (无序 唯一不重复 )：
+		
+		        设置：
+		            sadd key members(可以多个)
+		        获取：
+		            smembers key
+		
+		            scard key  元素个数
+		
+		        交集：
+		            sinter  py1 py2
+		        差集:
+		           sdiff  py1  py2
+		        并集:
+		            suinion py1 py2
+		
+		        判断是否在某个集合中
+		            sismember py1 haha
+		
+		zset 有序集合： sorted set
+		              按照权重排序
+		
+		          设置：
+		               zadd myset 权重 "xxx"  权重 "ooo"
+		
+		          获取：
+		                zrange myset start stop   zrange py1 0 -1
+		
+		                zcard myset  ---查看元素个数
+		
+		                zcount myset min max --返回权重 在 min 和max之间值 的 元素
+		
+		                zscore myset xxx 查看元素的权重
+		
+		
+		redis 内部实现发布订阅
+			
+			信息推送
+			
+			消息的格式：
+				类型：
+				subscribe：订阅成功
+				unsubscribe:取消订阅
+				message: 其他终端发布消息
+				命令：
+			订阅：
+				subscribe py111 可以多个频道
+			
+			取消订阅：
+				ctrl c
+			
+			发布：(另外的一端 发布消息)
+				publish 频道 消息
+		
+
+		# redis.conf
+		
+		配置主从
+		
+		主
+			修改 绑定
+			bind ip ==== 主 master
+		
+		从
+			bind ip ==== 从 slavor
+			slaveof 主ip port
+		
+		
+		登录 redis-cli -h ip主
+		
+			redis-cli -h ip从 自动备份主的数据
+		
+		
+		自动完成 数据备份
+
+<br>
+
+		
+
+
+- **与python的交互**
+
+		# import redis  # 引入模块
+		
+		# 连接
+
+		# r=redis.StrictRedis(db=0,host="localhost",port=6379,)
+
+		# 数据操作 1 
+			
+			直接操作
+			# r.set("0","0")
+		
+		# 数据操作  2 
+
+			pipeline 缓存多条命令  然后一次性执行
+		
+			# pipe=r.pipeline()
+			# pipe.set("name","hello")
+			# pipe.get("name")
+			#
+			# pipe.execute()
+			
+			# print(r.ping())
+		
+		
+		#   自己实现封装
+		
+		# class myRedis:
+		#     def __init__(self,host,port):
+		#         self._redis=redis.StrictRedis(host,port)
+		#     def set(self,key,value):
+		#         self._redis.set(key,value)
+		#     def get(self,key):
+		#         return self._redis.get(key)
+		# myr=myRedis("127.0.0.1",6379)
+		# print(myr.get("py5").decode("utf-8"))
+
+
+
