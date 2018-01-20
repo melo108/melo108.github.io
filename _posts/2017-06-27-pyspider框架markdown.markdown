@@ -41,7 +41,7 @@ pyspider是一个国人编写的强大的网络爬虫系统并带有强大的Web
 
 <br>
 
-**(2) pyspider安装 **
+**(2) pyspider安装**
 
 
 如果使用 ubuntu请先安装以下依赖包：apt-get install python python-dev python-distribute python-pip libcurl4-openssl-dev libxml2-dev libxslt1-dev python-lxml如果需要调用js解析框架，请先照着phantomjs官网说明安装phantomjs应用，并把可执行程序添加到系统环境变量PATH中以方便调用。
@@ -260,7 +260,7 @@ pyspider是一个国人编写的强大的网络爬虫系统并带有强大的Web
 
 
 
-> **更多请查阅 <a href="https://cuiqingcai.com/2652.html">崔庆才：Python爬虫进阶四之PySpider的用法</a>**
+> **更多请查阅 <a href="https://cuiqingcai.com/2652.html">崔庆才：Python爬虫进阶之PySpider</a>**
 
 
 
