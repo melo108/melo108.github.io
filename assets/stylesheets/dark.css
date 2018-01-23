@@ -779,7 +779,7 @@ blockquote {
 .about {
   margin: 0 1rem;
   padding: 2rem;
-  background-color: #272727;
+  background-color: #DD0021;
   border-top: 3px solid #DD0021;
   border-bottom: 3px solid #DD0021;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); }
@@ -831,7 +831,7 @@ blockquote {
 .post-box {
   margin: 0 1rem;
   padding: 2rem;
-  background-color: #272727;
+  background-color: #DD0021;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); }
 
 .post-list {
@@ -881,7 +881,7 @@ blockquote {
     color: #6F6F6F; }
 
 .post-container {
-  background-color: #272727;
+  background-color: #DD0021;
   margin: 0 1rem;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); }
   .post-container .post-content {
