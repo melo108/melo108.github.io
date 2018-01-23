@@ -801,7 +801,7 @@ blockquote {
       height: 2px;
       margin: auto;
       margin-top: 0.9rem;
-      background-color: #323232; }
+      background-color: #ffffff; }
   .about img.face {
     border-radius: 50%;
     width: 200px;
@@ -842,7 +842,7 @@ blockquote {
     position: relative;
     display: block;
     padding: 2.5rem 0;
-    border-bottom: 1px solid #323232; }
+    border-bottom: 2px solid #ffffff; }
     .post-list .post-item .post-header .post-link {
       text-decoration: none;
       color: #ffffff;
@@ -887,7 +887,7 @@ blockquote {
   .post-container .post-content {
     padding: 1.5rem 2rem 2rem; }
     .post-container .post-content article {
-      border-bottom: 2px solid #323232;
+      border-bottom: 2px solid #ffffff;
       padding-bottom: 1rem; }
   .post-container .post-img {
     width: 100%; }
@@ -902,7 +902,7 @@ blockquote {
       margin-left: 0.4rem; }
 
 .footer {
-  color: #323232;
+  color: #ffffff;
   padding: 0.7rem 1.5rem; }
   .footer .copyright {
     text-transform: uppercase;
