@@ -12,7 +12,7 @@ name: 贾敏
 tagline: 全栈开发 python 爬虫爱好者
 about-description:  2年python开发经验, 熟练使用django, flask web框架; 熟悉掌握MySQL，mongodb，redis等数据库; 熟悉网络爬虫基本原理,BeautifulSoup,xpath，css等数据提取方法。
                     掌握Python网络编程，以及多线程，多进程，协程等并行程序模型，与团队或跨团队同事有效地协作办公.
-pic: rockets.png  # Place a 200x200 picture inside /assets/img/ folder and provide the name of the file below
+pic: rk.png  # Place a 200x200 picture inside /assets/img/ folder and provide the name of the file below
 
 # Contact links
 email: 542450010@qq.com # Add your Email address
