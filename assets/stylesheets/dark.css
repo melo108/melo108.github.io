@@ -428,7 +428,7 @@ h6 {
   text-rendering: optimizeLegibility; }
 
 a {
-  color: #6F6F6F;
+  color: #FFFF9E;
   text-decoration: none;
   transition: all .3s; }
   a:hover {
@@ -439,7 +439,7 @@ blockquote {
   font-style: italic;
   padding-left: 1.1rem;
   margin-left: 1.2rem;
-  color: #6F6F6F; }
+  color: #FFFF9E; }
 
 .clearfix::before, .clearfix::after {
   content: "";
@@ -715,7 +715,7 @@ blockquote {
 .highlighter-rouge {
   color: #e74b3c;
   font-weight: 400;
-  border: 1px solid #6F6F6F;
+  border: 1px solid #FFFF9E;
   border-radius: 3px;
   padding: 0.1rem 0.5rem; }
 
@@ -789,7 +789,7 @@ blockquote {
   .about .tagline {
     font-size: 1.1rem;
     text-align: center;
-    color: #6F6F6F;
+    color: #FFFF9E;
     letter-spacing: 5px;
     font-weight: 400;
     margin: 0 auto 2rem;
@@ -854,7 +854,7 @@ blockquote {
           transition: all .2s; }
 
 .rss-subscribe {
-  color: #6F6F6F;
+  color: #FFFF9E;
   transition: all .3s; }
   .rss-subscribe:hover {
     color: #DD0021; }
@@ -878,7 +878,7 @@ blockquote {
     font-family: monospace;
     font-weight: 400;
     letter-spacing: 2px;
-    color: #6F6F6F; }
+    color: #FFFF9E; }
 
 .post-container {
   background-color: #DD0021;
