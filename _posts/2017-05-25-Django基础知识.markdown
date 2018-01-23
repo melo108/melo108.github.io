@@ -2,7 +2,7 @@
 layout: post
 title:  "Django基础知识"
 description: MTV，http协议,web框架
-date:   2017-05-25 12:55:52 +0200
+date:   2017-05-25 12:55:42 +0200
 categories: jekyll update
 ---
 
@@ -26,6 +26,7 @@ categories: jekyll update
 - V 表示 view，用于向用户展示结果
 
 - C 表示 control， **核心**，将显示与数据的内容进行分离，处理请求
+
 
 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516616545781&di=362a09736cea7d63b9e8e2f70fd0bba6&imgtype=0&src=http%3A%2F%2Fimages.cnitblog.com%2Fblog%2F191097%2F201307%2F17122850-e60fd55ef7ed48679f6785aa3ff80082.png">
 
