@@ -1,5 +1,5 @@
 ---
-layout: Django框架基础知识"
+layout: "Django框架基础知识"
 description:  http协议 web框架 Django的基本命令与配置
 date:   2017-05-25 14:55:52 +0200
 categories: jekyll update
