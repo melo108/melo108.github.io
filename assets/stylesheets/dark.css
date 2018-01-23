@@ -435,7 +435,7 @@ a {
     color: rgba(111, 111, 111, 0.7); }
 
 blockquote {
-  border-left: 5px solid #F0F564;
+  border-left: 5px solid #DD0021;
   font-style: italic;
   padding-left: 1.1rem;
   margin-left: 1.2rem;
@@ -734,12 +734,12 @@ blockquote {
       text-transform: uppercase;
       line-height: 1.1;
       font-weight: 700;
-      border-bottom: 3px solid #F0F564;
-      border-top: 3px solid #F0F564;
+      border-bottom: 3px solid #DD0021;
+      border-top: 3px solid #DD0021;
       padding: 1rem 1.5rem;
       transition: ease-in-out .3s; }
       .header .logo .logo-link:hover {
-        background: #F0F564;
+        background: #DD0021;
         color: #181818; }
   .header ul {
     list-style: none;
@@ -756,7 +756,7 @@ blockquote {
         color: #ffffff;
         transition: ease-in-out .3s; }
         .header ul li a:hover {
-          background-color: #F0F564;
+          background-color: #DD0021;
           color: #181818; }
 
 .wrapper {
@@ -780,8 +780,8 @@ blockquote {
   margin: 0 1rem;
   padding: 2rem;
   background-color: #272727;
-  border-top: 3px solid #F0F564;
-  border-bottom: 3px solid #F0F564;
+  border-top: 3px solid #DD0021;
+  border-bottom: 3px solid #DD0021;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); }
   .about .container-face {
     margin-bottom: 1rem;
@@ -857,7 +857,7 @@ blockquote {
   color: #6F6F6F;
   transition: all .3s; }
   .rss-subscribe:hover {
-    color: #F0F564; }
+    color: #DD0021; }
 
 .article-list-footer {
   font-family: monospace;
