@@ -1,12 +1,11 @@
 ---
-layout: Django的MTV模型详解"
+layout: Django的MTV模型详解
 description:  views template model
 date:   2017-05-26 14:55:52 +0200
 categories: jekyll update
 ---
 
 
-<br>
 
 # Django的MTV模型详解
 ------
