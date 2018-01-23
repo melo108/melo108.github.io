@@ -12,7 +12,6 @@ categories: jekyll update
 ------
 
 
-<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516714973018&di=13b6bfc37ce9f8804c542127c7122dfd&imgtype=0&src=http%3A%2F%2Fassets.tianmaying.com%2Fmd-image%2F0a7650b34227a541ffdf4c20e5c1c52a.png">
 
 <br>
 
