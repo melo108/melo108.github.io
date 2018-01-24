@@ -2,7 +2,7 @@
 layout: post
 title:  "Django--form组件与ModelForm"
 description:  form组件与ModelForm
-date:   2017-05-25 11:55:52 +0200
+date:   2017-05-24 11:55:52 +0200
 categories: jekyll update
 ---
 
