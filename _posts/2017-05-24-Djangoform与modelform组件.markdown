@@ -119,8 +119,7 @@ categories: jekyll update
 	        else:
 	            print(checkform.errors)
 	
-	
-	
+
 
 <br>
 
@@ -153,7 +152,7 @@ categories: jekyll update
 	    help_text='',                帮助信息(在标签旁边显示)
 	    error_messages=None,         错误信息 {'required': '不能为空', 'invalid': '格式错误'}
 	    show_hidden_initial=False,   是否在当前插件后面再加一个隐藏的且具有默认值的插件（可用于检验两次输入是否一直）
-	    validators=[],               自定义验证规则
+	    validators=【】,               自定义验证规则
 	    localize=False,              是否支持本地化
 	    disabled=False,              是否可以编辑
 	    label_suffix=None            Label内容后缀
@@ -251,14 +250,14 @@ categories: jekyll update
 	 
 	ComboField(Field)
 	    fields=()                  使用多个验证，如下：即验证最大长度20，又验证邮箱格式
-	                               fields.ComboField(fields=[fields.CharField(max_length=20), fields.EmailField(),])
+	                               fields.ComboField(fields=【fields.CharField(max_length=20), fields.EmailField(),】)
 	 
 	MultiValueField(Field)
 	    PS: 抽象类，子类中可以实现聚合多个字典去匹配一个值，要配合MultiWidget使用
 	 
 	SplitDateTimeField(MultiValueField)
-	    input_date_formats=None,   格式列表：['%Y--%m--%d', '%m%d/%Y', '%m/%d/%y']
-	    input_time_formats=None    格式列表：['%H:%M:%S', '%H:%M:%S.%f', '%H:%M']
+	    input_date_formats=None,   格式列表：'%Y--%m--%d', '%m%d/%Y', '%m/%d/%y'
+	    input_time_formats=None    格式列表：'%H:%M:%S', '%H:%M:%S.%f', '%H:%M'
 	 
 	FilePathField(ChoiceField)     文件选项，目录下文件显示在页面中
 	    path,                      文件夹路径
@@ -344,7 +343,6 @@ categories: jekyll update
 	多选select，值为列表
 	user = fields.MultipleChoiceField(
 	    choices=((1,'上海'),(2,'北京'),),
-	    initial=[1,],
 	    widget=widgets.SelectMultiple
 	)
 	
@@ -357,7 +355,6 @@ categories: jekyll update
 	
 	多选checkbox,值为列表
 	user = fields.MultipleChoiceField(
-	    initial=[2, ],
 	    choices=((1, '上海'), (2, '北京'),),
 	    widget=widgets.CheckboxSelectMultiple
 	)
@@ -429,7 +426,7 @@ from django.core.validators import RegexValidator
 	 
 	class MyForm(Form):
 	    user = fields.CharField(
-	        validators=[RegexValidator(r'^[0-9]+$', '请输入数字'), RegexValidator(r'^159[0-9]+$', '数字必须以159开头')],
+	        validators=【RegexValidator(r'^【0-9】+$', '请输入数字'), RegexValidator(r'^159【0-9】+$', '数字必须以159开头')】,
 	    )
 
 
@@ -444,7 +441,7 @@ from django.core.validators import RegexValidator
 	 
 	# 自定义验证规则
 	def mobile_validate(value):
-	    mobile_re = re.compile(r'^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$')
+	    mobile_re = re.compile(r'^(13【0-9】|15【012356789】|17【678】|18【 0-9】|14【 57】)【0-9】{8}$')
 	    if not mobile_re.match(value):
 	        raise ValidationError('手机号码格式错误')
 	 
@@ -453,7 +450,7 @@ from django.core.validators import RegexValidator
 	 
 	 
 	    # 使用自定义验证规则
-	    phone = fields.CharField(validators=[mobile_validate, ],
+	    phone = fields.CharField(validators=【mobile_validate, 】,
 	                            error_messages={'required': '手机不能为空'},
 	                            widget=widgets.TextInput(attrs={'class': "form-control",
 	                                                          'placeholder': u'手机号码'}))
@@ -489,7 +486,7 @@ from django.core.validators import RegexValidator
 	
 	registerForm=RegisterForm(request.POST)
 	print(type(registerForm.errors))                      #<class 'django.forms.utils.ErrorDict'>
-	print(type(registerForm.errors["username"]))          #<class 'django.forms.utils.ErrorList'>
+	print(type(registerForm.errors【"username"】))          #<class 'django.forms.utils.ErrorList'>
 
 
 <br>
@@ -666,9 +663,9 @@ modelForm将models与forms结合使用，modelForm组件本质还是一个form�
 
 fields = "__ all __"上面展示所有的字段
 	
-fields = ['title','author']   # 显示指定列
+fields = 【'title','author'】  # 显示指定列
 
-exclude = ['publisher']       # 排除指定列
+exclude = 【'publisher'】      # 排除指定列
 
 
 
@@ -681,7 +678,7 @@ exclude = ['publisher']       # 排除指定列
 	    class Meta:
 	        model = models.Book    # 与models建立关系
 	        fields = "__all__"     # 显示所有字段
-			exclude=['title',]     # 排除title字段
+			exclude=【'title'】,     # 排除title字段
 			labels={"title":"书名","author":"作者"} #显示提示信息
 	  		widgets={"title":wgts.TextInput(attrs={"class":"form-control"})},  # 自定义插件
             error_messages=None,   #错误信息 
