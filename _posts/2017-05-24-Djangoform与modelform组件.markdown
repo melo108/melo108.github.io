@@ -603,7 +603,7 @@ from django.core.validators import RegexValidator
 **html**
 	
 	<form action="" method="post" class="col-md-8">
-	    {% csrf_token %}
+	    { % csrf_token % }
 	    <p ><strong>姓名</strong>{{ myform.user }} <div class="has-error"><span class="help-block ">{{ errors.user.0 }}</span> </div></p>
 	    <p><strong>邮箱</strong>{{ myform.email }}  <div class="has-error"><span class="help-block ">{{ errors.email.0 }}</span></div></p>
 	    <p><strong>密码</strong>{{ myform.pwd }} <div class="has-error"> <span class="help-block ">{{ errors.pwd.0 }}</span></div> </p>
@@ -713,7 +713,7 @@ exclude = ['publisher']       # 排除指定列
 
 **template渲染的循环遍历方法**
 
-	 {% for foo in book_form %}
+	 { % for foo in book_form % }
         <label for="">{{ foo.label }}</label>
             <p>{{ foo }}</p>
-     {% endfor %}
+     { % endfor % }
