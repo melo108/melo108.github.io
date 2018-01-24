@@ -2,7 +2,7 @@
 layout: post
 title:  "Django的MTV模型详解"
 description:  Django的MTV模型详解
-date:   2017-05-25 11:55:52 +0200
+date:   2017-05-24 11:55:52 +0200
 categories: jekyll update
 ---
 
