@@ -969,6 +969,30 @@ extends 标签是这里的关键。它告诉模版引擎，这个模版“继承
 
 
 
+> **字段类型**
+
+	AutoField:
+		根据实际ID自动增长的IntegerField
+	BooleanField:
+		默认表单样式是 Checkboxinput
+	CharField(max_length=32):
+		字符串,默认表单样式是 Textinput
+	
+	TextField:
+		大文本字段，默认表单样式是Textarea
+	IntegerField:
+		整数
+	DecimalField(max_digits=None,decimal_places=None):
+		python的decimal,max_digits 位数； decimal_places 小数位数
+	DateField(auto_now=False,auto_add=False):
+		python的datetime.datetime
+	DateTimeField:
+	FileField:
+		文件上传字段
+	ImageField:
+	
+
+
 
 
 > **字段选项**
@@ -1033,6 +1057,20 @@ extends 标签是这里的关键。它告诉模版引擎，这个模版“继承
 	'L'
 	>>> p.get_shirt_size_display()
 	'Large' 
+
+
+
+> **字段关系**
+
+
+	ForeignKey():一对多，放在多的model中
+	ManyToManyField():多对多，
+	OneToOneField(): 一对一
+	
+	层级结构，表示父子关系，递归关系，自关联
+	ForeignKey(to="self")
+	
+
 
 
 一旦你建立好数据模型之后，django会自动生成一套数据库抽象的API，可以让你执行关于表记录的增删改查的操作。  
