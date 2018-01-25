@@ -885,6 +885,39 @@ extends 标签是这里的关键。它告诉模版引擎，这个模版“继承
 
 
 
+
+**管理器 Manager**
+
+> Django ---> ORM ---> sqlite ; mysql ; oracle
+
+
+映射 model对象与数据表
+
+管理器是Django的数据进行数据库查询操作的接口，Django应用的每个model模型都至少有一个管理器。
+
+**默认的管理器是 objects**
+
+
+
+> **自定义管理器 更改默认查询集**
+
+	class BookManager(models.Manager):
+		def get_queryset(self):
+			return super(BookManager,self).get_queryset().filter(isDelete=False)
+
+		def create(self,'title','pubDate'):
+			b = Book()
+			b.title = title
+			b.pubDate = pubDate
+			return b          #创建 对象
+	
+	class Book(models.Model):
+		...
+		manager = BookManager()
+		objects = Manager()     # 这时候有两个管理器
+		
+
+
 <br>
 
 
