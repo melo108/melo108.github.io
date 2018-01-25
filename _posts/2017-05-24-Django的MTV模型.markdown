@@ -994,14 +994,13 @@ extends 标签是这里的关键。它告诉模版引擎，这个模版“继承
 
 
 
-
 > **字段选项**
 
 
 
 每个字段有一些特有的参数，例如，CharField需要max_length参数来指定VARCHAR数据库字段的大小。还有一些适用于所有字段的通用参数。 这些参数在文档中有详细定义，这里我们只简单介绍一些最常用的：
 
-	(1)null
+	(0)null
 	
 		如果为True，Django 将用NULL 来在数据库中存储空值。 默认值是 False.
 	
@@ -1026,7 +1025,7 @@ extends 标签是这里的关键。它告诉模版引擎，这个模版“继承
 		如果该值设置为 True, 这个数据字段的值在整张表中必须是唯一的
 	
 	(5)choices
-		由二元组组成的一个可迭代对象（例如，列表或元组），用来给字段提供选择项。 如果设置了choices ，默认的表单将是一个选择框而不是标准的文本框，而且这个选择框的选项就是choices 中的选项。
+		由二元组组成的一个可迭代对象（例如，列表或元组），用来给字段提供选择项。 如果设置了choices ，默认的表单将是一个选择框而不是标准的		     文本框，而且这个选择框的选项就是choices 中的选项。
 		
 		这是一个关于 choices 列表的例子：
 		
@@ -1037,26 +1036,15 @@ extends 标签是这里的关键。它告诉模版引擎，这个模版“继承
 		    ('SR', 'Senior'),
 		    ('GR', 'Graduate'),
 		)
-		每个元组中的第一个元素，是存储在数据库中的值；第二个元素是在管理界面或 ModelChoiceField 中用作显示的内容。 在一个给定的 model 类的实例中，想得到某个 choices 字段的显示值，就调用 get_FOO_display 方法(这里的 FOO 就是 choices 字段的名称 )。例如：
 		
-		from django.db import models
+	(6)db_column
 		
-		class Person(models.Model):
-		    SHIRT_SIZES = (
-		        ('S', 'Small'),
-		        ('M', 'Medium'),
-		        ('L', 'Large'),
-		    )
-		    name = models.CharField(max_length=60)
-		    shirt_size = models.CharField(max_length=1, choices=SHIRT_SIZES)
-		
-	
-	>>> p = Person(name="Fred Flintstone", shirt_size="L")
-	>>> p.save()
-	>>> p.shirt_size
-	'L'
-	>>> p.get_shirt_size_display()
-	'Large' 
+		对应的数据库表中的字段名字
+
+		publishTime = models.DateTimeField(db_column='pubtime')
+
+
+
 
 
 
@@ -1070,6 +1058,16 @@ extends 标签是这里的关键。它告诉模版引擎，这个模版“继承
 	层级结构，表示父子关系，递归关系，自关联
 	ForeignKey(to="self")
 	
+
+> **元信息选项**
+
+	
+	class Book（models.Model）:
+		...
+		class Meta:
+			db_table = 'book'  # 指定数据库的表名
+			ordering = [ 'id' ] # 排序规则   注意：会增加数据库开销
+
 
 
 
