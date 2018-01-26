@@ -200,6 +200,13 @@ django.conf.urls.url() 函数可以接收一个可选的第三个参数，它是
 
 
 
+- **url匹配有误，返回404 500 400错误**
+
+		settings 中 DEBUG = False, ALLOWed_HOSTS = 【'*'】
+
+		在templates中 增加404.html, { {request_path} },当url匹配不到的时候 会django会渲染404.html
+
+		默认是DEBUG = True，调试状态
 
 
 <br>
@@ -1323,7 +1330,7 @@ extends 标签是这里的关键。它告诉模版引擎，这个模版“继承
 	<br>
 	
 	
-- **基于对象的跨表查询**
+- **基于对象的跨表查询--相当于from**
 
 
 <br>
@@ -1414,7 +1421,7 @@ extends 标签是这里的关键。它告诉模版引擎，这个模版“继承
 
 <br>
 
-- **基于双下划线的 跨表查询**
+- **基于双下划线的 跨表查询--相当于inner join**
 
 Django 还提供了一种直观而高效的方式在查询(lookups)中表示关联关系，它能自动确认 SQL JOIN 联系。要做跨关系查询，就使用两个下划线来链接模型(model)间关联字段的名称，直到最终链接到你想要的 model 为止。
 
