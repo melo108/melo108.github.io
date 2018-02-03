@@ -1,3 +1,12 @@
+---
+layout: post
+title:  "django 1.9 安装 xadmin 遇到的问题"
+description: xadmin
+date:   2017-09-27 14:55:52 +0200
+categories: jekyll update
+---
+
+
 # django 1.9 安装 xadmin 遇到的问题
 
 
