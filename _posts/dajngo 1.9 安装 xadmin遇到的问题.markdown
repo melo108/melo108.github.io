@@ -1,0 +1,54 @@
+# django 1.9 安装 xadmin 遇到的问题
+
+
+	      File "C:\Users\ADMINI~1\AppData\Local\Temp\pip-build-v7tljsr2\xadmin\setup.py", line
+	11, in <module>
+	        long_description=open('README.rst').read(),
+	    UnicodeDecodeError: 'gbk' codec can't decode byte 0xa4 in position 3444: illegal multib
+	yte sequence
+
+>文件README.rst 在打开的时候出现编码问题， Unicode 解码错误
+
+**解决方法：**
+
+<br>
+
+**1  下载 zip 安装包**
+
+	https://github.com/sshwsfc/xadmin 
+
+**2 window下 新建一个README.rst空白文件, 替换zip中的同名空白文件**
+
+**3 pip install xadmin-master.zip**
+
+
+<br>
+
+**4 完成**
+
+	pip list 
+	
+		diff-match-patch (20121119)
+		Django (1.9.8)
+		django-crispy-forms (1.7.0)
+		django-formtools (2.1)
+		django-import-export (0.7.0)
+		django-reversion (2.0.13)
+		et-xmlfile (1.0.1)
+		future (0.16.0)
+		httplib2 (0.9.2)
+		jdcal (1.3)
+		mysqlclient (1.3.12)
+		odfpy (1.3.6)
+		openpyxl (2.5.0)
+		Pillow (5.0.0)
+		pip (9.0.1)
+		PyYAML (3.12)
+		setuptools (38.4.0)
+		six (1.11.0)
+		tablib (0.12.1)
+		unicodecsv (0.14.1)
+		wheel (0.30.0)
+		xadmin (0.6.1)
+		xlrd (1.1.0)
+		xlwt (1.3.0)
