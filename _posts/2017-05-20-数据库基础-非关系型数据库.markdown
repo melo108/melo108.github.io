@@ -972,135 +972,162 @@ db.sub.findOne() 查询第一个
 - **redis 语法：**
 
 		
-		数据库切换 
 		
-			select 1 (默认36个数据库 默认在0)
-		
-		
-		数据类型
-		
+		# 数据库切换 select 1 (默认36个数据库 默认在0)
+
+
+
+		# 数据类型
+
 		  string 是基本数据类型
-		
+
 		      是 redis的基本数据类型
-		
+
 		      最大能存储 512 MB的数据
-		
+
 		      string 类型是二进制安全的  -- 可以为任何数据 数字 图片 序列化 对象
-		
-		
+
+
 		基本命令：
-		
+
 		    设置键值：
-		        set key value
-		
+			set key value
+
 		    获取 值
-		        get key --value
-		        mget key1,key2 -- value1,value2 # 获取多个值
-		
+			get key --value
+			mget key1,key2 -- value1,value2 # 获取多个值
+
 		    运算：
-		
-		        incr key  ---    将 key 对应的 value 加 1
-		        incrby key increment   将 key 对应的 value 加 increment
-		
-		        decr key  ----  将 key 对应的 value 减 1
-		        decrby key decrment  将 key 对应的 value 减 decrement
-		
+
+			incr key  ---    将 key 对应的 value 加 1
+			incrby key increment   将 key 对应的 value 加 increment
+
+			decr key  ----  将 key 对应的 value 减 1
+			decrby key decrment  将 key 对应的 value 减 decrement
+
 		    追加--在原有的基础上添加 值：
-		
-		        append key value  在原有的基础上添加 值
-		
+
+			append key value  在原有的基础上添加 值
+
 		    字符长度:
-		
-		        strlen key
-		
+
+			strlen key
+
 		    键命令：
-		
-		        keys *  查看当前所有的key  通配符 *
-		        keys *1*  正则匹配
-		
-		        exits key  是否存在  1 0  真假
-		
-		        type key 查看键 对应值的属性
-		
-		
-		        expire key seconds   设置 有效时间
-		
-		        ttl key 查看剩余 时间
-		
-		        del key  删除 键值对
-		
-		
-		hset -- 命令：( 存对象 属性+值 )(hash)
+
+			keys *  查看当前所有的key  通配符 *
+			keys *1*  正则匹配
+
+			exits key  是否存在  1 0  真假
+
+			type key 查看键 对应值的属性
+
+
+			expire key seconds   设置 有效时间
+
+			ttl key 查看剩余 时间
+
+			del key  删除 键值对
+
+		==============================================
+
+		hset 字典
+
+		    hash 命令：( 存对象 属性+值 )
 		    hash用于    存储 对象 ;  对象的格式是 键值对
-		
+
 		    命令：
-		        设置：
-		
-		            hset key field value  |  hset py  name "allp"
-		
-		            hmset key field value [field value]
-		
-		        获取
-		            hget py name -- allp
-		
-		            hgetall py 获取所有的属性和值 --- 奇数的是属性  偶数的是值
-		            hkeys py 获取所有的属性
-		            hvals py 获取所有的值
-		
-		            hlen py  属性的个数
-		            hstrlen py name   ---某个属性对应的值得长度
-		
-		            hexists py name ----是否存在属性
-		        删除：
-		            hdel py name   ---删除某一个属性
-		
+			设置：
+
+			    hset key field value  |  hset py  name "allp"
+
+			    hmset key field value [field value]
+
+			获取
+			    hget py name -- allp
+
+			    hgetall py 获取所有的属性和值 --- 奇数的是属性  偶数的是值
+			    hkeys py 获取所有的属性
+			    hvals py 获取所有的值
+
+			    hlen py  属性的个数
+			    hstrlen py name   ---某个属性对应的值得长度
+
+			    hexists py name ----是否存在属性
+			删除：
+			    hdel py name   ---删除某一个属性
+
+		============================================================
+
 		list命令：(  数组-- 两侧都可以进入数据)   一个键 维护多个值
 		添加的 顺序
-		        设置：
-		
-		            lpush py1 alex
-		            rpush py1 egon
-		
-		            linsert py1 before alex name
-		            linsert py1 after egon  male
-		
-		            lrange py1 0 -1 查看所有元素
-		
-		            ltrim py1 0  3  只保留 索引 0到3的数据  其他的都删除
-		
+			设置：
+
+			    lpush py1 alex
+			    rpush py1 egon
+
+			    linsert py1 before alex name
+			    linsert py1 after egon  male
+
+			    lrange py1 0 -1 查看所有元素
+
+			    blpop py1 alex
+			    brpop py1 egon  # 阻塞 时间 timeout
+
+			    lpop py1     # 不会等待
+			    rpop py2
+
+			    llen py1   # 列表长度
+
+			    lindex  py1  index
+
+			    ltrim py1 0  3  只保留 索引 0到3的数据  其他的都删除
+
+		======================================================
+
 		set 命令 (无序 唯一不重复 )：
-		
-		        设置：
-		            sadd key members(可以多个)
-		        获取：
-		            smembers key
-		
-		            scard key  元素个数
-		
-		        交集：
-		            sinter  py1 py2
-		        差集:
-		           sdiff  py1  py2
-		        并集:
-		            suinion py1 py2
-		
-		        判断是否在某个集合中
-		            sismember py1 haha
-		
+
+			设置：
+			    sadd key members(可以多个)
+			获取：
+			    smembers key
+
+			    scard key  元素个数
+
+			交集：
+			    sinter  py1 py2
+			差集:
+			   sdiff  py1  py2
+			并集:
+			    suinion py1 py2
+
+			判断是否在某个集合中
+			    sismember py1 haha
+
+			spop  py1  随机删除一个元素 并返回
+
+			srandmember py1 3  随机取出3个元素
+
+		 ===============================================================
+
 		zset 有序集合： sorted set
-		              按照权重排序
-		
-		          设置：
-		               zadd myset 权重 "xxx"  权重 "ooo"
-		
-		          获取：
-		                zrange myset start stop   zrange py1 0 -1
-		
-		                zcard myset  ---查看元素个数
-		
-		                zcount myset min max --返回权重 在 min 和max之间值 的 元素
-		
-		                zscore myset xxx 查看元素的权重
+			      按照权重排序
+
+			  设置：
+			       zadd myset 权重 "xxx"  权重 "ooo"
+			       zadd zcourse_set 0 scrapy 1 django 5 scrapy-redis
+
+			  获取：
+				zrangebyscore zcourse_set 0 1        # 权重
+
+				zrange myset start stop      #   zrange py1 0 -1
+
+				zcard myset  ---查看元素个数
+
+				zcount myset min max --返回权重 在 min 和max之间值 的 元素个数
+
+				zscore myset xxx 查看元素的权重
+
 		
 		
 		redis 内部实现发布订阅
