@@ -1,7 +1,7 @@
 title: 继续向前 go rockets!
 description:  # this means to ignore newlines until "baseurl:"
-  2年 python 开发经验,熟练使用Django,flask web框架;熟悉Django-Restful-Framework框架以及restful-api接口;熟悉掌握MySQL，mongodb，redis等数据库;熟悉网络爬虫基本原理,熟悉Scrapy框架,scrapy-redis分布式爬虫,熟悉BeautifulSoup,xpath,css,Pyquery等数据提取方法。
-  掌握HTML、CSS、JQuery等技术, 熟悉Python网络编程,以及多线程，多进程,协程等并行程序模型, 对分布式结构有一定了解能够高效地沟通,并与团队或跨团队同事有效地协作办公.
+  2年 python 开发经验. 熟练使用Django,flask web框架; 熟悉Django-Restful-Framework框架以及restful-api接口; 掌握MySQL，mongodb，redis等数据库; 熟悉网络爬虫基本原理,熟悉Scrapy框架,scrapy-redis分布式爬虫,熟悉BeautifulSoup,xpath,css,Pyquery等数据提取方法。
+  掌握HTML、CSS、JQuery等技术, 熟悉Python网络编程,以及多线程，多进程,协程等并行程序模型, 对分布式结构有一定了解能够高效地沟通, 并与团队或跨团队同事有效地协作办公.
 baseurl: "/melo108.github.io" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: ':title/'
@@ -10,8 +10,8 @@ blog_theme: dark # Or use dark
 # Profile information
 name: 贾敏
 tagline: 全栈开发 python 爬虫爱好者
-about-description:  2年 python 开发经验,熟练使用Django,flask web框架;熟悉Django-Restful-Framework框架以及restful-api接口;熟悉掌握MySQL，mongodb，redis等数据库;熟悉网络爬虫基本原理,熟悉Scrapy框架,scrapy-redis分布式爬虫,熟悉BeautifulSoup,xpath,css,Pyquery等数据提取方法。
-  掌握HTML、CSS、JQuery等技术, 熟悉Python网络编程,以及多线程，多进程,协程等并行程序模型, 对分布式结构有一定了解能够高效地沟通,并与团队或跨团队同事有效地协作办公.
+about-description:  2年 python 开发经验. 熟练使用Django,flask web框架; 熟悉Django-Restful-Framework框架以及restful-api接口; 掌握MySQL，mongodb，redis等数据库; 熟悉网络爬虫基本原理,熟悉Scrapy框架,scrapy-redis分布式爬虫,熟悉BeautifulSoup,xpath,css,Pyquery等数据提取方法。
+  掌握HTML、CSS、JQuery等技术, 熟悉Python网络编程,以及多线程，多进程,协程等并行程序模型, 对分布式结构有一定了解能够高效地沟通, 并与团队或跨团队同事有效地协作办公.
 pic: rks.png  # Place a 200x200 picture inside /assets/img/ folder and provide the name of the file below
 
 # Contact links
