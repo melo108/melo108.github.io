@@ -11,7 +11,7 @@ permalink: ':title/'
 blog_theme: dark # Or use dark
 
 # Profile information
-name: 贾敏
+name: 远山淡影
 tagline: 全栈开发 python 爬虫爱好者
 about-description:    
   2年 python 开发经验. 熟练使用Django,flask web框架, Django-Restful-Framework框架以及restful-api接口; 
